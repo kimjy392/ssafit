@@ -70,6 +70,22 @@ export default {
     login () {
       if (this.$refs.form.validate()) { // 유효성 체크
         // 로그인 로직
+        this.busy = true
+        // 스팀잇 네트워크에서 username 조회
+        steem.api.lookupAccountNamesAsync([this.username])
+            .then(usernames => {
+            if (!usernames || !usernames[0]) return alert(`"${this.username}" 사용자를 찾을 수 없습니다.`)
+        
+            // 저장소의 로그인 액션 디스패치~
+            this.$store.dispatch('auth/login', {
+                username: this.username,
+                password: this.password
+            })
+        
+            // 메인 페이지로 이동
+                this.$router.go(-1)
+        })
+        .finally(() => (this.busy = false))
       }
     }
   }
