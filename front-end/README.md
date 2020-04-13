@@ -37,7 +37,13 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### 3. 로그인 / 회원가입
 
-#### 3-1. 스팀잇(Steemit)기반 로그인 기능 구현
+#### 3-1. Vue.js + Vuex - Registration and Login 
+
+[참고 링크](https://jasonwatmore.com/post/2018/07/14/vue-vuex-user-registration-and-login-tutorial-example#registerpage-vue) 
+
+> Vue.js, Vuex 를 이용한 기본 로그인, 회원가입 기능 구현
+
+#### 3-2. 스팀잇(Steemit)기반 로그인 기능 구현
 
 [참고 링크](https://busy.org/@anpigon/steemit-6)
 
