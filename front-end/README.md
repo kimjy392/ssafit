@@ -210,5 +210,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### 7. 스트레칭 페이지
 
+[참고 자료](https://x-team.com/blog/webcam-capture-vue/) 캠이미지 받아오기
+
 ### 8. 결과 페이지
 
