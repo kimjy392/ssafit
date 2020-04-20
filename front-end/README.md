@@ -33,6 +33,11 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### 1. UI / UX 디자인
 
+* 참고 링크들
+  * [behance.net](https://www.behance.net/search?search=web ui)
+  * [zeplin](https://zeplin.io/)
+  * [dribbble](https://dribbble.com/)
+
 ### 2. header
 
 ### 3. 로그인
