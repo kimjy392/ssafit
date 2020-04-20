@@ -1,19 +1,23 @@
 <template>
-    <div>
-        <v-app-bar app style="display:block">
-            <v-toolbar-title><router-link to="/"  style="color:black; text-decoration:none;">MH</router-link></v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-toolbar-items class="hidden-sm-and-down">
-              <v-btn
-              v-for="item in menu"
-              :key="item.title"
-              :to="item.path"
-              >{{ item.title }}</v-btn>
-            </v-toolbar-items>                                                 
-       <v-app-bar-nav-icon class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      </v-app-bar>
+  <div>
+    <v-app-bar app>
+      <v-toolbar-title><router-link to="/"><v-img
+          contain
+          max_height="70%"
+          src="../assets/logo.png"
+        ></v-img></router-link></v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items class="hidden-sm-and-down">
+          <v-btn
+          v-for="item in menu"
+          :key="item.title"
+          :to="item.path"
+          >{{ item.title }}</v-btn>
+        </v-toolbar-items>                                                 
+      <v-app-bar-nav-icon class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+    </v-app-bar>
 
-   <v-navigation-drawer
+    <v-navigation-drawer
       app
       v-model="drawer"
       relative
