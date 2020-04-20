@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import myVideo from 'vue-video'
 export default {
     name: 'App',
@@ -14,7 +15,7 @@ export default {
         path: '',
          video: {
                 sources: [{
-                    src: 'http://i02b104.p.ssafy.io/video/dance.mp4',
+                    src: '',
                     type: 'video/mp4'
                 }],
                 options: {
@@ -25,6 +26,18 @@ export default {
     },
     components: {
         myVideo
+    },
+    mounted() {
+      this.getVideo()
+    },
+    methods: {
+      getVideo() {
+        axios.get('http://i02b104.p.ssafy.io:8197/ssafyvue/api/video/1')
+          .then( response => {
+            console.log(response.data)
+            this.path = response.data.path
+          })
+      }
     }
   }
   
