@@ -33,11 +33,26 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### 1. UI / UX 디자인
 
+* 참고 링크들
+  * [behance.net](https://www.behance.net/search?search=web ui)
+  * [zeplin](https://zeplin.io/)
+  * [dribbble](https://dribbble.com/)
+
 ### 2. header
 
-### 3. 로그인 / 회원가입
+### 3. 로그인
 
-#### 3-1. 스팀잇(Steemit)기반 로그인 기능 구현
+> 회원가입은 기능에서 제외(04/14)
+
+#### 3-1. Vue.js + Vuex - Registration and Login 
+
+[참고 링크](https://jasonwatmore.com/post/2018/07/14/vue-vuex-user-registration-and-login-tutorial-example#registerpage-vue) 
+
+> Vue.js, Vuex 를 이용한 기본 로그인, 회원가입 기능 구현
+
+#### 3-2. <del>스팀잇(Steemit)기반</del> 로그인 기능 구현
+
+> 로그인 기능 구현에만 의의를 둘 것! 스팀잇 서버 사용 안할 것임!
 
 [참고 링크](https://busy.org/@anpigon/steemit-6)
 
@@ -199,6 +214,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### 6. 마이 페이지
 
 ### 7. 스트레칭 페이지
+
+[참고 자료](https://x-team.com/blog/webcam-capture-vue/) 캠이미지 받아오기
 
 ### 8. 결과 페이지
 
