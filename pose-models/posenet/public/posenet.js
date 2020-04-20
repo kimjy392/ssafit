@@ -2,30 +2,49 @@ let video;
 let poseNet;
 let poses = [];
 
-function modelReady(){
-    select('#status').html('model Loaded')
+function modelReady() {
+  select("#status").html("model Loaded");
 }
 
 function setup() {
-    const canvas = createCanvas(640, 480);
-    canvas.parent('videoContainer');
-  
-    // Video capture
-    video = createCapture(VIDEO);
-    video.size(width, height);
-  
-    // Create a new poseNet method with a single detection
-    poseNet = ml5.poseNet(video, modelReady);
-    // This sets up an event that fills the global variable "poses"
-    // with an array every time new poses are detected
-    poseNet.on('pose', function(results) {
-      poses = results;
-    });
+  let myVideo = document.getElementById("myVideo");
+
+  const canvas = createCanvas(640, 480);
+  canvas.parent("videoContainer");
+
+  // Video capture
+  video = createCapture("videoplayback.mp4");
+  video.size(width, height);
+
+  // Create a new poseNet method with a single detection
+  poseNet = ml5.poseNet(video, modelReady);
+
+  myVideo.play();
+  // This sets up an event that fills the global variable "poses"
+  // with an array every time new poses are detected
+  poseNet.on("pose", function(results) {
+    poses = results;
+  });
+
+  // const canvas = createCanvas(640, 480);
+  // canvas.parent("videoContainer");
+
+  // // Video capture
+  // video = createCapture(VIDEO);
+  // video.size(width, height);
+
+  // // Create a new poseNet method with a single detection
+  // poseNet = ml5.poseNet(video, modelReady);
+  // // This sets up an event that fills the global variable "poses"
+  // // with an array every time new poses are detected
+  // poseNet.on("pose", function(results) {
+  //   poses = results;
+  // });
 }
 
 function draw() {
-  translate(video.width, 0); 
-  scale(-1.0, 1.0); 
+  translate(video.width, 0);
+  scale(-1.0, 1.0);
   image(video, 0, 0, width, height);
 
   // We can call both functions to draw all keypoints and the skeletons
@@ -34,13 +53,13 @@ function draw() {
 }
 
 // A function to draw ellipses over the detected keypoints
-function drawKeypoints()  {
+function drawKeypoints() {
   // Loop through all the poses detected
   for (let i = 0; i < poses.length; i++) {
     // For each pose detected, loop through all the keypoints
     let pose = poses[i].pose;
 
-    console.log('nose: ', pose.nose.x, pose.nose.y)
+    console.log("nose: ", pose.nose.x, pose.nose.y);
 
     for (let j = 0; j < pose.keypoints.length; j++) {
       // A keypoint is an object describing a body part (like rightArm or leftShoulder)
@@ -65,7 +84,12 @@ function drawSkeleton() {
       let partA = skeleton[j][0];
       let partB = skeleton[j][1];
       stroke(255, 0, 0);
-      line(partA.position.x, partA.position.y, partB.position.x, partB.position.y);
+      line(
+        partA.position.x,
+        partA.position.y,
+        partB.position.x,
+        partB.position.y
+      );
     }
   }
 }
