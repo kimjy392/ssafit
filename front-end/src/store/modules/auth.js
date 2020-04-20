@@ -1,23 +1,16 @@
 const state = {
-    username: '',
-    password: ''
+    token : null
 }
 
 const mutations = {
-    login(state, {
-        username,
-        password
-    }) {
-        state.username = username
-        state.password = password
+    setToken(state, token) {
+        state.token = token
     }
 }
 
 const actions = {
-    login({
-        commit
-    }, auth) {
-        commit('login', auth)
+    login({commit}, payload) {
+        commit('setToken', payload)
     }
 }
 
@@ -26,7 +19,6 @@ const getters = {
 }
 
 export default {
-    namespaced: true,
     state,
     mutations,
     actions,
