@@ -1,16 +1,26 @@
 const state = {
-    token : null
+    token : null,
+    user : {}
 }
 
 const mutations = {
-    setToken(state, token) {
-        state.token = token
+    setToken(state, userdata) {
+        state.token = userdata.token
+        state.user = userdata.user
+    },
+
+    deleteToken(state) {
+        state.token = null
+        state.user = {}
     }
 }
 
 const actions = {
     login({commit}, payload) {
         commit('setToken', payload)
+    },
+    logout({commit}) {
+        commit('deleteToken')
     }
 }
 

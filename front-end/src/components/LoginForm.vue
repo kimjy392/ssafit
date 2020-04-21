@@ -68,11 +68,18 @@ export default {
   },
   methods: {
     login()  {
-        axios.post('http://i02b104.p.ssafy.io/' + 'api/login/', this.credentials)
+        axios.post('http://i02b104.p.ssafy.io:8197/ssafyvue/api/' + 'login/', this.credentials)
         .then((res) => {
             console.log(res)
-            // this.$store.dispatch('login', res.data.token)
+            const userdata = {
+              user : res.data,
+              token : res.headers.authorization
+            }
+            this.$session.start()
+            this.$session.set('jwt', userdata.token)
+            this.$store.dispatch('login', userdata)
             this.credentials = {}
+            this.$router.push('/about')
         })
         .catch((err) => {
             console.log(err)
