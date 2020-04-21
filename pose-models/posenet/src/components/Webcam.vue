@@ -33,7 +33,7 @@
 				this.$nextTick(function () {
 					window.setInterval(() => {
 						this.poses = poses
-					}, 1);
+					}, 1000);
 				})
 			}
 		},

@@ -14,7 +14,7 @@ function modelReady(){
 }
 
 function setup() {
-    const canvas = createCanvas(640, 480);
+    const canvas = createCanvas(840, 680);
     canvas.parent('videoContainer');
   
     video = createCapture(VIDEO);
