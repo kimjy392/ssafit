@@ -15,13 +15,10 @@ function setup() {
   const canvas = createCanvas(640, 480);
   canvas.parent("videoContainer");
 
-  var myVideo = document.getElementById("myVideo");
-  myVideo.style.display = "none";
+  // var myVideo = document.getElementById("myVideo");
+  // myVideo.style.display = "none";
 
-  video = createVideo(
-    "https://i02b104.p.ssafy.io/video/stretching.mp4",
-    onLoad
-  );
+  video = createVideo(videofile, onLoad);
   // video = createVideo(videofile, onLoad);
 
   video.size(width, height);

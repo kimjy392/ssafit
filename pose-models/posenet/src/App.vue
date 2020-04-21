@@ -1,15 +1,16 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+    <Webcam />
   </div>
 </template>
 
 <script>
+import Webcam from './components/Webcam.vue'
 
 export default {
   name: 'App',
   components: {
-
+    Webcam
   }
 }
 </script>
