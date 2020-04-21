@@ -1,7 +1,6 @@
 <template>
-  <v-content>
+  <div>
     <Header></Header>
-    <section id="hero">
       <v-row no-gutters>
         <v-img
           :height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
@@ -37,21 +36,14 @@
 
                 </v-col>
 
-                <v-btn
-                  class="align-self-end"
-                  fab
-                  outlined
-                  @click="$vuetify.goTo('#about-me')"
-                >
-                  <v-icon>mdi-chevron-double-down</v-icon>
+                <v-btn class="ma-2" color="primary" dark :to="path">로그인
                 </v-btn>
               </v-row>
             </v-container>
           </v-theme-provider>
         </v-img>
       </v-row>
-    </section>
-  </v-content>
+  </div>
 </template>
 
 <script>
@@ -61,7 +53,12 @@ export default {
 	name: 'Intro',
   components: {
     Header,
-  }
+  },
+  data() {
+		return {
+      path: '/login'
+		}
+	}
 }
 </script>
 
