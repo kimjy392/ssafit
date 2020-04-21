@@ -7,13 +7,11 @@ function modelReady() {
 }
 
 function setup() {
-  let myVideo = document.getElementById("myVideo");
-
   const canvas = createCanvas(640, 480);
   canvas.parent("videoContainer");
 
   // Video capture
-  video = createCapture("videoplayback.mp4");
+  video = createCapture("VIDEO");
   video.size(width, height);
 
   // Create a new poseNet method with a single detection
