@@ -1,16 +1,57 @@
+import router from '../../router';
+import jwtDecode from 'jwt-decode'
+
 const state = {
-    token : null
+    token : null,
+    user : {}
 }
 
 const mutations = {
-    setToken(state, token) {
-        state.token = token
+    setToken(state, userdata) {
+        state.token = userdata.token
+        state.user = userdata.user
+    },
+
+    deleteToken(state) {
+        state.token = null
+        state.user = {}
     }
 }
 
 const actions = {
     login({commit}, payload) {
         commit('setToken', payload)
+    },
+
+    logout({commit}) {
+        commit('deleteToken')
+    },
+    
+    isLogin({commit}) {
+      console.log(sessionStorage.getItem('vue-session-key'))
+      if (sessionStorage.getItem('vue-session-key')) {
+        const jwt = JSON.parse(sessionStorage.getItem('vue-session-key')).jwt
+        if (!jwt) {
+          console.log('로그인하세요')
+          router.push('/login')
+        }
+        else {
+          console.log('로그인되어있어요')
+          console.log(jwtDecode(jwt))
+          const userdata = {
+            token : jwt,
+            user : {
+              memberid : jwtDecode(jwt).Authorization.memberid,
+              email : jwtDecode(jwt).Authorization.email,
+              name : jwtDecode(jwt).Authorization.name
+            }
+          }
+          commit('setToken', userdata)
+        }
+      }
+      else {
+        router.push('/login')
+      }
     }
 }
 
