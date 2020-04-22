@@ -1,29 +1,69 @@
 <template>
   <div>
-    <h1>{{ categoryName }}</h1>
-    <!-- {{ vedioList }} -->
-    {{ vedioList}}
-    <v-img :src="vedioList[0].thumbnail">
+    <v-card class="mx-3">
+      <v-container fluid>
+        <v-row dense>
+          <v-col v-for="vedioEle in vedioList" :key="vedioEle.vedio_id" cols="4">
+            <vedio
+              :vedio_id="vedioEle.vedio_id"
+              :title="vedioEle.title"
+              :file="vedioEle.file"
+              :thumbnail="vedioEle.thumbnail"
+              :description="vedioEle.description"
+              :part="vedioEle.part"
+            ></vedio>
+          </v-col>
+          <v-col v-for="card in cards" :key="card.title" :cols="card.flex">
 
-    </v-img>
+            <v-card>
+              <v-img :src="card.src" class="white--text align-end" gradient="to bottom, rgba(0,0,0,.5), rgba(0,0,0,.8)"
+                height="200px">
+                <v-card-title v-text="card.title"></v-card-title>
+              </v-img>
+            </v-card>
+
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-card>
+
   </div>
 </template>
 
 <script>
+  import Vedio from '@/components/Vedio.vue'
+
   export default {
+    components: {
+      Vedio
+    },
     props: {
       vedioList: {
-        type: Object,
-        default: () => ({})
+        type: Array,
+        default: () => ([])
       },
-      categoryName: {
-        type: String,
-        default: ""
-      }
-    }
+    },
+    data: () => ({
+      cards: [{
+          title: 'Pre-fab homes',
+          src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg',
+          flex: 4
+        },
+        {
+          title: 'Favorite road trips',
+          src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg',
+          flex: 4
+        },
+        {
+          title: 'Best airlines',
+          src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg',
+          flex: 4
+        },
+      ],
+    }),
   }
 </script>
 
-<style>
+<style scoped>
 
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header></Header>
-    <v-form>
+    <!-- <v-form>
       <v-container>
         <v-row>
           <v-col cols="12" sm="6">
@@ -9,11 +9,10 @@
           </v-col>
         </v-row>
       </v-container>
-    </v-form>
+    </v-form> -->
     <div>
       <v-row>
-        <!-- {{ vedioList }} -->
-        <vedio-list v-for="(value, key) in vedioList" :categoryName="key" :vedioList="value" :key="key">
+        <vedio-list :vedioList="vedioList">
         </vedio-list>
       </v-row>
     </div>
@@ -23,17 +22,17 @@
 <script>
   import axios from 'axios'
   import Header from '@/components/Header.vue'
-  import vedioList from '@/components/VedioList.vue'
+  import VedioList from '@/components/VedioList.vue'
 
   export default {
     name: 'Main',
     components: {
       Header,
-      vedioList
+      VedioList
     },
     data() {
       return {
-        vedioList: {},
+        vedioList: [],
       }
     },
     mounted() {
