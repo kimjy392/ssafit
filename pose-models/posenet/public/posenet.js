@@ -1,53 +1,46 @@
-var video;
-var poseNet;
-var poses = [];
+var video1;
+var poseNet1;
+var poses1 = [];
 
-var playing = false;
-var v;
-var button;
-var poseNet2;
-var poses2 = [];
-
-
-function modelReady(){
-  select('#status').html('model Loaded')
+function modelReady() {
+  select("#status").html("model Loaded");
 }
 
 function setup() {
     const canvas = createCanvas(840, 680);
     canvas.parent('videoContainer');
   
-    video = createCapture(VIDEO);
-    video.size(width, height);
-    video.hide()
+    video1 = createCapture(VIDEO);
+    video1.size(width, height);
+    video1.hide()
 
-    // const canvas2 = createCanvas(640, 480);
-    // canvas2.position(500, 0)
-    // canvas2.parent('videoContainer')
-    // v = createVideo(["https://ak1.picdn.net/shutterstock/videos/1028899901/preview/stock-footage-happy-carefree-african-american-millennial-girl-having-fun-at-home-listening-to-good-music-playing.mp4"]);
-    // v.size(width, height);
-    // button = createButton('play');
-    // button.mousePressed(toggleVid);
-    // v.hide()
+  // const canvas2 = createCanvas(640, 480);
+  // canvas2.position(500, 0)
+  // canvas2.parent('videoContainer')
+  // v = createVideo(["https://ak1.picdn.net/shutterstock/videos/1028899901/preview/stock-footage-happy-carefree-african-american-millennial-girl-having-fun-at-home-listening-to-good-music-playing.mp4"]);
+  // v.size(width, height);
+  // button = createButton('play');
+  // button.mousePressed(toggleVid);
+  // v.hide()
 
-    poseNet = ml5.poseNet(video, modelReady);
-    poseNet.on('pose', function(results) {
-      poses = results;
-    });
+  poseNet1 = ml5.poseNet(video1, modelReady);
+  poseNet1.on("pose", function(results) {
+    poses1 = results;
+  });
 
-    // poseNet2 = ml5.poseNet(v, modelReady);
-    // poseNet2.on('pose', function(results) {
-    //   poses2 = results;
-    // });
+  // poseNet2 = ml5.poseNet(v, modelReady);
+  // poseNet2.on('pose', function(results) {
+  //   poses2 = results;
+  // });
 }
 
 function draw() {
-  translate(video.width, 0);
-  scale(-1.0, 1.0); 
-  image(video, 0, 0, width, height);
+  translate(video1.width, 0);
+  scale(-1.0, 1.0);
+  image(video1, 0, 0, width, height);
 
   // translate(v.width, 0);
-  // scale(-1.0, 1.0); 
+  // scale(-1.0, 1.0);
   // image(v, 0, 0, width, height);
 
   // We can call both functions to draw all keypoints and the skeletons
@@ -56,12 +49,11 @@ function draw() {
 }
 
 // A function to draw ellipses over the detected keypoints
-function drawKeypoints()  {
+function drawKeypoints() {
   // Loop through all the poses detected
-  for (let i = 0; i < poses.length; i++) {
+  for (let i = 0; i < poses1.length; i++) {
     // For each pose detected, loop through all the keypoints
-    let pose = poses[i].pose;
-
+    let pose = poses1[i].pose;
     // console.log('nose: ', pose.nose.x, pose.nose.y)
     // const cosineSimilarity = pns.poseSimilarity(pose, pose, { strategy: 'cosineSimilarity' });
     // console.log('asdf', cosineSimilarity)
@@ -84,14 +76,19 @@ function drawKeypoints()  {
 // A function to draw the skeletons
 function drawSkeleton() {
   // Loop through all the skeletons detected
-  for (let i = 0; i < poses.length; i++) {
-    let skeleton = poses[i].skeleton;
+  for (let i = 0; i < poses1.length; i++) {
+    let skeleton = poses1[i].skeleton;
     // For every skeleton, loop through all body connections
     for (let j = 0; j < skeleton.length; j++) {
       let partA = skeleton[j][0];
       let partB = skeleton[j][1];
       stroke(255, 0, 0);
-      line(partA.position.x, partA.position.y, partB.position.x, partB.position.y);
+      line(
+        partA.position.x,
+        partA.position.y,
+        partB.position.x,
+        partB.position.y
+      );
     }
   }
 }

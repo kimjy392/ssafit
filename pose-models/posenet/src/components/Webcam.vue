@@ -10,13 +10,19 @@
 		<h1>PoseNet demo with Ml5.js</h1>
 		<p id="status">Loading Model...</p>
 		<div id="videoContainer"></div>
+		<!-- <div id="videoContainer1"></div> -->
 		<!-- <div id="videoContainer2"></div> -->
 		<!-- <Trainer /> -->
-		{{ poses }}
+		<!-- {{ capturePoses[0].pose.keypoints }} <br> -->
+		<h4>weightedDistance: {{ weightedDistance }}</h4>
+		<h4>cosineDistance: {{ cosineDistance }}</h4>
+		<h1>cosineSimilarity: {{ cosineSimilarity }}</h1>
 	</div>
 </template>
 
 <script>
+import { poseSimilarity } from 'posenet-similarity';
+
 	// import Trainer from './Trainer.vue'
 	export default {
 		name: 'Webcam',
@@ -25,14 +31,22 @@
 		},
 		data() {
 			return {
-				poses: poses,
+				capturePoses: capturePoses,
+				videoPoses: videoPoses,
+				weightedDistance: 0,
+				cosineDistance: 0,
+				cosineSimilarity: 0,
 			}
 		},
 		methods: {
 			everySecondTrigger() {
 				this.$nextTick(function () {
 					window.setInterval(() => {
-						this.poses = poses
+						this.capturePoses = capturePoses;
+						this.videoPoses= videoPoses
+						this.weightedDistance = poseSimilarity(this.capturePoses[0].pose, this.videoPoses[0].pose, { strategy: 'weightedDistance' });
+						this.cosineDistance = poseSimilarity(this.capturePoses[0].pose, this.videoPoses[0].pose, { strategy: 'cosineDistance' });
+						this.cosineSimilarity = poseSimilarity(this.capturePoses[0].pose, this.videoPoses[0].pose, { strategy: 'cosineSimilarity' });
 					}, 1000);
 				})
 			}
