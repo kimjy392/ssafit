@@ -50,18 +50,25 @@ public class StretchingController {
 
 	@ApiOperation(value = "스트레칭 코치 비디오", response = Null.class)
 	@RequestMapping(value = "/stretching", method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> stretchingList() throws Exception {
+	public ResponseEntity<List<Video>> stretchingList() throws Exception {
 		logger.info("1-------------stretchingList-----------------------------" + new Date());
 		Map<String, Object> resultMap = new HashMap<>();
 		// part 리스트<번호/부위> -> 각 부분 영상의 정보들 <부위:리스트{돋영상정보}>
-		List<Part> part = stretchingservice.getPartList();
-
-		for (int i = 0; i < part.size(); i++) {
-			List<Video> video = stretchingservice.getVideoList(part.get(i).getPart_id());
-			resultMap.put(part.get(i).getName(), video);
+//		List<Part> part = stretchingservice.getPartList();
+//
+//		for (int i = 0; i < part.size(); i++) {
+//			List<Video> video = stretchingservice.getVideoList(part.get(i).getPart_id());
+//			resultMap.put(part.get(i).getName(), video);
+//		}
+		
+		List<Video> video = stretchingservice.getAllVideoList();
+		for (int i = 0; i < video.size(); i++) {
+			List<String> part = stretchingservice.getVideoPart(video.get(i).getVideo_id());
+			video.get(i).setPart(part);
 		}
+		
 
-		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+		return new ResponseEntity<List<Video>>(video, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "스트레칭 코치 비디오", response = Integer.class)
