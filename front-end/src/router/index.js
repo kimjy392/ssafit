@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Login from '@/views/LoginPage.vue'
 import Intro from '@/views/IntroPage.vue'
 import Main from '@/views/MainPage.vue'
-import About from '@/views/About.vue'
+import UserInfo from '@/views/UserInfoPage.vue'
 
 Vue.use(VueRouter)
   const routes = [
@@ -23,9 +23,9 @@ Vue.use(VueRouter)
     component: Main
   },
   {
-    path: '/about',
-    name: 'About',
-    component: About
+    path: '/userinfo',
+    name: 'UserInfo',
+    component: UserInfo
   },
 
 ]
