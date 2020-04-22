@@ -58,7 +58,10 @@ export default {
 		return {
       path: '/login'
 		}
-	}
+  },
+  mounted() {
+    this.$store.dispatch('isLogin', true)
+  }
 }
 </script>
 

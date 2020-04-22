@@ -79,7 +79,7 @@ export default {
             this.$session.set('jwt', userdata.token)
             this.$store.dispatch('login', userdata)
             this.credentials = {}
-            this.$router.push('/about')
+            this.$router.push('/main')
         })
         .catch((err) => {
             console.log(err)
