@@ -7,8 +7,7 @@
 
 <script>
 export default {
-<<<<<<< HEAD:front-end/src/views/About.vue
-  name: "About",
+  name: "UserInfoPage",
   components: {
 
   },
@@ -27,9 +26,6 @@ export default {
       return this.$store.state.auth.user
     }
   }
-=======
-name: "UserInfo"
->>>>>>> 0ac539e0400db35eb3931d6c3af0dbbd7ce7b685:front-end/src/views/UserInfoPage.vue
 }
 </script>
 
