@@ -24,4 +24,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from video v, stretching s 
 		where part_id=#{part_id} and v.video_id = s.video_id
 	</select>
+	
+	<select id="getAllVideoList"
+		resultType="com.ssafy.edu.vue.dto.Video">
+		select video_id, title, file, thumbnail, description
+		from video v
+	</select>
+	
+	<select id="getVideoPart"
+		parameterType="java.lang.Integer"
+		resultType="java.lang.String">
+		select p.name
+		from part p, stretching s
+		where video_id=#{video_id} and p.part_id = s.part_id
+	</select>
 </mapper>

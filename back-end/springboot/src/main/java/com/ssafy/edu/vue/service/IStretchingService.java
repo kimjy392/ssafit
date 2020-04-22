@@ -16,4 +16,8 @@ public interface IStretchingService {
 
 	List<Video> getVideoList(int part_id);
 
+	List<Video> getAllVideoList();
+
+	List<String> getVideoPart(int video_id);
+
 }
