@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ssafy.stretching">
+
+	<select id="getVideoPath"
+		resultType="com.ssafy.edu.vue.dto.Stretching">
+		select title, file
+		from video
+		where video_id=#{num}
+	</select>
+
+	<select id="getPartList"
+		resultType="com.ssafy.edu.vue.dto.Part">
+		select part_id, name
+		from part
+	</select>
+	
+	<select id="getVideoList"
+		parameterType="java.lang.Integer"
+		resultType="com.ssafy.edu.vue.dto.Video">
+		select v.video_id, title, file, thumbnail 
+		from video v, stretching s 
+		where part_id=#{part_id} and v.video_id = s.video_id
+	</select>
+</mapper>
