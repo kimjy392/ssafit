@@ -25,15 +25,19 @@ const actions = {
 
     logout({commit}) {
         commit('deleteToken')
+        router.push('/')
     },
     
-    isLogin({commit}) {
+    isLogin({commit}, payload=false) {
       console.log(sessionStorage.getItem('vue-session-key'))
       if (sessionStorage.getItem('vue-session-key')) {
         const jwt = JSON.parse(sessionStorage.getItem('vue-session-key')).jwt
         if (!jwt) {
           console.log('로그인하세요')
-          router.push('/login')
+          if (!payload) {
+            router.push('/login')
+            return
+          }
         }
         else {
           console.log('로그인되어있어요')
@@ -47,10 +51,17 @@ const actions = {
             }
           }
           commit('setToken', userdata)
+          if (payload) {
+            router.push('/main')
+          }
+          return
         }
       }
       else {
-        router.push('/login')
+        if (!payload) {
+          router.push('/login')
+          return
+        }
       }
     }
 }
