@@ -23,8 +23,8 @@ public class StretchingServiceImpl implements IStretchingService {
 
 	@Override
 	@Transactional(readOnly=true)
-	public Stretching getVideoPath(int num) {
-		return stretchingdao.getVideoPath(num);
+	public Video getVideoPath(int video_id) {
+		return stretchingdao.getVideoPath(video_id);
 	}
 
 

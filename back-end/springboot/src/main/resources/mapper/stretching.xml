@@ -5,10 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="ssafy.stretching">
 
 	<select id="getVideoPath"
-		resultType="com.ssafy.edu.vue.dto.Stretching">
-		select title, file
+		resultType="com.ssafy.edu.vue.dto.Video">
+		select video_id, title, file, description
 		from video
-		where video_id=#{num}
+		where video_id=#{video_id}
 	</select>
 
 	<select id="getPartList"

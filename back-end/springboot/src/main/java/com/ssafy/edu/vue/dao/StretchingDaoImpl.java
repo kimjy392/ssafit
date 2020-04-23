@@ -20,8 +20,8 @@ public class StretchingDaoImpl {
 	private SqlSession sqlSession;
 
 
-	public Stretching getVideoPath(int num) {
-		return sqlSession.selectOne(ns+"getVideoPath", num);
+	public Video getVideoPath(int video_id) {
+		return sqlSession.selectOne(ns+"getVideoPath", video_id);
 	}
 
 

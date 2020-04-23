@@ -10,7 +10,7 @@ import com.ssafy.edu.vue.dto.Video;
 
 public interface IStretchingService {
 
-	Stretching getVideoPath(int num);
+	Video getVideoPath(int video_id);
 
 	List<Part> getPartList();
 
