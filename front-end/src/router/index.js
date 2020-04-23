@@ -4,6 +4,7 @@ import Login from '@/views/LoginPage.vue'
 import Intro from '@/views/IntroPage.vue'
 import Main from '@/views/MainPage.vue'
 import UserInfo from '@/views/UserInfoPage.vue'
+import Detail from '@/views/DetailPage.vue'
 
 Vue.use(VueRouter)
   const routes = [
@@ -27,7 +28,11 @@ Vue.use(VueRouter)
     name: 'UserInfo',
     component: UserInfo
   },
-
+  {
+    path: '/detail/:id',
+    name: 'Detail',
+    component: Detail
+  },
 ]
 
 const router = new VueRouter({
