@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card @click="moveDetail(vedio_id)">
     <v-img :src="thumbnail" class="white--text align-end" gradient="to bottom, rgba(0,0,0,.5), rgba(0,0,0,.8)"
       width="100%">
       <v-card-title v-text="title"></v-card-title>
@@ -35,6 +35,11 @@
         default: () => ([])
       },
     },
+    methods: {
+      moveDetail(video_id) {
+        this.$router.push({name: 'Detail', params:{id: video_id}})
+      }
+    }
   }
 </script>
 

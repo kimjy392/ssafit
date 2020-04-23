@@ -5,7 +5,7 @@
         <v-row dense>
           <v-col v-for="vedioEle in vedioList" :key="vedioEle.vedio_id" cols="4">
             <vedio
-              :vedio_id="vedioEle.vedio_id"
+              :vedio_id="vedioEle.video_id"
               :title="vedioEle.title"
               :file="vedioEle.file"
               :thumbnail="vedioEle.thumbnail"
