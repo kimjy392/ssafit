@@ -23,6 +23,7 @@ export default async function(sketch) {
 
   sketch.setup = async function() {
     const canvas = sketch.createCanvas(1280, 480);
+    canvas.clear();
     canvas.parent("videoContainer");
 
     cam = sketch.createCapture(window.VIDEO);
