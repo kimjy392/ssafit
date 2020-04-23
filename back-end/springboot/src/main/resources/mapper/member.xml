@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultType="com.ssafy.edu.vue.dto.Member">
 		select memberid, email, name
 		from members
-		where email=#{email} and password=#{password}
+		where email=#{email} and password=hex(aes_encrypt(#{password}, 'human'))
 	</select>
 
 	
