@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header></Header>
       <v-row no-gutters>
         <v-img
           :height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
@@ -47,12 +46,12 @@
 </template>
 
 <script>
-import Header from '@/components/Header.vue'
+// import Header from '@/components/Header.vue'
 
 export default {
 	name: 'Intro',
   components: {
-    Header,
+    // Header,
   },
   data() {
 		return {

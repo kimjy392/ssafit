@@ -12,7 +12,7 @@ export default async function( sketch ) {
 
     var width = 0;
     var height = 0;
-
+    
     var video;
     var cam;
     // let cam_poses = [];

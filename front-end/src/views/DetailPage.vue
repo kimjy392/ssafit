@@ -18,7 +18,7 @@ import { poseSimilarity } from 'posenet-similarity';
 export default {
   name: "Detail",
   components: {
-    // Trainer
+
   },
   data() {
     return {
