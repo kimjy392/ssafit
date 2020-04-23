@@ -5,6 +5,7 @@ import Intro from '@/views/IntroPage.vue'
 import Main from '@/views/MainPage.vue'
 import UserInfo from '@/views/UserInfoPage.vue'
 import Detail from '@/views/DetailPage.vue'
+import Result from '@/views/ResultPage.vue'
 
 Vue.use(VueRouter)
   const routes = [
@@ -32,6 +33,11 @@ Vue.use(VueRouter)
     path: '/detail/:id',
     name: 'Detail',
     component: Detail
+  },
+  {
+    path: '/result',
+    name: 'Result',
+    component: Result
   },
 ]
 

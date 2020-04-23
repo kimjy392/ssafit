@@ -12,12 +12,13 @@ export default async function( sketch ) {
 
     var width = 0;
     var height = 0;
-
+    
     var video;
     var cam;
     // let cam_poses = [];
 
     var videofile = "https://i02b104.p.ssafy.io/video/please.mp4";
+
     let poseNet;
     let poseNet2;
     // let poses = [];
@@ -37,7 +38,7 @@ export default async function( sketch ) {
       
         video = sketch.createVideo(videofile);
         // video.size(640, 480);
-        video.hide();
+        // video.hide();
         poseNet2 = ml5.poseNet(video, modelReady);
         poseNet2.on("pose", function(results) {
             window.poses = results;

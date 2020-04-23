@@ -17,7 +17,7 @@ import { poseSimilarity } from 'posenet-similarity';
 export default {
   name: "Detail",
   components: {
-    // Trainer
+
   },
   data() {
     return {
@@ -41,7 +41,7 @@ export default {
   mounted() {
     this.myp5 = new p5(sketch, document.getElementById('sketch'))
     this.everySecondTrigger();
-  }
+  },
 };
 </script>
 
