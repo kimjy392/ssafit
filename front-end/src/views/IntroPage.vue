@@ -1,9 +1,10 @@
 <template>
   <div>
     <Header></Header>
-      <v-row no-gutters>
+      <v-row no-gutters id="intro_backimg">
         <v-img
-          :height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
+          width="100vw"
+          height="100vh"
           src="https://i0.wp.com/www.kintec.net/wp-content/uploads/2017/05/blogheader.jpg?fit=2000%2C1000&ssl=1"
         >
           <v-theme-provider dark>
@@ -66,5 +67,8 @@ export default {
 </script>
 
 <style>
-
+  #intro_backimg {
+    position: absolute;
+    top: -64px;
+  }
 </style>
