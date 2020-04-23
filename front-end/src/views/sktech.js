@@ -21,6 +21,14 @@ export default async function(sketch) {
   let poseNet2;
   // let poses = [];
 
+  function videoLoad() {
+    video.hide();
+    video.play();
+    poseNet2 = ml5.poseNet(video, modelReady);
+    poseNet2.on("pose", function(results) {
+      window.poses = results;
+    });
+  }
   sketch.setup = async function() {
     const canvas = sketch.createCanvas(1280, 480);
     canvas.clear();
@@ -35,14 +43,8 @@ export default async function(sketch) {
     });
     sketch.background(1000);
 
-    video = sketch.createVideo(videofile);
+    video = sketch.createVideo(videofile, videoLoad);
     // video.size(640, 480);
-    video.hide();
-    video.play();
-    poseNet2 = ml5.poseNet(video, modelReady);
-    poseNet2.on("pose", function(results) {
-      window.poses = results;
-    });
   };
 
   sketch.draw = async function() {
