@@ -1,4 +1,4 @@
-import p5 from 'p5'
+// import p5 from 'p5'
 import ml5 from 'ml5'
 
 function modelReady() {
@@ -17,7 +17,7 @@ export default async function( sketch ) {
     var cam;
     // let cam_poses = [];
 
-    var videofile = "https://i02b104.p.ssafy.io/video/IMG_1937.mp4";
+    var videofile = "https://i02b104.p.ssafy.io/video/please.mp4";
     let poseNet;
     let poseNet2;
     // let poses = [];
@@ -27,8 +27,8 @@ export default async function( sketch ) {
         canvas.parent("videoContainer");
       
         cam = sketch.createCapture(window.VIDEO);
-        cam.size(640, 480);
-      
+        // cam.size(640, 480);
+        cam.hide();
         poseNet = ml5.poseNet(cam, modelReady);
         poseNet.on("pose", function(results) {
             window.cam_poses = results;
@@ -36,9 +36,8 @@ export default async function( sketch ) {
         sketch.background(1000);
       
         video = sketch.createVideo(videofile);
-        // console.log(video.width);
-        // console.log(video.height);
-        video.size(640, 480);
+        // video.size(640, 480);
+        video.hide();
         poseNet2 = ml5.poseNet(video, modelReady);
         poseNet2.on("pose", function(results) {
             window.poses = results;
@@ -49,7 +48,7 @@ export default async function( sketch ) {
         //sketch.fill(0);
         //sketch.ellipse(sketch.random(0,width), sketch.random(0,height), 10,10);
         sketch.image(cam, 0, 0);
-        sketch.image(video, 640, 65);
+        sketch.image(video, 640, 0);
 
         drawKeypoints();
         drawSkeleton();
@@ -86,7 +85,7 @@ export default async function( sketch ) {
             if (keypoint.score > 0.2) {
                 sketch.fill(255, 0, 0);
                 sketch.noStroke();
-                sketch.ellipse(keypoint.position.x + 640, keypoint.position.y - 15, 10, 10);
+                sketch.ellipse(keypoint.position.x + 640, keypoint.position.y, 10, 10);
             }
           }
           sketch.textSize(32);
@@ -119,9 +118,9 @@ export default async function( sketch ) {
             sketch.stroke(255, 0, 0);
             sketch.line(
               partA.position.x + 640,
-              partA.position.y - 15,
+              partA.position.y,
               partB.position.x + 640,
-              partB.position.y - 15
+              partB.position.y
             );
           }
         }
