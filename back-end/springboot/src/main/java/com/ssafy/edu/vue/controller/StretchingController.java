@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.edu.vue.dto.Member;
 import com.ssafy.edu.vue.dto.Part;
 import com.ssafy.edu.vue.dto.Result;
-import com.ssafy.edu.vue.dto.Stretching;
 import com.ssafy.edu.vue.dto.Video;
 import com.ssafy.edu.vue.service.IStretchingService;
 
@@ -103,26 +102,12 @@ public class StretchingController {
 	}
 	
 
-//	@ApiOperation(value = "스트레칭 코치 비디오", response = Integer.class)
-//	@RequestMapping(value = "/video/{num}", method = RequestMethod.GET)
-//	public ResponseEntity<Map<String, Object>> login(@PathVariable int num) throws Exception {
-//		logger.info("1-------------video-----------------------------" + new Date());
-//		HttpHeaders headers = new HttpHeaders();
-//		Map<String, Object> resultMap = new HashMap<>();
-//
-//		Stretching stretching = stretchingservice.getVideoPath(num);
-//
-//		resultMap.put("title", stretching.getTitle());
-//		resultMap.put("path", "https://i02b104.p.ssafy.io/video/" + stretching.getFile() + ".mp4");
-//
-//		return new ResponseEntity<Map<String, Object>>(resultMap, headers, HttpStatus.OK);
-//	}
-//
-//	@ApiOperation(value = "스트레칭 코치 비디오", response = Integer.class)
+
+//	@ApiOperation(value = "스트레칭 코치 비디오(파일)", response = Integer.class)
 //	@RequestMapping(value="/contents/{num}", method= RequestMethod.GET) 
 //	public String getContentMediaVideo(@PathVariable int num,HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
 //		
-//		Stretching stretching = stretchingservice.getVideoPath(num);
+//		Video stretching = stretchingservice.getVideoPath(num);
 //		File file = new File("/aaa/"+ stretching.getFile());
 //
 //		RandomAccessFile randomFile = new RandomAccessFile(file, "r");

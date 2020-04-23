@@ -11,7 +11,6 @@ import com.ssafy.edu.vue.dao.StretchingDaoImpl;
 import com.ssafy.edu.vue.dto.Member;
 import com.ssafy.edu.vue.dto.Part;
 import com.ssafy.edu.vue.dto.Result;
-import com.ssafy.edu.vue.dto.Stretching;
 import com.ssafy.edu.vue.dto.Video;
 
 
