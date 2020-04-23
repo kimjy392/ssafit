@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <Header></Header> -->
+    <Header></Header>
     <!-- <v-form>
       <v-container>
         <v-row>
@@ -21,13 +21,13 @@
 
 <script>
   import axios from 'axios'
-  // import Header from '@/components/Header.vue'
+  import Header from '@/components/Header.vue'
   import VedioList from '@/components/VedioList.vue'
 
   export default {
     name: 'Main',
     components: {
-      // Header,
+      Header,
       VedioList
     },
     data() {
