@@ -12,8 +12,8 @@
     </v-form> -->
     <div>
       <v-row>
-        <vedio-list :vedioList="vedioList">
-        </vedio-list>
+        <video-list :videoList="videoList">
+        </video-list>
       </v-row>
     </div>
   </div>
@@ -22,23 +22,23 @@
 <script>
   import axios from 'axios'
   import Header from '@/components/Header.vue'
-  import VedioList from '@/components/VedioList.vue'
+  import VideoList from '@/components/VideoList.vue'
 
   export default {
     name: 'Main',
     components: {
       Header,
-      VedioList
+      VideoList
     },
     data() {
       return {
-        vedioList: [],
+        videoList: [],
       }
     },
     mounted() {
       axios.get('http://i02b104.p.ssafy.io:8197/ssafyvue/api/' + 'stretching')
         .then(response => {
-          this.vedioList = response.data
+          this.videoList = response.data
           console.log(response.data)
         })
         .catch(error => {
