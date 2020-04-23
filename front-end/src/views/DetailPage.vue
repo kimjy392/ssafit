@@ -47,12 +47,15 @@ export default {
       .catch((err) => {
         console.log(err)
       })
-    }
+    },
   },
   mounted() {
     this.getVideo()
     this.everySecondTrigger();
   },
+  destroyed() {
+    location.reload()
+  }
 };
 </script>
 

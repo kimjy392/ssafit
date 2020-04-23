@@ -12,14 +12,12 @@ export default async function( sketch ) {
 
     var width = 0;
     var height = 0;
-    
+
     var video;
     var cam;
     // let cam_poses = [];
 
-    // var videofile = "https://i02b104.p.ssafy.io/video/please.mp4";
     var videofile = window.videoURL;
-  
     let poseNet;
     let poseNet2;
     // let poses = [];
