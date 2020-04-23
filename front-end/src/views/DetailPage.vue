@@ -10,6 +10,7 @@
 
 <script>
 // import Trainer from './Trainer.vue'
+import axios from 'axios'
 import sketch from './sktech';
 import p5 from 'p5';
 import { poseSimilarity } from 'posenet-similarity';
@@ -17,7 +18,7 @@ import { poseSimilarity } from 'posenet-similarity';
 export default {
   name: "Detail",
   components: {
-    // Trainer
+
   },
   data() {
     return {
@@ -36,11 +37,24 @@ export default {
           this.cosineSimilarity = poseSimilarity(this.cam_poses[0].pose, this.video_poses[0].pose, { strategy: 'cosineSimilarity' });
         }, 1000);
       });
-    }
+    },
+    getVideo() {
+      axios.get('http://i02b104.p.ssafy.io:8197/ssafyvue/api/stretching/detail/' + this.$route.params.id)
+      .then((res) => {
+        window.videoURL = 'https://i02b104.p.ssafy.io/video/' + res.data.file
+        this.myp5 = new p5(sketch, document.getElementById('sketch'))
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
   },
   mounted() {
-    this.myp5 = new p5(sketch, document.getElementById('sketch'))
+    this.getVideo()
     this.everySecondTrigger();
+  },
+  destroyed() {
+    location.reload()
   }
 };
 </script>

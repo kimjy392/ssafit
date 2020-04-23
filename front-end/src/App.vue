@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <!-- <v-content id="appStyle"> -->
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -8,15 +7,17 @@
 </template>
 
 <script>
-  export default {
-    name: 'App',
 
-    components: {},
+export default {
+  name: 'App',
 
-    data: () => ({
-      //
-    }),
-  };
+  components: {
+  },
+
+  data: () => ({
+    //
+  }),
+};
 </script>
 
 <style>

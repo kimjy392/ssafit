@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ssafy.edu.vue.dto.Member;
 import com.ssafy.edu.vue.dto.Part;
-import com.ssafy.edu.vue.dto.Stretching;
+import com.ssafy.edu.vue.dto.Result;
 import com.ssafy.edu.vue.dto.Test;
 import com.ssafy.edu.vue.dto.Video;
 
@@ -20,8 +20,8 @@ public class StretchingDaoImpl {
 	private SqlSession sqlSession;
 
 
-	public Stretching getVideoPath(int num) {
-		return sqlSession.selectOne(ns+"getVideoPath", num);
+	public Video getVideoPath(int video_id) {
+		return sqlSession.selectOne(ns+"getVideoPath", video_id);
 	}
 
 
@@ -42,6 +42,16 @@ public class StretchingDaoImpl {
 
 	public List<String> getVideoPart(int video_id) {
 		return sqlSession.selectList(ns+"getVideoPart", video_id);
+	}
+
+
+	public float getBeforeAccuracy(Result result) {
+		return sqlSession.selectOne(ns+"getBeforeAccuracy", result);
+	}
+
+
+	public void setResult(Result result) {
+		sqlSession.insert(ns+"setResult", result);
 	}
 	
 }
