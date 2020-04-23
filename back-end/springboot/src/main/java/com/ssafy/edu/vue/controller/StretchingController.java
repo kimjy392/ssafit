@@ -88,23 +88,19 @@ public class StretchingController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
 	
-	
 	@ApiOperation(value = "스트레칭 결과 페이지", response = Result.class)
 	@RequestMapping(value = "/stretching/result", method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> result(@RequestBody Result result) throws Exception {
 		logger.info("1-------------result-----------------------------" + new Date());
 		Map<String, Object> resultMap = new HashMap<>();
 		
-		List<Video> video = stretchingservice.getAllVideoList();
-		for (int i = 0; i < video.size(); i++) {
-			List<String> part = stretchingservice.getVideoPart(video.get(i).getVideo_id());
-			video.get(i).setPart(part);
-		}
+		float accuracy = stretchingservice.getBeforeAccuracy(result);
+		resultMap.put("accuracy", accuracy);
 		
+		stretchingservice.setResult(result);
 		
-		return new ResponseEntity<List<Video>>(video, HttpStatus.OK);
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
-	
 	
 
 //	@ApiOperation(value = "스트레칭 코치 비디오", response = Integer.class)

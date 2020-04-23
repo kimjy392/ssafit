@@ -10,6 +10,7 @@ import com.ssafy.edu.vue.dao.MemberDaoImpl;
 import com.ssafy.edu.vue.dao.StretchingDaoImpl;
 import com.ssafy.edu.vue.dto.Member;
 import com.ssafy.edu.vue.dto.Part;
+import com.ssafy.edu.vue.dto.Result;
 import com.ssafy.edu.vue.dto.Stretching;
 import com.ssafy.edu.vue.dto.Video;
 
@@ -53,6 +54,20 @@ public class StretchingServiceImpl implements IStretchingService {
 	@Transactional(readOnly=true)
 	public List<String> getVideoPart(int video_id) {
 		return stretchingdao.getVideoPart(video_id);
+	}
+
+
+	@Override
+	@Transactional(readOnly=true)
+	public float getBeforeAccuracy(Result result) {
+		return stretchingdao.getBeforeAccuracy(result);
+	}
+
+
+	@Override
+	@Transactional()
+	public void setResult(Result result) {
+		stretchingdao.setResult(result);
 	}
 
 }

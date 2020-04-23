@@ -38,4 +38,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from part p, stretching s
 		where video_id=#{video_id} and p.part_id = s.part_id
 	</select>
+	
+	<select id="getBeforeAccuracy"
+		parameterType="com.ssafy.edu.vue.dto.Result"
+		resultType="java.lang.Float">
+		select accuracy
+		from result
+		where video_id=#{video_id} and member_id=#{member_id}
+		order by datetime desc
+		limit 1
+	</select>
+	
+	<insert id="setResult"
+		parameterType="com.ssafy.edu.vue.dto.Result">
+		insert into result(member_id, video_id, accuracy, point, datetime) 
+		values (#{member_id}, #{video_id}, #{accuracy}, #{point}, now());
+	</insert>
 </mapper>
