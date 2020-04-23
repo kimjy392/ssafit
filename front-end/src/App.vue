@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-content>
+    <v-content id="appStyle">
        <router-view></router-view>
     </v-content>
   </v-app>
@@ -20,3 +20,10 @@ export default {
   }),
 };
 </script>
+
+<style>
+
+#appStyle {
+  padding: 0 !important;  
+}
+</style>
