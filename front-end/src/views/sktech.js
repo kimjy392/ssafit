@@ -1,10 +1,6 @@
 // import p5 from 'p5'
 import ml5 from "ml5";
 
-function modelReady() {
-  // select("#status").html("model Loaded");
-}
-
 window.cam_poses = [];
 window.poses = [];
 
@@ -21,7 +17,21 @@ export default async function(sketch) {
   let poseNet2;
   // let poses = [];
 
+  function videoLoad() {
+    video.hide();
+    setTimeout(function(){ 
+        video.play(); 
+        }, 8000)
+    poseNet2 = ml5.poseNet(video, modelReady);
+    poseNet2.on("pose", function(results) {
+      window.poses = results;
+    });
+  }
   sketch.setup = async function() {
+    function modelReady() {
+        sketch.select("#status").html("Posenet model Loaded");
+    }
+
     const canvas = sketch.createCanvas(1280, 480);
     canvas.clear();
     canvas.parent("videoContainer");
@@ -35,14 +45,8 @@ export default async function(sketch) {
     });
     sketch.background(1000);
 
-    video = sketch.createVideo(videofile);
+    video = sketch.createVideo(videofile, videoLoad);
     // video.size(640, 480);
-    video.hide();
-    video.play();
-    poseNet2 = ml5.poseNet(video, modelReady);
-    poseNet2.on("pose", function(results) {
-      window.poses = results;
-    });
   };
 
   sketch.draw = async function() {
@@ -75,9 +79,9 @@ export default async function(sketch) {
           sketch.ellipse(keypoint.position.x, keypoint.position.y, 10, 10);
         }
       }
-      sketch.textSize(32);
-      sketch.text(pose.nose.x, 10, 30);
-      sketch.scale(-1.0, -1.0);
+    //   sketch.textSize(32);
+    //   sketch.text(pose.nose.x, 10, 30);
+    //   sketch.scale(-1.0, -1.0);
     }
 
     for (let i = 0; i < window.poses.length; i++) {
@@ -96,9 +100,9 @@ export default async function(sketch) {
           );
         }
       }
-      sketch.textSize(32);
-      sketch.text(pose.nose.x, 10, 30);
-      sketch.scale(-1.0, -1.0);
+    //   sketch.textSize(32);
+    //   sketch.text(pose.nose.x, 10, 30);
+    //   sketch.scale(-1.0, -1.0);
     }
   }
 
