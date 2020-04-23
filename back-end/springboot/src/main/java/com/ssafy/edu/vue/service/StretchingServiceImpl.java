@@ -41,4 +41,18 @@ public class StretchingServiceImpl implements IStretchingService {
 		return stretchingdao.getVideoList(part_id);
 	}
 
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<Video> getAllVideoList() {
+		return stretchingdao.getAllVideoList();
+	}
+
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<String> getVideoPart(int video_id) {
+		return stretchingdao.getVideoPart(video_id);
+	}
+
 }

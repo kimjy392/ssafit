@@ -33,5 +33,15 @@ public class StretchingDaoImpl {
 	public List<Video> getVideoList(int part_id) {
 		return sqlSession.selectList(ns+"getVideoList", part_id);
 	}
+
+
+	public List<Video> getAllVideoList() {
+		return sqlSession.selectList(ns+"getAllVideoList");
+	}
+
+
+	public List<String> getVideoPart(int video_id) {
+		return sqlSession.selectList(ns+"getVideoPart", video_id);
+	}
 	
 }
