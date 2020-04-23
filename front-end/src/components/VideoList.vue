@@ -38,7 +38,9 @@
 
 <style scoped>
 #videoDiv {
-  margin-top: 300px;
+  margin-top: 50px;
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
 </style>
