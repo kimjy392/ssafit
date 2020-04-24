@@ -48,7 +48,7 @@ public class StretchingController {
 	@Autowired
 	private IStretchingService stretchingservice;
 
-	@ApiOperation(value = "스트레칭 코치 비디오", response = Null.class)
+	@ApiOperation(value = "스트레칭 코치 비디오 리스트", response = Null.class)
 	@RequestMapping(value = "/stretching", method = RequestMethod.GET)
 	public ResponseEntity<List<Video>> stretchingList() throws Exception {
 		logger.info("1-------------stretchingList-----------------------------" + new Date());
