@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<Header></Header>
-		<h1>PoseNet demo with Ml5.js</h1>
-		<p id="status">Loading Posenet Model...</p>
+		<!-- <h1>PoseNet demo with Ml5.js</h1> -->
+		<!-- <p id="status">Loading Posenet Model...</p> -->
 		<h1>코사인 유사도: {{ cosineSimilarity }}</h1>
 		<p id="countdown"></p>
 		<div id="videoContainer"></div>

@@ -4,6 +4,10 @@ import ml5 from "ml5";
 window.cam_poses = [];
 window.poses = [];
 
+function modelReady() {
+    // select("#status").html("Posenet model Loaded");
+}
+
 export default async function(sketch) {
   // var width = 0;
   // var height = 0;
@@ -21,17 +25,13 @@ export default async function(sketch) {
     video.hide();
     setTimeout(function(){ 
         video.play(); 
-        }, 8000)
+        }, 10000)
     poseNet2 = ml5.poseNet(video, modelReady);
     poseNet2.on("pose", function(results) {
       window.poses = results;
     });
   }
   sketch.setup = async function() {
-    function modelReady() {
-        sketch.select("#status").html("Posenet model Loaded");
-    }
-
     const canvas = sketch.createCanvas(1280, 480);
     canvas.clear();
     canvas.parent("videoContainer");
