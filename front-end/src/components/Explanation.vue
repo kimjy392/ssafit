@@ -1,55 +1,56 @@
 <template>
-  <v-container class="text-center">
-    <h2 class="display-2 font-weight-bold mb-3">VUETIFY FEATURES</h2>
-
-    <v-responsive
-      class="mx-auto mb-12"
-      width="56"
+  <v-container>
+    <h2 class="display-2 font-weight-bold mb-3 white--text">How to start?</h2>
+    <div class="py-12"></div>
+    <v-card
+      id="explan"
+      class="mx-auto"
     >
-      <v-divider class="mb-1"></v-divider>
-
-      <v-divider></v-divider>
-    </v-responsive>
-
-    <v-row>
-      <v-col
-        v-for="({ icon, title, text }, i) in features"
-        :key="i"
-        cols="12"
-        md="4"
-      >
-        <v-card
-          class="py-12 px-4"
-          color="grey lighten-5"
-          flat
+      <v-card-text>
+        <div>Word of the Day</div>
+        <p class="display-1 text--primary">
+          be•nev•o•lent
+        </p>
+        <p>adjective</p>
+        <div class="text--primary">
+          well meaning and kindly.<br>
+          "a benevolent smile"
+        </div>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn
+          text
+          color="deep-purple accent-4"
         >
-          <v-theme-provider dark>
-            <div>
-              <v-avatar
-                color="primary"
-                size="88"
-              >
-                <v-icon
-                  large
-                  v-text="icon"
-                ></v-icon>
-              </v-avatar>
-            </div>
-          </v-theme-provider>
-
-          <v-card-title
-            class="justify-center font-weight-black text-uppercase"
-            v-text="title"
-          ></v-card-title>
-
-          <v-card-text
-            class="subtitle-1"
-            v-text="text"
-          >
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+          Learn More
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+    <v-card
+      id="control"
+      class="mx-auto"
+      max-width="344"
+    >
+      <v-card-text>
+        <div>Word of the Day</div>
+        <p class="display-1 text--primary">
+          be•nev•o•lent
+        </p>
+        <p>adjective</p>
+        <div class="text--primary">
+          well meaning and kindly.<br>
+          "a benevolent smile"
+        </div>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn
+          text
+          color="deep-purple accent-4"
+        >
+          Learn More
+        </v-btn>
+      </v-card-actions>
+    </v-card>
   </v-container>
 </template>
 
@@ -81,5 +82,8 @@ export default {
 </script>
 
 <style>
-
+  #expain {
+    width: 70vw;
+    height: 40vh;
+  }
 </style>
