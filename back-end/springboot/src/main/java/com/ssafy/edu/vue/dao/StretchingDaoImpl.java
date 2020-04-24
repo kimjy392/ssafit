@@ -30,8 +30,8 @@ public class StretchingDaoImpl {
 	}
 
 
-	public List<Video> getVideoList(int part_id) {
-		return sqlSession.selectList(ns+"getVideoList", part_id);
+	public List<Video> getPartVideoList(int part_id) {
+		return sqlSession.selectList(ns+"getPartVideoList", part_id);
 	}
 
 
@@ -52,6 +52,31 @@ public class StretchingDaoImpl {
 
 	public void setResult(Result result) {
 		sqlSession.insert(ns+"setResult", result);
+	}
+
+
+	public int getStretchingCnt() {
+		return sqlSession.selectOne(ns+"getStretchingCnt");
+	}
+
+
+	public int getStretchingMem() {
+		return sqlSession.selectOne(ns+"getStretchingMem");
+	}
+
+
+	public int getStretchingTime(Integer video_id) {
+		return sqlSession.selectOne(ns+"getStretchingTime", video_id);
+	}
+
+
+	public List<Integer> getVideoList() {
+		return sqlSession.selectList(ns+"getVideoList");
+	}
+
+
+	public int getStretchingAllCnt(int video_id) {
+		return sqlSession.selectOne(ns+"getStretchingAllCnt", video_id);
 	}
 	
 }

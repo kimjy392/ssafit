@@ -47,7 +47,11 @@ export default async function(sketch) {
 
     video = sketch.createVideo(videofile, videoLoad);
     // video.size(640, 480);
+    video.onended(sayDone);
   };
+  function sayDone() {
+    history.back()
+  }  
 
   sketch.draw = async function() {
     //sketch.fill(0);

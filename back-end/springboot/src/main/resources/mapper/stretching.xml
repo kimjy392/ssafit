@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from part
 	</select>
 	
-	<select id="getVideoList"
+	<select id="getPartVideoList"
 		parameterType="java.lang.Integer"
 		resultType="com.ssafy.edu.vue.dto.Video">
 		select v.video_id, title, file, thumbnail 
@@ -50,8 +50,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="setResult"
-		parameterType="com.ssafy.edu.vue.dto.Result">
+		parameterType="java.lang.Integer">
 		insert into result(member_id, video_id, accuracy, point, datetime) 
-		values (#{member_id}, #{video_id}, #{accuracy}, #{point}, now());
+		values (#{member_id}, #{video_id}, #{accuracy}, #{point}, now())
 	</insert>
+	
+	<select id="getStretchingCnt"
+		resultType="java.lang.Integer">
+		select count(*) from result 
+		where left(datetime,10)=left(now(),10)
+	</select>
+	
+	<select id="getStretchingMem"
+		resultType="java.lang.Integer">
+		select count(*) 
+		from (select distinct member_id from result 
+		where left(datetime,10)=left(now(),10)) today_member
+	</select>
+	
+	<select id="getStretchingTime"
+		parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		select time from video where video_id=#{video_id}
+	</select>
+	
+	<select id="getVideoList"
+		resultType="java.lang.Integer">
+		select video_id from video
+	</select>
+	
+	<select id="getStretchingAllCnt"
+		parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		select count(*) from result where video_id=#{video_id}
+	</select>
 </mapper>
