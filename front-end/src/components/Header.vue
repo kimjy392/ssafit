@@ -2,7 +2,7 @@
   <v-app-bar class="px-7" app flat color="rgba(0, 0, 0, 0)">
     <v-toolbar-title>
       <router-link to="/">
-        <v-img contain width="40px" src="../assets/logo.png"></v-img>
+        <v-img contain width="300px" src="../assets/logo.png"></v-img>
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
