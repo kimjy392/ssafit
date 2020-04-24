@@ -65,4 +65,16 @@ public class MemberController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, headers, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "로그인", response = Member.class)
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> mypage(@RequestBody Member member) throws Exception {
+		logger.info("1-------------mypage-----------------------------" + new Date());
+		HttpHeaders headers = new HttpHeaders();
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, headers, HttpStatus.OK);
+	}
+	
 }

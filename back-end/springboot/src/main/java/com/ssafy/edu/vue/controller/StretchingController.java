@@ -101,6 +101,26 @@ public class StretchingController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "정보", response = Null.class)
+	@RequestMapping(value = "/intro", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> intro() throws Exception {
+		logger.info("1-------------intro-----------------------------" + new Date());
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		int today_cnt = stretchingservice.getStretchingCnt();
+		int today_mem = stretchingservice.getStretchingMem();
+		List<Integer> video = stretchingservice.getVideoList();
+		int total_time = 0;
+		for (int i = 0; i < video.size(); i++) {
+			total_time += stretchingservice.getStretchingTime(video.get(i)) * stretchingservice.getStretchingAllCnt(video.get(i));
+		}
+		
+		resultMap.put("today_cnt", today_cnt);
+		resultMap.put("today_mem", today_mem);
+		resultMap.put("total_time", total_time);
+		
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+	}
 
 
 //	@ApiOperation(value = "스트레칭 코치 비디오(파일)", response = Integer.class)

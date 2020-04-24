@@ -14,7 +14,7 @@ public interface IStretchingService {
 
 	List<Part> getPartList();
 
-	List<Video> getVideoList(int part_id);
+	List<Video> getPartVideoList(int part_id);
 
 	List<Video> getAllVideoList();
 
@@ -23,5 +23,15 @@ public interface IStretchingService {
 	float getBeforeAccuracy(Result result);
 
 	void setResult(Result result);
+
+	int getStretchingCnt();
+
+	int getStretchingMem();
+
+	int getStretchingTime(int video_id);
+
+	List<Integer> getVideoList();
+
+	int getStretchingAllCnt(int video_id);
 
 }
