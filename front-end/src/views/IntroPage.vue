@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="intro">
     <Header></Header>
       <section id="hero">
         <v-row no-gutters>
@@ -63,9 +63,9 @@
 
 <script>
 import Header from '@/components/Header.vue'
-import Effect from '@/components/Effect.vue'
-import Explanation from '@/components/Explanation.vue'
-import Statistic from '@/components/Statistic.vue'
+import Effect from '@/components/introItems/Effect.vue'
+import Explanation from '@/components/introItems/Explanation.vue'
+import Statistic from '@/components/introItems/Statistic.vue'
 
 export default {
 	name: 'Intro',
@@ -87,8 +87,7 @@ export default {
 </script>
 
 <style>
-  #intro_backimg {
-    position: absolute;
-    top: -64px;
+  #intro {
+    background-color: #556AE9;
   }
 </style>
