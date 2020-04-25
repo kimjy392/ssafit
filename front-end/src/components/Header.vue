@@ -1,13 +1,44 @@
 <template>
-  <v-app-bar class="px-7" app flat color="rgba(0, 0, 0, 0)">
+  <v-app-bar 
+    class="px-7" 
+    app 
+    flat 
+    color="#556AE9"
+    height="100">
     <v-toolbar-title>
       <router-link to="/">
-        <v-img contain width="40px" src="../assets/logo.png"></v-img>
+        <v-img contain width="300px" src="../assets/logo.png"></v-img>
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn text color="#2d8cff" v-for="item in menu" :key="item.title" :to="item.path">{{ item.title }}</v-btn>
+      <div class="my-auto mx-2">
+        <v-btn 
+        text
+        color="white"
+        >
+          GO
+        </v-btn>
+      </div>
+      <div class="my-auto mx-2">
+        <v-btn 
+        text
+        color="white"
+        >
+          MY PAGE
+        </v-btn>
+      </div>
+      <div class="my-auto mx-2">
+        <v-btn 
+          color="#FF7033"
+          large
+          v-for="item in menu" 
+          :key="item.title" 
+          :to="item.path"
+          style="color: white;">
+          {{ item.title }}
+        </v-btn>
+      </div>
     </v-toolbar-items>
     <v-app-bar-nav-icon class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
   </v-app-bar>
@@ -20,7 +51,7 @@
       return {
         drawer: null,
         menu: [{
-          title: '로그인',
+          title: 'LOG IN',
           path: '/login'
         }]
       }
