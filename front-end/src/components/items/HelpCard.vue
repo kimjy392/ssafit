@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 75vh; width:70vw">
     <v-card
       id="control"
       class="mx-auto"
