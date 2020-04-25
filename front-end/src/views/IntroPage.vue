@@ -58,6 +58,7 @@
       <div class="py-12"></div>
       <Statistic></Statistic>
       <div class="py-12"></div>
+      <Recommendation></Recommendation>
   </div>
 </template>
 
@@ -66,6 +67,7 @@ import Header from '@/components/Header.vue'
 import Effect from '@/components/introItems/Effect.vue'
 import Explanation from '@/components/introItems/Explanation.vue'
 import Statistic from '@/components/introItems/Statistic.vue'
+import Recommendation from'@/components/introItems/Recommendation.vue'
 
 export default {
 	name: 'Intro',
@@ -74,6 +76,7 @@ export default {
     Effect,
     Explanation,
     Statistic,
+    Recommendation,
   },
   data() {
 		return {
