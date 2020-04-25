@@ -148,8 +148,8 @@ export default {
     color: rgb(219, 21, 21);
     font-size: 48px;
     position:absolute;
-    z-index:100;
-    opacity:100;
+    z-index:0;
+    opacity:0;
   }
   .slider_item:nth-child(odd){
     background-color:white;
@@ -158,8 +158,8 @@ export default {
     background-color:blueviolet;
   }
   .showing{
-    z-index:101;
-    opacity:101;
+    z-index:1;
+    opacity:1;
   }
   #page_number {
     font-size: 1.5em;
