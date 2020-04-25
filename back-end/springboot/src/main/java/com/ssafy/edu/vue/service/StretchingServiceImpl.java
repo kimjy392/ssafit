@@ -12,6 +12,7 @@ import com.ssafy.edu.vue.dto.Member;
 import com.ssafy.edu.vue.dto.Part;
 import com.ssafy.edu.vue.dto.Result;
 import com.ssafy.edu.vue.dto.Video;
+import com.ssafy.edu.vue.dto.VideoPoint;
 
 
 @Service
@@ -102,6 +103,13 @@ public class StretchingServiceImpl implements IStretchingService {
 	@Transactional(readOnly=true)
 	public int getStretchingAllCnt(int video_id) {
 		return stretchingdao.getStretchingAllCnt(video_id);
+	}
+
+
+	@Override
+	@Transactional(readOnly=true)
+	public VideoPoint getVideoPoint(int video_id) {
+		return stretchingdao.getVideoPoint(video_id);
 	}
 
 }

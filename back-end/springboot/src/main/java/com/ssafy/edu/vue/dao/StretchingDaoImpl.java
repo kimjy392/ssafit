@@ -11,6 +11,7 @@ import com.ssafy.edu.vue.dto.Part;
 import com.ssafy.edu.vue.dto.Result;
 import com.ssafy.edu.vue.dto.Test;
 import com.ssafy.edu.vue.dto.Video;
+import com.ssafy.edu.vue.dto.VideoPoint;
 
 @Repository
 public class StretchingDaoImpl {
@@ -77,6 +78,11 @@ public class StretchingDaoImpl {
 
 	public int getStretchingAllCnt(int video_id) {
 		return sqlSession.selectOne(ns+"getStretchingAllCnt", video_id);
+	}
+
+
+	public VideoPoint getVideoPoint(int video_id) {
+		return sqlSession.selectOne(ns+"getVideoPoint", video_id);
 	}
 	
 }

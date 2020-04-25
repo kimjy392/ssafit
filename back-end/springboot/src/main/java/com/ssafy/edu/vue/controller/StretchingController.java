@@ -31,6 +31,7 @@ import com.ssafy.edu.vue.dto.Member;
 import com.ssafy.edu.vue.dto.Part;
 import com.ssafy.edu.vue.dto.Result;
 import com.ssafy.edu.vue.dto.Video;
+import com.ssafy.edu.vue.dto.VideoPoint;
 import com.ssafy.edu.vue.service.IStretchingService;
 
 import io.swagger.annotations.Api;
@@ -80,24 +81,36 @@ public class StretchingController {
 		
 		Video stretching = stretchingservice.getVideoPath(video_id);
 		List<Integer> video = stretchingservice.getVideoList();
+		VideoPoint point = stretchingservice.getVideoPoint(video_id);
+		
 		String path = "/detail/";
-		for (int i = 0; i < video.size(); i++) {
-			if(video.get(i)==video_id) {
-				if(i<video.size()-1) {
-					path += video.get(i+1);
-					break;
-				}else {
-					path = "/main";
+		if(video_id==2)
+			path += 4;
+		else if(video_id==4)
+			path += 6;
+		else {
+			for (int i = 0; i < video.size(); i++) {
+				if (video.get(i) == video_id) {
+					if (i < video.size() - 1) {
+						path += video.get(i + 1);
+						break;
+					} else {
+						path = "/main";
+					}
 				}
 			}
 		}
-		System.out.println(path);
 		
 		resultMap.put("video_id", stretching.getVideo_id());
 		resultMap.put("title", stretching.getTitle());
 		resultMap.put("file", stretching.getFile());
 		resultMap.put("description", stretching.getDescription());
 		resultMap.put("next", path);
+		resultMap.put("first_stop", point.getFirst_stop());
+		resultMap.put("second_stop", point.getSecond_stop());
+		resultMap.put("excellent", point.getExcellent());
+		resultMap.put("great", point.getGreat());
+		resultMap.put("good", point.getGood());
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
