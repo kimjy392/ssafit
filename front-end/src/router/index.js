@@ -22,7 +22,7 @@ Vue.use(VueRouter)
   {
     path: '/main',
     name: 'Main',
-    component: Main
+    component: Main,
   },
   {
     path: '/userinfo',
