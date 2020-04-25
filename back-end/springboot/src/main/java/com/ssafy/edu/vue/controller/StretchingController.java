@@ -74,15 +74,30 @@ public class StretchingController {
 	
 	@ApiOperation(value = "스트레칭 디테일", response = Integer.class)
 	@RequestMapping(value = "/stretching/detail/{video_id}", method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> detail(@PathVariable int video_id) throws Exception {
+	public ResponseEntity<Map<String, Object>> detail(@PathVariable int video_id, HttpServletRequest rs, HttpServletResponse hr) throws Exception {
 		logger.info("1-------------detail-----------------------------" + new Date());
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		Video stretching = stretchingservice.getVideoPath(video_id);
+		List<Integer> video = stretchingservice.getVideoList();
+		String path = "/detail/";
+		for (int i = 0; i < video.size(); i++) {
+			if(video.get(i)==video_id) {
+				if(i<video.size()-1) {
+					path += video.get(i+1);
+					break;
+				}else {
+					path = "/main";
+				}
+			}
+		}
+		System.out.println(path);
+		
 		resultMap.put("video_id", stretching.getVideo_id());
 		resultMap.put("title", stretching.getTitle());
 		resultMap.put("file", stretching.getFile());
 		resultMap.put("description", stretching.getDescription());
+		resultMap.put("next", path);
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}

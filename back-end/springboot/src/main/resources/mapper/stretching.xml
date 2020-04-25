@@ -76,7 +76,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getVideoList"
 		resultType="java.lang.Integer">
-		select video_id from video
+		select video_id from video order by video_id
 	</select>
 	
 	<select id="getStretchingAllCnt"
