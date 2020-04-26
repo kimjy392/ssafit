@@ -2,10 +2,8 @@
   <div>
     <Header></Header>
     <div>
-      <!-- <h1>Score: {{ score }} {{ spaceFlag }} 123123123123123</h1> -->
-      <!-- background music -->
       <div>
-        <audio controls autoplay>
+        <audio autoplay>
           <source src="../assets/backgroundMusic.mp3" type="audio/mpeg">
         </audio>
         <audio id="excellentAudio" crossOrigin="anonymous" loop>
@@ -33,8 +31,6 @@
         스페이스바를 누르면 멈춥니다!
       </v-btn>
     </div>
-    <h1> excellentCnt: {{ results['excellentCnt'] }} greatCnt: {{ results['greatCnt'] }} goodCnt:
-      {{ results['goodCnt'] }} badCnt: {{ results['badCnt'] }}</h1>
   </div>
 </template>
 
@@ -213,9 +209,12 @@
     background-color: yellow;
     display: inline-block;
   }
-
   #videoBox {
     width: 1300px;
     text-align: center;
+  }
+  h1 {
+  color:#073749;
+  font-family: 'Audiowide', cursive;
   }
 </style>
