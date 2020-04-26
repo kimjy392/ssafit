@@ -84,10 +84,11 @@
               this.cosineSimilarity = poseSimilarity(this.cam_poses[0].pose, this.video_poses[0].pose, {
                 strategy: 'cosineSimilarity'
               });
-              this.iseffect = !this.iseffect
-              this.iseffect2 = !this.iseffect2
+              
               window.cosineSimilarity = this.cosineSimilarity
               if (window.playFlag === true) {
+                this.iseffect = !this.iseffect
+                this.iseffect2 = !this.iseffect2
                 if (this.cosineSimilarity >= this.excellentThresh * 0.01) {
                   this.score = 'Excellent'
                   this.excellentAudio.play();
