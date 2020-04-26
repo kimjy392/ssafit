@@ -5,8 +5,8 @@
       v-on:mouseover="mouseover" v-on:mouseleave="mouseleave"
       class="img"
         :elevation="hover ? 16 : 2">
-        <v-img :src="thumbnail" class="white--text align-end scale" :gradient="grad" width="100%">
-          <v-card-title v-text="title"></v-card-title>
+        <v-img :src="thumbnail" class="white--text align-center scale" :gradient="grad" width="100%">
+          <v-card-title :data-text="title" class="strechTitle justify-center" v-text="title"></v-card-title>
         </v-img>
       </v-card>
     </v-hover>
@@ -83,5 +83,26 @@
 }
 .img {
   overflow:hidden
+}
+.strechTitle {
+  font-size: xx-large;
+    background: -webkit-linear-gradient(#FF7033, #FECD00);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+  color: #FF7033;
+  font-family: 'Black Han Sans', sans-serif;
+  position:relative;  
+}
+.strechTitle:after {
+  background: none;
+  content: attr(data-text);
+  text-shadow: -1px -1px 0 #ffffff,
+    1px -1px 0 #ffffff,
+    -1px 1px 0 #ffffff,
+    1px 1px 0 #ffffff; 
+  position: absolute;
+  top: 1;
+  font-family: 'Black Han Sans', sans-serif;
+  z-index: -1;
 }
 </style>
