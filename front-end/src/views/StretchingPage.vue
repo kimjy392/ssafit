@@ -5,7 +5,7 @@
       <!-- <h1>Score: {{ score }} {{ spaceFlag }} 123123123123123</h1> -->
       <!-- background music -->
       <div>
-        <audio autoplay>
+        <audio controls autoplay>
           <source src="../assets/backgroundMusic.mp3" type="audio/mpeg">
         </audio>
         <audio id="excellentAudio" crossOrigin="anonymous" loop>
@@ -19,20 +19,22 @@
         </audio>
       </div>
     </div>
-    <v-card id="vidioBox" class="mx-auto">
+    <v-img class="animated mx-auto" width="500" height="200" :class="classeffect" :src="getEffectImg"></v-img>
+    <v-card id="videoBox" class="mx-auto">
       <div id="videoContainer"></div>
     </v-card>
     <div class='sketch' id="sketch"></div>
     <div class="my-6"></div>
     <div style="text-align: center">
-      <v-btn v-if="spaceFlag" id="spacebar" x-large color="#ff7235">
+      <v-btn v-if="spaceFlag" id="spacebar" x-large color="#ff7235" class="white--text">
         스페이스바를 누르면 시작합니다!
       </v-btn>
-      <v-btn v-if="!spaceFlag" id="spacebar" x-large color="#FF8C00">
+      <v-btn v-if="!spaceFlag" id="spacebar" x-large color="#FF8C00" class="white--text">
         스페이스바를 누르면 멈춥니다!
       </v-btn>
     </div>
-    <!-- <h1> {{ cosineSimilarity }} </h1> -->
+    <h1> excellentCnt: {{ results['excellentCnt'] }} greatCnt: {{ results['greatCnt'] }} goodCnt:
+      {{ results['goodCnt'] }} badCnt: {{ results['badCnt'] }}</h1>
   </div>
 </template>
 
@@ -59,13 +61,27 @@
         greatThresh: 100,
         goodThresh: 100,
         score: 'Hmm...',
+        questionMark: 'far fa-question-circle',
+        dialog: false,
+        effectimg: 'Bad.png',
+        iseffect: true,
+        iseffect2: false,
         excellentAudio: null,
         greatAudio: null,
         goodAudio: null,
         spaceFlag: true,
+        results: {
+          'excellentCnt': 0,
+          'greatCnt': 0,
+          'goodCnt': 0,
+          'badCnt': 0,
+        }
       };
     },
     methods: {
+      getgreatThresh() {
+        return this.greatThresh;
+      },
       everySecondTrigger() {
         this.$nextTick(function () {
           window.setInterval(() => {
@@ -75,35 +91,54 @@
               this.cosineSimilarity = poseSimilarity(this.cam_poses[0].pose, this.video_poses[0].pose, {
                 strategy: 'cosineSimilarity'
               });
+
               window.cosineSimilarity = this.cosineSimilarity
               if (window.playFlag === true) {
+                this.iseffect = !this.iseffect
+                this.iseffect2 = !this.iseffect2
                 if (this.cosineSimilarity >= this.excellentThresh * 0.01) {
                   this.score = 'Excellent'
                   this.excellentAudio.play();
                   this.greatAudio.pause();
                   this.goodAudio.pause();
+                  this.effectimg = 'Excellent.png'
+                  this.results['excellentCnt'] += 1;
                 } else if (this.cosineSimilarity >= this.greatThresh * 0.01) {
                   this.score = 'Great'
                   this.greatAudio.play()
                   this.excellentAudio.pause();
                   this.goodAudio.pause();
+                  this.effectimg = 'Great.png'
+                  this.results['greatCnt'] += 1;
                 } else if (this.cosineSimilarity >= this.goodThresh * 0.01) {
                   this.score = 'Good'
                   this.goodAudio.play();
                   this.greatAudio.pause();
                   this.excellentAudio.pause();
+                  this.effectimg = 'Good.png'
+                  this.results['goodCnt'] += 1;
                 } else {
                   this.score = 'Hmm...'
-                  this.greatAudio.pause();
                   this.excellentAudio.pause();
+                  this.greatAudio.pause();
                   this.goodAudio.pause();
+                  this.effectimg = 'Bad.png'
+                  this.results['badCnt'] += 1;
                 }
+              } else {
+                this.excellentAudio.pause();
+                this.greatAudio.pause();
+                this.goodAudio.pause();
               }
             } catch (err) {
               this.score = 'Hmm...'
               this.greatAudio.pause();
               this.excellentAudio.pause();
               this.goodAudio.pause();
+              this.effectimg = 'Bad.png'
+              if (window.playFlag === true) {
+                this.results['badCnt'] += 1;
+              }
             }
           }, 1000);
         });
@@ -118,6 +153,7 @@
             window.firstStop = res.data.first_stop;
             window.secondStop = res.data.second_stop;
             window.next = res.data.next;
+            window.endOfVideo = res.data.time;
             window.videoURL = 'https://i02b104.p.ssafy.io/video/' + res.data.file;
             this.myp5 = new p5(sketch, document.getElementById('sketch'))
           })
@@ -129,7 +165,7 @@
         var vm = this;
         document.body.onkeyup = function (e) {
           if (e.keyCode == 32) { // when press spacebar
-            if (window.playFlag == true) {
+            if (window.playFlag === true && window.done === false) {
               window.playFlag = false
               vm.spaceFlag = true
             } else {
@@ -141,12 +177,6 @@
       },
     },
     mounted() {
-      if (localStorage.getItem('reloaded')) {
-        localStorage.removeItem('reloaded');
-      } else {
-        localStorage.setItem('reloaded', '1');
-        location.reload();
-      }
       this.excellentAudio = document.getElementById("excellentAudio");
       this.greatAudio = document.getElementById("greatAudio");
       this.goodAudio = document.getElementById("goodAudio");
@@ -155,7 +185,26 @@
       this.getVideo();
       this.everySecondTrigger();
     },
-  };
+    computed: {
+      classeffect() {
+        // const a = this.effectList[Math.floor(Math.random() * this.effect.length)]
+        // return {
+        //   bounceIn : this.effectList[0] === a,
+        //   jackInTheBox : this.effectList[1] === a,
+        //   heartBeat : this.effectList[2] === a
+        return {
+          bounceIn: this.iseffect,
+          jackInTheBox: this.iseffect2
+        }
+      },
+      getEffectImg() {
+        return require('../assets/' + this.effectimg)
+      },
+    },
+    destroyed() {
+      location.reload();
+    }
+  }
 </script>
 <style>
   canvas {
@@ -165,7 +214,7 @@
     display: inline-block;
   }
 
-  #vidioBox {
+  #videoBox {
     width: 1300px;
     text-align: center;
   }

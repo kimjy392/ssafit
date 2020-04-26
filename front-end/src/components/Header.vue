@@ -6,8 +6,15 @@
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
+    <div class="headerDiv px-10">
+      <a class="headerLink" @click="$vuetify.goTo('#Effect')" style="color: white;">BENEFITS</a>
+			<a class="headerLink" @click="$vuetify.goTo('#Explanation')" style="color: white;">HOW TO USE</a>
+			<a class="headerLink" @click="$vuetify.goTo('#Statistic')" href="#" style="color: white;">STATISTICS</a>
+      <a class="headerLink" @click="$vuetify.goTo('#Recommendation')" href="#" style="color: white;">RECOMMEND</a>
+    </div>
+    <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
-      <div class="my-auto mx-2">
+      <div class="my-auto mx-2" @click="moveMain">
         <v-btn large text color="white" v-on:mouseover="mouseover" v-on:mouseleave="mouseleave">
           <div v-if="is_hover">
             <img height="44px" src="@/assets/fire_btn.gif" alt="animated_fire">
@@ -59,7 +66,27 @@
       },
       mouseleave: function () {
         this.is_hover = false
-      }
+      },
+      moveMain() {
+        this.$router.push({name: 'Main'})
+      },
     }
   }
 </script>
+
+<style>
+.headerDiv {
+  height: 55px;
+  padding-top: 11px;
+  padding-bottom: 11px;
+  border: 3px solid rgb(87, 107, 234);
+  border-radius: 2em;
+  box-shadow:1px 1px #768BFE, -1px -1px rgb(81, 102, 224), 1px 1px inset #768BFE, -1px -1px inset rgb(81, 102, 224);
+}
+
+.headerLink {
+  text-decoration: none;
+  margin: 0 10px 0px 10px;
+}
+
+</style>
