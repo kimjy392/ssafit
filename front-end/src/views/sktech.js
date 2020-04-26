@@ -19,7 +19,7 @@ export default async function (sketch) {
   function videoLoad() {
     video.hide();
     video.volume(0);
-
+    
     poseNet2 = ml5.poseNet(video, modelReady);
     poseNet2.on("pose", function (results) {
       window.poses = results;
@@ -42,20 +42,26 @@ export default async function (sketch) {
     sketch.background(1000);
 
     video = sketch.createVideo(videofile, videoLoad);
-    video.onended(sayDone);
+    // video.onended(sayDone);
   };
-  function sayDone() {
-    window.done = true;
-    console.log(window.done, window.next);
-    window.location = "http://localhost:8080" + window.next;
-    // history.back()
-  }
+  // function sayDone() {
+  //   window.done = true;
+  //   window.playFlag = false;
+  //   console.log('done!!!!', 'done!!!!','done!!!!','done!!!!','done!!!!','done!!!!', window.done);
+  //   // window.location = "http://localhost:8080" + window.next;
+  //   // history.back()
+  // }
 
   sketch.draw = async function () {
     sketch.translate(1280, 0);
     sketch.scale(-1.0, 1.0);
     sketch.image(cam, 0, 0);
     sketch.image(video, 640, 0);
+
+    if (video.time() >= window.endOfVideo) {
+      window.done = true;
+      window.playFlag = false
+    }
 
     if (window.playFlag === true) {
       if (window.done === false) {
