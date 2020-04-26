@@ -33,7 +33,8 @@
         스페이스바를 누르면 멈춥니다!
       </v-btn>
     </div>
-    <h1> excellentCnt: {{ results['excellentCnt'] }} greatCnt:  {{ results['greatCnt'] }} goodCnt: {{ results['goodCnt'] }} badCnt: {{ results['badCnt'] }}</h1>
+    <h1> excellentCnt: {{ results['excellentCnt'] }} greatCnt: {{ results['greatCnt'] }} goodCnt:
+      {{ results['goodCnt'] }} badCnt: {{ results['badCnt'] }}</h1>
   </div>
 </template>
 
@@ -63,8 +64,8 @@
         questionMark: 'far fa-question-circle',
         dialog: false,
         effectimg: 'Bad.png',
-        iseffect : true,
-        iseffect2 : false,
+        iseffect: true,
+        iseffect2: false,
         excellentAudio: null,
         greatAudio: null,
         goodAudio: null,
@@ -78,7 +79,7 @@
       };
     },
     methods: {
-      getgreatThresh(){
+      getgreatThresh() {
         return this.greatThresh;
       },
       everySecondTrigger() {
@@ -90,7 +91,7 @@
               this.cosineSimilarity = poseSimilarity(this.cam_poses[0].pose, this.video_poses[0].pose, {
                 strategy: 'cosineSimilarity'
               });
-              
+
               window.cosineSimilarity = this.cosineSimilarity
               if (window.playFlag === true) {
                 this.iseffect = !this.iseffect
@@ -125,9 +126,9 @@
                   this.results['badCnt'] += 1;
                 }
               } else {
-                  this.excellentAudio.pause();
-                  this.greatAudio.pause();
-                  this.goodAudio.pause();
+                this.excellentAudio.pause();
+                this.greatAudio.pause();
+                this.goodAudio.pause();
               }
             } catch (err) {
               this.score = 'Hmm...'
@@ -192,17 +193,18 @@
         //   jackInTheBox : this.effectList[1] === a,
         //   heartBeat : this.effectList[2] === a
         return {
-          bounceIn : this.iseffect,
-          jackInTheBox : this.iseffect2
+          bounceIn: this.iseffect,
+          jackInTheBox: this.iseffect2
         }
       },
       getEffectImg() {
         return require('../assets/' + this.effectimg)
-      } 
+      },
+    },
     destroyed() {
-      location.reload();e
+      location.reload();
     }
-  };
+  }
 </script>
 <style>
   canvas {
@@ -211,6 +213,7 @@
     background-color: yellow;
     display: inline-block;
   }
+
   #videoBox {
     width: 1300px;
     text-align: center;
