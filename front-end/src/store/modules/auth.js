@@ -1,4 +1,3 @@
-import router from '../../router';
 import jwtDecode from 'jwt-decode'
 
 const state = {
@@ -24,8 +23,8 @@ const actions = {
     },
 
     logout({commit}) {
-        commit('deleteToken')
-        router.push('/')
+      sessionStorage.removeItem('vue-session-key')
+      commit('deleteToken')
     },
     
     isLogin({commit}) {
