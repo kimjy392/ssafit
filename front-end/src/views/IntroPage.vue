@@ -1,74 +1,88 @@
 <template>
-  <div>
+  <div id="intro">
     <Header></Header>
-      <v-row no-gutters id="intro_backimg">
-        <v-img
-          width="100vw"
-          height="100vh"
-          src="https://i0.wp.com/www.kintec.net/wp-content/uploads/2017/05/blogheader.jpg?fit=2000%2C1000&ssl=1"
-        >
-          <v-theme-provider dark>
-            <v-container fill-height>
-              <v-row
-                align="center"
-                class="white--text mx-auto"
-                justify="center"
-              >
-                <v-col
-                  class="white--text text-center"
-                  cols="12"
-                  tag="h1"
+      <section id="hero">
+        <v-row no-gutters>
+          <v-img
+          width="100%"
+          height="100%"
+            src="../assets/intro_bg.png"
+          >
+          <v-container fill-height>
+            <v-row
+                  align="center"
+                  class="mx-auto"
+                  justify="center"
                 >
-                  <span
-                    class="font-weight-light"
-                    :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
+                  <v-col
+                    cols="12"
                   >
-                    설명설명
-                  </span>
-
-                  <br>
-
-                  <span
-                    :class="[$vuetify.breakpoint.smAndDown ? 'display-3': 'display-4']"
-                    class="font-weight-black"
+                    <v-img class="animated fadeInLeft" width="70%" height="70%" src="../assets/logo_test.png"></v-img>
+                  </v-col>
+                
+                  <v-btn
+                    class="align-self-end"
+                    fab
+                    outlined
+                    color="white"
+                    @click="$vuetify.goTo('#Effect')"
                   >
-                    설명
-                  </span>
-
-                </v-col>
-
-                <v-btn class="ma-2" color="primary" dark :to="path">로그인
-                </v-btn>
-              </v-row>
-            </v-container>
-          </v-theme-provider>
-        </v-img>
-      </v-row>
+                    <v-icon color="white">mdi-chevron-double-down</v-icon>
+                  </v-btn>
+                </v-row>
+              </v-container>
+          </v-img>
+        </v-row>
+      </section>
+      <div class="py-12"></div>
+      <Effect id="Effect"></Effect>
+      <div class="py-12"></div>
+      <Explanation></Explanation>
+      <div class="py-12"></div>
+      <Statistic></Statistic>
+      <div class="py-12"></div>
+      <Recommendation></Recommendation>
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header.vue'
-
+import Effect from '@/components/introItems/Effect.vue'
+import Explanation from '@/components/introItems/Explanation.vue'
+import Statistic from '@/components/introItems/Statistic.vue'
+import Recommendation from'@/components/introItems/Recommendation.vue'
+import axios from 'axios'
 export default {
 	name: 'Intro',
   components: {
     Header,
+    Effect,
+    Explanation,
+    Statistic,
+    Recommendation,
   },
   data() {
 		return {
       path: '/login'
 		}
   },
+  methods: {
+    getStatistics() {
+      axios.get('http://i02b104.p.ssafy.io:8197/ssafyvue/api/intro/')
+      .then((res) => {
+        console.log(res)
+      })
+    }
+  },
   mounted() {
     this.$store.dispatch('isLogin', true)
+    this.getStatistics()
   }
 }
 </script>
 
 <style>
-  #intro_backimg {
-    position: absolute;
-    top: -64px;
+  #intro {
+    background-color: #556AE9;
   }
 </style>
