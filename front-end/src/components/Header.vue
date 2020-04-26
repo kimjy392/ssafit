@@ -6,7 +6,7 @@
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <div class="headerDiv px-10">
+    <div class="headerDiv px-10 d-none d-lg-flex">
       <a class="headerLink" @click="$vuetify.goTo('#Effect')" style="color: white;">BENEFITS</a>
 			<a class="headerLink" @click="$vuetify.goTo('#Explanation')" style="color: white;">HOW TO USE</a>
 			<a class="headerLink" @click="$vuetify.goTo('#Statistic')" href="#" style="color: white;">STATISTICS</a>
