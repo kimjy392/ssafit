@@ -23,7 +23,8 @@ export default async function(sketch) {
 
   function videoLoad() {
     video.hide();
-    setTimeout(function(){ 
+    setTimeout(function(){
+        video.volume(0);
         video.play(); 
         }, 10000)
     poseNet2 = ml5.poseNet(video, modelReady);
