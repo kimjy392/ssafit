@@ -37,11 +37,11 @@
       <div class="py-12"></div>
       <Effect id="Effect"></Effect>
       <div class="py-12"></div>
-      <Explanation></Explanation>
+      <Explanation id="Explanation"></Explanation>
       <div class="py-12"></div>
-      <Statistic :statistic="statistic"></Statistic>
+      <Statistic id="Statistic" :statistic="statistic"></Statistic>
       <div class="py-12"></div>
-      <Recommendation></Recommendation>
+      <Recommendation id="Recommendation"></Recommendation>
   </div>
 </template>
 
