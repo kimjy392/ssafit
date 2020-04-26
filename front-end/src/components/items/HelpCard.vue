@@ -70,7 +70,7 @@ export default {
           this.page -= 1;
         } else {
           this.lastSlide.classList.add(this.SHOWING_CLASS);
-          this.page = 5;
+          this.page = 2;
         }
       },
       upmouseover() {

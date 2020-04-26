@@ -19,49 +19,33 @@
       return {
         grad: 'to bottom, rgba(0,0,0,.5), rgba(0,0,0,.8)'
       }
-    }
-
-    ,
+    },
     props: {
       video_id: {
         type: Number,
         default: 0
-      }
-
-      ,
+      },
       title: {
         type: String,
         default: ""
-      }
-
-      ,
+      },
       file: {
         type: String,
         default: ""
-      }
-
-      ,
+      },
       thumbnail: {
         type: String,
         default: ""
-      }
-
-      ,
+      },
       description: {
         type: String,
         default: ""
-      }
-
-      ,
+      },
       part: {
         type: Array,
         default: () => ([])
-      }
-
-      ,
-    }
-
-    ,
+      },
+    },
     methods: {
       moveDetail(video_id) {
         this.$router.push({
@@ -71,20 +55,14 @@
             }
           }
         )
-      }
-
-      ,
+      },
       mouseover: function () {
           this.grad = 'to bottom, rgba(0,0,0,0), rgba(0,0,0,0)'
-        }
-
-        ,
+      },
       mouseleave: function () {
         this.grad = 'to bottom, rgba(0,0,0,.5), rgba(0,0,0,.8)'
       }
-    }
-
-    ,
+    },
   }
 </script>
 <style scoped>

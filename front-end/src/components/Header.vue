@@ -7,7 +7,7 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
-      <div class="my-auto mx-2">
+      <div class="my-auto mx-2" @click="moveMain">
         <v-btn large text color="white" v-on:mouseover="mouseover" v-on:mouseleave="mouseleave">
           <div v-if="is_hover">
             <img height="44px" src="@/assets/fire_btn.gif" alt="animated_fire">
@@ -59,7 +59,10 @@
       },
       mouseleave: function () {
         this.is_hover = false
-      }
+      },
+      moveMain() {
+        this.$router.push({name: 'Main'})
+      },
     }
   }
 </script>
