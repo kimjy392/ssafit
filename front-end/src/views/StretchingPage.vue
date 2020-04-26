@@ -21,6 +21,7 @@
       <HelpCard></HelpCard>
     </v-dialog>
     <h1>Score: {{ score }}</h1>
+    <v-img class="animated mx-auto" width="500" height="200" :class="classeffect" :src="getEffectImg"></v-img>
     <v-card id="vidioBox" class="mx-auto">
       <div id="videoContainer"></div>
     </v-card>
@@ -65,9 +66,15 @@
         score: 'Hmm...',
         questionMark: 'far fa-question-circle',
         dialog: false,
+        effectimg: 'Bad.png',
+        iseffect : true,
+        iseffect2 : false
       };
     },
     methods: {
+      getgreatThresh(){
+        return this.greatThresh;
+      },
       everySecondTrigger() {
         this.$nextTick(function () {
           window.setInterval(() => {
@@ -77,18 +84,25 @@
               this.cosineSimilarity = poseSimilarity(this.cam_poses[0].pose, this.video_poses[0].pose, {
                 strategy: 'cosineSimilarity'
               });
+              this.iseffect = !this.iseffect
+              this.iseffect2 = !this.iseffect2
               window.cosineSimilarity = this.cosineSimilarity
               if (this.cosineSimilarity >= this.excellentThresh * 0.01) {
                 this.score = 'Excellent'
+                this.effectimg = 'Excellent.png'
               } else if (this.cosineSimilarity >= this.greatThresh * 0.01) {
                 this.score = 'Great'
+                this.effectimg = 'Great.png'
               } else if (this.cosineSimilarity >= this.goodThresh * 0.01) {
                 this.score = 'Good'
+                this.effectimg = 'Good.png'
               } else {
                 this.score = 'Hmm...'
+                this.effectimg = 'Bad.png'
               }
             } catch (err) {
               this.score = 'Hmm...'
+              this.effectimg = 'Bad.png'
             }
           }, 1000);
         });
@@ -115,7 +129,7 @@
       },
       mouseleave() {
         this.questionMark = 'far fa-question-circle'
-      }
+      },
     },
     mounted() {
       if (localStorage.getItem('reloaded')) {
@@ -127,6 +141,22 @@
       this.getVideo()
       this.everySecondTrigger();
     },
+    computed: {
+      classeffect() {
+        // const a = this.effectList[Math.floor(Math.random() * this.effect.length)]
+        // return {
+        //   bounceIn : this.effectList[0] === a,
+        //   jackInTheBox : this.effectList[1] === a,
+        //   heartBeat : this.effectList[2] === a
+        return {
+          bounceIn : this.iseffect,
+          jackInTheBox : this.iseffect2
+        }
+      },
+      getEffectImg() {
+        return require('../assets/' + this.effectimg)
+      } 
+    }
   };
 </script>
 <style>
@@ -146,4 +176,5 @@
   .v-dialog {
     box-shadow: none !important;
   }
+
 </style>
