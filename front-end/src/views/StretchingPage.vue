@@ -19,6 +19,7 @@
         </audio>
       </div>
     </div>
+    <v-img class="animated mx-auto" width="500" height="200" :class="classeffect" :src="getEffectImg"></v-img>
     <v-card id="vidioBox" class="mx-auto">
       <div id="videoContainer"></div>
     </v-card>
@@ -59,6 +60,11 @@
         greatThresh: 100,
         goodThresh: 100,
         score: 'Hmm...',
+        questionMark: 'far fa-question-circle',
+        dialog: false,
+        effectimg: 'Bad.png',
+        iseffect : true,
+        iseffect2 : false,
         excellentAudio: null,
         greatAudio: null,
         goodAudio: null,
@@ -66,6 +72,9 @@
       };
     },
     methods: {
+      getgreatThresh(){
+        return this.greatThresh;
+      },
       everySecondTrigger() {
         this.$nextTick(function () {
           window.setInterval(() => {
@@ -75,28 +84,35 @@
               this.cosineSimilarity = poseSimilarity(this.cam_poses[0].pose, this.video_poses[0].pose, {
                 strategy: 'cosineSimilarity'
               });
+              
               window.cosineSimilarity = this.cosineSimilarity
               if (window.playFlag === true) {
+                this.iseffect = !this.iseffect
+                this.iseffect2 = !this.iseffect2
                 if (this.cosineSimilarity >= this.excellentThresh * 0.01) {
                   this.score = 'Excellent'
                   this.excellentAudio.play();
                   this.greatAudio.pause();
                   this.goodAudio.pause();
+                  this.effectimg = 'Excellent.png'
                 } else if (this.cosineSimilarity >= this.greatThresh * 0.01) {
                   this.score = 'Great'
                   this.greatAudio.play()
                   this.excellentAudio.pause();
                   this.goodAudio.pause();
+                  this.effectimg = 'Great.png'
                 } else if (this.cosineSimilarity >= this.goodThresh * 0.01) {
                   this.score = 'Good'
                   this.goodAudio.play();
                   this.greatAudio.pause();
                   this.excellentAudio.pause();
+                  this.effectimg = 'Good.png'
                 } else {
                   this.score = 'Hmm...'
                   this.greatAudio.pause();
                   this.excellentAudio.pause();
                   this.goodAudio.pause();
+                  this.effectimg = 'Bad.png'
                 }
               }
             } catch (err) {
@@ -104,6 +120,7 @@
               this.greatAudio.pause();
               this.excellentAudio.pause();
               this.goodAudio.pause();
+              this.effectimg = 'Bad.png'
             }
           }, 1000);
         });
@@ -155,6 +172,22 @@
       this.getVideo();
       this.everySecondTrigger();
     },
+    computed: {
+      classeffect() {
+        // const a = this.effectList[Math.floor(Math.random() * this.effect.length)]
+        // return {
+        //   bounceIn : this.effectList[0] === a,
+        //   jackInTheBox : this.effectList[1] === a,
+        //   heartBeat : this.effectList[2] === a
+        return {
+          bounceIn : this.iseffect,
+          jackInTheBox : this.iseffect2
+        }
+      },
+      getEffectImg() {
+        return require('../assets/' + this.effectimg)
+      } 
+    }
   };
 </script>
 <style>
