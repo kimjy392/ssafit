@@ -7,7 +7,7 @@
     height="100">
     <v-toolbar-title>
       <router-link to="/">
-        <v-img contain width="200px" height="55px" src="../assets/logo_test.png"></v-img>
+        <v-img contain width="200px" height="55px" src="@/assets/logo_test.png"></v-img>
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
@@ -20,7 +20,7 @@
           GO
         </v-btn>
       </div>
-      <div class="my-auto mx-2">
+      <div v-if="isLogin" class="my-auto mx-2">
         <v-btn 
         text
         color="white"
@@ -28,33 +28,45 @@
           MY PAGE
         </v-btn>
       </div>
-      <div class="my-auto mx-2">
+      <div v-if="!isLogin" class="my-auto mx-2">
         <v-btn 
-          color="#FF7033"
           large
-          v-for="item in menu" 
-          :key="item.title" 
-          :to="item.path"
+          color="#FF7033"
+          key="LOG IN" 
+          to="/login"
           style="color: white;">
-          {{ item.title }}
+          LOG IN
+        </v-btn>
+      </div>
+      <div v-if="isLogin" class="my-auto mx-2">
+        <v-btn 
+          large
+          color="#FF7033"
+          key="LOG OUT" 
+          style="color: white;">
+          LOG OUT
         </v-btn>
       </div>
     </v-toolbar-items>
-    <v-app-bar-nav-icon class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+    <HelpIcon></HelpIcon>
   </v-app-bar>
 </template>
 
 <script>
+  import HelpIcon from '@/components/items/HelpIcon.vue';
+
   export default {
     name: 'Header',
+    components: {
+      HelpIcon,
+    },
     data() {
       return {
-        drawer: null,
-        menu: [{
-          title: 'LOG IN',
-          path: '/login'
-        }]
       }
-    }
+    },
+    computed() {
+      this.$store.dispatch('isLogin');
+    },
+    
   }
 </script>

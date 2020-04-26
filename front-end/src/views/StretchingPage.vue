@@ -58,13 +58,11 @@
   import {
     poseSimilarity
   } from 'posenet-similarity';
-  import HelpCard from '@/components/items/HelpCard.vue'
 
   export default {
     name: "Stretching",
     components: {
       Header,
-      HelpCard,
     },
     data() {
       return {
