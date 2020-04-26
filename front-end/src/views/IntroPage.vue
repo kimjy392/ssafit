@@ -80,8 +80,8 @@ export default {
     }
   },
   mounted() {
+    this.$store.dispatch('isLogin')
     this.getStatistics()
-    this.$store.dispatch('isLogin', true)
   }
 }
 </script>

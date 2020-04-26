@@ -21,7 +21,17 @@ export default {
   name: 'Login',
   components: {
     LoginForm
-  }
+  },
+  methods: {
+  },
+  mounted() {
+    this.$store.dispatch('isLogin')
+    .then((res) => {
+      if (res) {
+        this.$router.push('/')
+      }
+    })
+  },
 }
 </script>
 

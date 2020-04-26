@@ -24,18 +24,18 @@
           </div>
         </v-btn>
       </div>
-      <div v-if="isLogin" class="my-auto mx-2">
+      <div v-if="islogin" class="my-auto mx-2">
         <v-btn large text color="white">
           MY PAGE
         </v-btn>
       </div>
-      <div v-if="!isLogin" class="my-auto mx-2">
+      <div v-if="!islogin" class="my-auto mx-2">
         <v-btn large color="#FF7033" key="LOG IN" to="/login" style="color: white;">
           LOG IN
         </v-btn>
       </div>
-      <div v-if="isLogin" class="my-auto mx-2">
-        <v-btn large color="#FF7033" key="LOG OUT" style="color: white;">
+      <div v-if="islogin" class="my-auto mx-2">
+        <v-btn large color="#FF7033" key="LOG OUT" @click="logout" style="color: white;">
           LOG OUT
         </v-btn>
       </div>
@@ -57,8 +57,10 @@
         is_hover: false
       }
     },
-    computed() {
-      this.$store.dispatch('isLogin');
+    computed: {
+      islogin() {
+          return this.$store.state.auth.token
+        }
     },
     methods: {
       mouseover: function () {
@@ -70,6 +72,12 @@
       moveMain() {
         this.$router.push({name: 'Main'})
       },
+      logout() {
+        this.$store.dispatch('logout')
+        .then(() => {
+          this.$router.push('/')
+        })
+      }
     }
   }
 </script>

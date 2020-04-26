@@ -21,7 +21,15 @@ import Header from '@/components/Header.vue'
       }
     },
     mounted() {
-
+      this.$store.dispatch('isLogin')
+      .then((res) => {
+        if (!res) {
+          this.$router.push('/login')
+        }
+      })
+      .catch(() => {
+        this.$router.push('/')
+      })
     }
   }
 </script>

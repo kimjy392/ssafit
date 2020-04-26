@@ -36,12 +36,7 @@
       }
     },
     mounted() {
-      // if (localStorage.getItem('reloaded')) {
-      //   localStorage.removeItem('reloaded');
-      // } else {
-      //   localStorage.setItem('reloaded', '1');
-      //   location.reload();
-      // }
+      this.$store.dispatch('isLogin')
       axios.get('http://i02b104.p.ssafy.io:8197/ssafyvue/api/' + 'stretching')
         .then(response => {
           this.videoList = response.data
