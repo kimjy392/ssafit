@@ -2,10 +2,8 @@
   <div>
     <Header></Header>
     <div>
-      <!-- <h1>Score: {{ score }} {{ spaceFlag }} 123123123123123</h1> -->
-      <!-- background music -->
       <div>
-        <audio controls autoplay>
+        <audio autoplay>
           <source src="../assets/backgroundMusic.mp3" type="audio/mpeg">
         </audio>
         <audio id="excellentAudio" crossOrigin="anonymous" loop>
@@ -19,7 +17,7 @@
         </audio>
       </div>
     </div>
-    <v-img class="animated mx-auto" width="500" height="200" :class="classeffect" :src="getEffectImg"></v-img>
+    <v-img class="animated mx-auto" width="500" :class="classeffect" :src="getEffectImg"></v-img>
     <v-card id="videoBox" class="mx-auto">
       <div id="videoContainer"></div>
     </v-card>
@@ -33,8 +31,42 @@
         스페이스바를 누르면 멈춥니다!
       </v-btn>
     </div>
-    <h1> excellentCnt: {{ results['excellentCnt'] }} greatCnt: {{ results['greatCnt'] }} goodCnt:
-      {{ results['goodCnt'] }} badCnt: {{ results['badCnt'] }}</h1>
+    <v-dialog elevation-0 v-model="resultModal">
+      <div>
+        <v-card
+        class="mx-auto"
+        width="90vw"
+        height="90vh"
+        color="rgba(0, 0, 0, 0.7)"
+        outlined
+        >
+        <div style="text-align: center;">
+          <div>
+            <h1 class="scoreLine">결과</h1>
+          </div>
+          <div>
+            <img class="scoreLine" src="@/assets/Excellent.png" alt="Excellent">
+            <h1 class="scoreLine">{{ results['excellentCnt'] }} pt</h1>
+          </div>
+          <div>
+            <img class="scoreLine" src="@/assets/Great.png" alt="Great">
+            <h1 class="scoreLine">{{ results['greatCnt'] }} pt</h1>
+          </div>
+          <div>
+            <img class="scoreLine" src="@/assets/Good.png" alt="Good">
+            <h1 class="scoreLine">{{ results['goodCnt'] }} pt</h1>
+          </div>
+          <div>
+            <img class="scoreLine" src="@/assets/Bad.png" alt="Bad">
+            <h1 class="scoreLine">{{ results['badCnt'] }} pt</h1>
+          </div>
+          <v-btn class="scoreLine" @click="moveNext">다음영상</v-btn>
+          <v-btn class="scoreLine" @click="moveMain">종료하기</v-btn>
+        </div>
+        </v-card>
+      </div>
+    </v-dialog>
+    <!-- <h1> {{ cosineSimilarity }} </h1> -->
   </div>
 </template>
 
@@ -61,8 +93,6 @@
         greatThresh: 100,
         goodThresh: 100,
         score: 'Hmm...',
-        questionMark: 'far fa-question-circle',
-        dialog: false,
         effectimg: 'Bad.png',
         iseffect: true,
         iseffect2: false,
@@ -75,7 +105,9 @@
           'greatCnt': 0,
           'goodCnt': 0,
           'badCnt': 0,
-        }
+        },
+        resultModal: false,
+        nextURL: '',
       };
     },
     methods: {
@@ -85,6 +117,10 @@
       everySecondTrigger() {
         this.$nextTick(function () {
           window.setInterval(() => {
+            if (window.done) {
+              this.resultModal = true;
+              window.playFlag = false;
+            }
             this.cam_poses = window.cam_poses
             this.video_poses = window.poses
             try {
@@ -175,6 +211,13 @@
           }
         }
       },
+      moveNext() {
+        // this.$router.push(window.next)
+        window.location = 'http://localhost:8080' + window.next  
+      },
+      moveMain() {
+        window.location = 'http://localhost:8080/main/'
+      }
     },
     mounted() {
       this.excellentAudio = document.getElementById("excellentAudio");
@@ -213,9 +256,15 @@
     background-color: yellow;
     display: inline-block;
   }
-
   #videoBox {
     width: 1300px;
     text-align: center;
+  }
+  .scoreLine {
+    display: inline;
+    max-height: 10vh;
+    font-family: 'Audiowide', cursive;
+    font-size: 5em;
+    color: white;
   }
 </style>
