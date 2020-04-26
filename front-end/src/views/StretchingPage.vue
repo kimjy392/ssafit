@@ -32,6 +32,9 @@
       </v-btn>
     </div>
     <h1> {{ cosineSimilarity }} </h1>
+    <audio controls autoplay>
+      <source src="../assets/backgroundMusic.mp3" type="audio/mpeg">
+    </audio>
   </div>
 </template>
 
