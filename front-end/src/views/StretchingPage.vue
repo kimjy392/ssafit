@@ -1,25 +1,6 @@
 <template>
   <div>
     <Header></Header>
-    <div class="ml-auto mr-12" style="width: 3em;">
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn 
-            icon x-large color="#ff7235" 
-            v-on='on' 
-            v-on:mouseover='mouseover' 
-            v-on:mouseleave="mouseleave"
-            @click.stop="dialog = true"
-          >
-            <v-icon id="helpIcon">{{ questionMark }}</v-icon>
-          </v-btn>
-        </template>
-        <span>도움말</span>
-      </v-tooltip>
-    </div>
-    <v-dialog elevation-0 v-model="dialog" max-width="70vw">
-      <HelpCard></HelpCard>
-    </v-dialog>
     <h1>Score: {{ score }}</h1>
     <v-card id="vidioBox" class="mx-auto">
       <div id="videoContainer"></div>
@@ -46,13 +27,11 @@
   import {
     poseSimilarity
   } from 'posenet-similarity';
-  import HelpCard from '@/components/items/HelpCard.vue'
 
   export default {
     name: "Stretching",
     components: {
       Header,
-      HelpCard,
     },
     data() {
       return {
@@ -63,8 +42,6 @@
         greatThresh: 100,
         goodThresh: 100,
         score: 'Hmm...',
-        questionMark: 'far fa-question-circle',
-        dialog: false,
       };
     },
     methods: {
@@ -110,12 +87,6 @@
             console.log(err)
           })
       },
-      mouseover() {
-        this.questionMark = 'fas fa-question-circle'
-      },
-      mouseleave() {
-        this.questionMark = 'far fa-question-circle'
-      }
     },
     mounted() {
       if (localStorage.getItem('reloaded')) {
@@ -139,11 +110,5 @@
   #vidioBox {
     width: 1300px;
     text-align: center;
-  }
-  #helpIcon {
-    font-size: 3em;
-  }
-  .v-dialog {
-    box-shadow: none !important;
   }
 </style>
