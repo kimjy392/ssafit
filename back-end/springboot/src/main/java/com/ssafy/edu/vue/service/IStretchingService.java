@@ -7,6 +7,7 @@ import com.ssafy.edu.vue.dto.Part;
 import com.ssafy.edu.vue.dto.Result;
 import com.ssafy.edu.vue.dto.Test;
 import com.ssafy.edu.vue.dto.Video;
+import com.ssafy.edu.vue.dto.VideoPoint;
 
 public interface IStretchingService {
 
@@ -33,5 +34,7 @@ public interface IStretchingService {
 	List<Integer> getVideoList();
 
 	int getStretchingAllCnt(int video_id);
+
+	VideoPoint getVideoPoint(int video_id);
 
 }
