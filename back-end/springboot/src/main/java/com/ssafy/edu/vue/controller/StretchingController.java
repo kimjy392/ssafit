@@ -136,16 +136,16 @@ public class StretchingController {
 		logger.info("1-------------intro-----------------------------" + new Date());
 		Map<String, Object> resultMap = new HashMap<>();
 		
-		int today_cnt = stretchingservice.getStretchingCnt();
-		int today_mem = stretchingservice.getStretchingMem();
+		int total_cnt = stretchingservice.getStretchingCnt();
+		int total_users = stretchingservice.getStretchingMem();
 		List<Integer> video = stretchingservice.getVideoList();
 		int total_time = 0;
 		for (int i = 0; i < video.size(); i++) {
 			total_time += stretchingservice.getStretchingTime(video.get(i)) * stretchingservice.getStretchingAllCnt(video.get(i));
 		}
 		
-		resultMap.put("today_cnt", today_cnt);
-		resultMap.put("today_mem", today_mem);
+		resultMap.put("total_cnt", total_cnt);
+		resultMap.put("total_users", total_users);
 		resultMap.put("total_time", total_time);
 		
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);

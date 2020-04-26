@@ -63,9 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getStretchingMem"
 		resultType="java.lang.Integer">
-		select count(*) 
-		from (select distinct member_id from result 
-		where left(datetime,10)=left(now(),10)) today_member
+		select count(*) from members
 	</select>
 	
 	<select id="getStretchingTime"
