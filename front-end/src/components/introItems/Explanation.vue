@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <h2 class="display-3 font-weight-bold mb-3 white--text">How to use?</h2>
-    <div class="py-12"></div>
-    <HelpCard></HelpCard>
+    <div class="py-3"></div>
+    <HelpCard class="mx-auto"></HelpCard>
   </v-container>
 </template>
 
