@@ -39,7 +39,7 @@
       <div class="py-12"></div>
       <Explanation></Explanation>
       <div class="py-12"></div>
-      <Statistic></Statistic>
+      <Statistic :statistic="statistic"></Statistic>
       <div class="py-12"></div>
       <Recommendation></Recommendation>
   </div>
@@ -63,7 +63,8 @@ export default {
   },
   data() {
 		return {
-      path: '/login'
+      path: '/login',
+      statistic: {}
 		}
   },
   methods: {
@@ -71,12 +72,16 @@ export default {
       axios.get('http://i02b104.p.ssafy.io:8197/ssafyvue/api/intro/')
       .then((res) => {
         console.log(res)
+        this.statistic = res.data
+      })
+      .catch(() => {
+        console.log('통계자료 요청 못받았어요!!')
       })
     }
   },
   mounted() {
-    this.$store.dispatch('isLogin', true)
     this.getStatistics()
+    this.$store.dispatch('isLogin', true)
   }
 }
 </script>
