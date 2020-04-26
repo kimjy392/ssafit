@@ -70,6 +70,7 @@
 			}
 		},
 		mounted() {
+			this.$store.dispatch('isLogin')
 			this.timer();
 			this.getVideo()
 			this.everySecondTrigger();
