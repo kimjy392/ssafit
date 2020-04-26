@@ -1,20 +1,22 @@
 <template>
   <div>
     <Header></Header>
-    <v-tooltip bottom>
-      <template v-slot:activator="{ on }">
-        <v-btn 
-          icon x-large color="#ff7235" 
-          v-on='on' 
-          v-on:mouseover='mouseover' 
-          v-on:mouseleave="mouseleave"
-          @click.stop="dialog = true"
-        >
-          <v-icon id="helpIcon">{{ questionMark }}</v-icon>
-        </v-btn>
-      </template>
-      <span>도움말</span>
-    </v-tooltip>
+    <div class="ml-auto mr-12" style="width: 3em;">
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn 
+            icon x-large color="#ff7235" 
+            v-on='on' 
+            v-on:mouseover='mouseover' 
+            v-on:mouseleave="mouseleave"
+            @click.stop="dialog = true"
+          >
+            <v-icon id="helpIcon">{{ questionMark }}</v-icon>
+          </v-btn>
+        </template>
+        <span>도움말</span>
+      </v-tooltip>
+    </div>
     <v-dialog elevation-0 v-model="dialog" max-width="70vw">
       <HelpCard></HelpCard>
     </v-dialog>
@@ -23,6 +25,12 @@
       <div id="videoContainer"></div>
     </v-card>
     <div class='sketch' id="sketch"></div>
+    <div class="my-6"></div>
+    <div style="text-align: center">
+      <v-btn x-large color="#ff7235">
+        시작하려면 스페이스바를 누르세요
+      </v-btn>
+    </div>
     <h1> {{ cosineSimilarity }} </h1>
   </div>
 </template>

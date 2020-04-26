@@ -2,22 +2,15 @@
   <v-container fill-height>
     <v-row class="mx-auto">
       <v-col
-        v-for="[value, title] of stats"
+        v-for="[title, value] of stats"
         :key="title"
         cols="12"
-        md="3"
+        md="4"
       >
-        <div class="text-center">
-          <div
-            class="display-3 font-weight-black mb-4"
-            v-text="value"
-          ></div>
-
-          <div
-            class="title font-weight-regular text-uppercase"
-            v-text="title"
-          ></div>
-        </div>
+      <p class="display-1 font-weight-light text-center white--text">{{title}}</p>
+        <v-card raised color="#FF7033" width="60%" class="mx-auto d-flex justify-center align-center" evelvaion="14" min-height="10vh">
+          <span class="white--text display-1 font-weight-black">{{value}}</span>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -28,12 +21,20 @@ export default {
   name: 'Statistic',
   data() {
     return {
-      stats: [
-          ['24k', 'Github Stars'],
-          ['330+', 'Releases'],
-          ['1m', 'Downloads/mo'],
-          ['5m', 'Total Downloads'],
-        ],
+    }
+  },
+  props: {
+    statistic : {
+      type : Object
+    }
+  },
+  computed: {
+    stats() {
+      return [
+          ['TOTAL', this.statistic.today_cnt],
+          ['TODAY', this.statistic.today_mem],
+          ['TOTAL TIME', this.statistic.total_time],
+        ]
     }
   }
 }
