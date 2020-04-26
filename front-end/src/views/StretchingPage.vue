@@ -2,10 +2,8 @@
   <div>
     <Header></Header>
     <div>
-      <!-- <h1>Score: {{ score }} {{ spaceFlag }} 123123123123123</h1> -->
-      <!-- background music -->
       <div>
-        <audio controls autoplay>
+        <audio autoplay>
           <source src="../assets/backgroundMusic.mp3" type="audio/mpeg">
         </audio>
         <audio id="excellentAudio" crossOrigin="anonymous" loop>
@@ -258,7 +256,6 @@
     background-color: yellow;
     display: inline-block;
   }
-
   #videoBox {
     width: 1300px;
     text-align: center;
