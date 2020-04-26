@@ -112,7 +112,7 @@ export default {
     margin-left: auto;
   }
   #up-arrow {
-    font-size: 3em !important;
+    font-size: 3.5em !important;
     color: rgb(120, 138, 250);
   }
   #down-button {
@@ -125,7 +125,7 @@ export default {
     margin-left: auto;
   }
   #down-arrow {
-    font-size: 3em !important;
+    font-size: 3.5em !important;
     color: rgb(120, 138, 250);
   }
   #control > hr {
