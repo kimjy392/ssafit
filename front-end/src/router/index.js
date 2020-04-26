@@ -4,7 +4,7 @@ import Login from '@/views/LoginPage.vue'
 import Intro from '@/views/IntroPage.vue'
 import Main from '@/views/MainPage.vue'
 import UserInfo from '@/views/UserInfoPage.vue'
-import Detail from '@/views/DetailPage.vue'
+import Stretching from '@/views/StretchingPage.vue'
 import Result from '@/views/ResultPage.vue'
 
 Vue.use(VueRouter)
@@ -31,8 +31,8 @@ Vue.use(VueRouter)
   },
   {
     path: '/detail/:id',
-    name: 'Detail',
-    component: Detail
+    name: 'Stretching',
+    component: Stretching
   },
   {
     path: '/result',
