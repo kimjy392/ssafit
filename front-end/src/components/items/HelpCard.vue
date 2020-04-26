@@ -4,19 +4,19 @@
       id="control"
       class="mx-auto"
     >
-      <v-btn @click="previousSlide" id="up-button">
-        <v-icon id="up-arrow">
+      <v-btn @click="previousSlide" id="up-button" v-on:mouseover="upmouseover" v-on:mouseleave="upmouseleave">
+        <v-icon id="up-arrow" :color="upArrowColor">
           expand_less
         </v-icon>
       </v-btn>
       <hr>
-      <v-btn @click="nextSlide" icon id="down-button">
-        <v-icon id="down-arrow">
+      <v-btn @click="nextSlide" icon id="down-button" v-on:mouseover="downmouseover" v-on:mouseleave="downmouseleave">
+        <v-icon id="down-arrow" :color="downArrowColor">
           expand_more
         </v-icon>
       </v-btn>
       <div id="page_block">
-        <p class="my-3" id="page_number">0{{ page }}  /  05</p>
+        <p class="my-3" id="page_number">0{{ page }}  /  02</p>
       </div>
     </v-card>
     <v-card
@@ -25,10 +25,7 @@
     >
      <div id="slider">
        <div class="slider_item showing"><img width="100%" height="100%" src="@/assets/help_1.png" alt=""></div>
-       <div class="slider_item"><p>2</p></div>
-       <div class="slider_item"><p>3</p></div>
-       <div class="slider_item"><p>4</p></div>
-       <div class="slider_item"><p>5</p></div>
+       <div class="slider_item"><img width="100%" height="100%" src="@/assets/help_2.png" alt=""></div>
      </div>
     </v-card>
   </div>
@@ -43,6 +40,8 @@ export default {
         firstSlide: '',
         lastSlide: '',
         page: 1,
+        upArrowColor: '#788afa',
+        downArrowColor: '#788afa',
       }
     },
     methods: {
@@ -73,6 +72,18 @@ export default {
           this.lastSlide.classList.add(this.SHOWING_CLASS);
           this.page = 5;
         }
+      },
+      upmouseover() {
+        this.upArrowColor = '#FF7033'
+      },
+      upmouseleave() {
+        this.upArrowColor = '#788afa'
+      },
+      downmouseover() {
+        this.downArrowColor = '#FF7033'
+      },
+      downmouseleave() {
+        this.downArrowColor = '#788afa'
       }
     },
     mounted() {
@@ -88,7 +99,7 @@ export default {
     width: 60vw;
     text-align: right;
     position:relative;
-    border-radius: 20px 20px;
+    border-radius: 20px;
     border: 5px solid rgb(45, 67, 189);
     background-color: rgb(51, 71, 194);
     top: 15vh;
@@ -98,7 +109,8 @@ export default {
     height: 60vh;
     width: 60vw;
     position:relative;
-    border-radius: 20px 20px;
+    border: 5px solid white;
+    border-radius: 25px;
     top: -55vh;
     left: -5vw;
   }
@@ -113,7 +125,6 @@ export default {
   }
   #up-arrow {
     font-size: 3.5em !important;
-    color: rgb(120, 138, 250);
   }
   #down-button {
     display: block;
@@ -126,7 +137,6 @@ export default {
   }
   #down-arrow {
     font-size: 3.5em !important;
-    color: rgb(120, 138, 250);
   }
   #control > hr {
     width: 10vw;
