@@ -203,7 +203,6 @@
     },
     destroyed() {
       location.reload();
-      e
     }
   }
 </script>
