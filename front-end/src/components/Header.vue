@@ -7,7 +7,7 @@
     height="100">
     <v-toolbar-title>
       <router-link to="/">
-        <v-img contain width="200px" src="../assets/logo_test.png"></v-img>
+        <v-img contain width="200px" height="55px" src="../assets/logo_test.png"></v-img>
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
