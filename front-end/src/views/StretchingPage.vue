@@ -1,26 +1,24 @@
 <template>
   <div>
     <Header></Header>
-    <div class="ml-auto mr-12" style="width: 3em;">
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn 
-            icon x-large color="#ff7235" 
-            v-on='on' 
-            v-on:mouseover='mouseover' 
-            v-on:mouseleave="mouseleave"
-            @click.stop="dialog = true"
-          >
-            <v-icon id="helpIcon">{{ questionMark }}</v-icon>
-          </v-btn>
-        </template>
-        <span>도움말</span>
-      </v-tooltip>
+    <div>
+      <!-- <h1>Score: {{ score }} {{ spaceFlag }} 123123123123123</h1> -->
+      <!-- background music -->
+      <div>
+        <audio autoplay>
+          <source src="../assets/backgroundMusic.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="excellentAudio" crossOrigin="anonymous" loop>
+          <source src="../assets/excellent.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="greatAudio" crossOrigin="anonymous" loop>
+          <source src="../assets/great.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="goodAudio" crossOrigin="anonymous" loop>
+          <source src="../assets/good.mp3" type="audio/mpeg">
+        </audio>
+      </div>
     </div>
-    <v-dialog elevation-0 v-model="dialog" max-width="70vw">
-      <HelpCard></HelpCard>
-    </v-dialog>
-    <h1>Score: {{ score }}</h1>
     <v-img class="animated mx-auto" width="500" height="200" :class="classeffect" :src="getEffectImg"></v-img>
     <v-card id="vidioBox" class="mx-auto">
       <div id="videoContainer"></div>
@@ -28,14 +26,14 @@
     <div class='sketch' id="sketch"></div>
     <div class="my-6"></div>
     <div style="text-align: center">
-      <v-btn x-large color="#ff7235">
-        시작하려면 스페이스바를 누르세요
+      <v-btn v-if="spaceFlag" id="spacebar" x-large color="#ff7235">
+        스페이스바를 누르면 시작합니다!
+      </v-btn>
+      <v-btn v-if="!spaceFlag" id="spacebar" x-large color="#FF8C00">
+        스페이스바를 누르면 멈춥니다!
       </v-btn>
     </div>
-    <h1> {{ cosineSimilarity }} </h1>
-    <audio controls autoplay>
-      <source src="../assets/backgroundMusic.mp3" type="audio/mpeg">
-    </audio>
+    <!-- <h1> {{ cosineSimilarity }} </h1> -->
   </div>
 </template>
 
@@ -47,13 +45,11 @@
   import {
     poseSimilarity
   } from 'posenet-similarity';
-  import HelpCard from '@/components/items/HelpCard.vue'
 
   export default {
     name: "Stretching",
     components: {
       Header,
-      HelpCard,
     },
     data() {
       return {
@@ -68,7 +64,11 @@
         dialog: false,
         effectimg: 'Bad.png',
         iseffect : true,
-        iseffect2 : false
+        iseffect2 : false,
+        excellentAudio: null,
+        greatAudio: null,
+        goodAudio: null,
+        spaceFlag: true,
       };
     },
     methods: {
@@ -87,21 +87,38 @@
               this.iseffect = !this.iseffect
               this.iseffect2 = !this.iseffect2
               window.cosineSimilarity = this.cosineSimilarity
-              if (this.cosineSimilarity >= this.excellentThresh * 0.01) {
-                this.score = 'Excellent'
-                this.effectimg = 'Excellent.png'
-              } else if (this.cosineSimilarity >= this.greatThresh * 0.01) {
-                this.score = 'Great'
-                this.effectimg = 'Great.png'
-              } else if (this.cosineSimilarity >= this.goodThresh * 0.01) {
-                this.score = 'Good'
-                this.effectimg = 'Good.png'
-              } else {
-                this.score = 'Hmm...'
-                this.effectimg = 'Bad.png'
+              if (window.playFlag === true) {
+                if (this.cosineSimilarity >= this.excellentThresh * 0.01) {
+                  this.score = 'Excellent'
+                  this.excellentAudio.play();
+                  this.greatAudio.pause();
+                  this.goodAudio.pause();
+                  this.effectimg = 'Excellent.png'
+                } else if (this.cosineSimilarity >= this.greatThresh * 0.01) {
+                  this.score = 'Great'
+                  this.greatAudio.play()
+                  this.excellentAudio.pause();
+                  this.goodAudio.pause();
+                  this.effectimg = 'Great.png'
+                } else if (this.cosineSimilarity >= this.goodThresh * 0.01) {
+                  this.score = 'Good'
+                  this.goodAudio.play();
+                  this.greatAudio.pause();
+                  this.excellentAudio.pause();
+                  this.effectimg = 'Good.png'
+                } else {
+                  this.score = 'Hmm...'
+                  this.greatAudio.pause();
+                  this.excellentAudio.pause();
+                  this.goodAudio.pause();
+                  this.effectimg = 'Bad.png'
+                }
               }
             } catch (err) {
               this.score = 'Hmm...'
+              this.greatAudio.pause();
+              this.excellentAudio.pause();
+              this.goodAudio.pause();
               this.effectimg = 'Bad.png'
             }
           }, 1000);
@@ -124,11 +141,19 @@
             console.log(err)
           })
       },
-      mouseover() {
-        this.questionMark = 'fas fa-question-circle'
-      },
-      mouseleave() {
-        this.questionMark = 'far fa-question-circle'
+      pressSpaceBar() {
+        var vm = this;
+        document.body.onkeyup = function (e) {
+          if (e.keyCode == 32) { // when press spacebar
+            if (window.playFlag == true) {
+              window.playFlag = false
+              vm.spaceFlag = true
+            } else {
+              window.playFlag = true
+              vm.spaceFlag = false
+            }
+          }
+        }
       },
     },
     mounted() {
@@ -138,7 +163,12 @@
         localStorage.setItem('reloaded', '1');
         location.reload();
       }
-      this.getVideo()
+      this.excellentAudio = document.getElementById("excellentAudio");
+      this.greatAudio = document.getElementById("greatAudio");
+      this.goodAudio = document.getElementById("goodAudio");
+
+      this.pressSpaceBar();
+      this.getVideo();
       this.everySecondTrigger();
     },
     computed: {
@@ -166,15 +196,9 @@
     background-color: yellow;
     display: inline-block;
   }
+
   #vidioBox {
     width: 1300px;
     text-align: center;
   }
-  #helpIcon {
-    font-size: 3em;
-  }
-  .v-dialog {
-    box-shadow: none !important;
-  }
-
 </style>

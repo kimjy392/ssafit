@@ -7,16 +7,6 @@ window.firstStopFlag = true;
 window.secondStopFlag = true;
 window.done = false;
 
-document.body.onkeyup = function(e){
-  if(e.keyCode == 32){    // when press spacebar
-      if( window.playFlag == true) {
-        window.playFlag = false
-      } else {
-        window.playFlag = true
-      }
-  }
-}
-
 function modelReady() {}
 
 export default async function (sketch) {
