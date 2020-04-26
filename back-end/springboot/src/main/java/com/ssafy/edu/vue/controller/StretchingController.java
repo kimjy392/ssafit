@@ -105,6 +105,7 @@ public class StretchingController {
 		resultMap.put("title", stretching.getTitle());
 		resultMap.put("file", stretching.getFile());
 		resultMap.put("description", stretching.getDescription());
+		resultMap.put("time", stretching.getTime());
 		resultMap.put("next", path);
 		resultMap.put("first_stop", point.getFirst_stop());
 		resultMap.put("second_stop", point.getSecond_stop());

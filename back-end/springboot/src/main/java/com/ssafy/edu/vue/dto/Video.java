@@ -20,13 +20,16 @@ public class Video implements Serializable {
 	private String thumbnail;
 	private String description;
 	private List<String> part;
+	private int time;
 	
 	public Video() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Video(int video_id, String title, String file, String thumbnail, String description, List<String> part) {
+
+	public Video(int video_id, String title, String file, String thumbnail, String description, List<String> part,
+			int time) {
 		super();
 		this.video_id = video_id;
 		this.title = title;
@@ -34,6 +37,17 @@ public class Video implements Serializable {
 		this.thumbnail = thumbnail;
 		this.description = description;
 		this.part = part;
+		this.time = time;
+	}
+
+	public Video(int video_id, String title, String file, String thumbnail, String description, int time) {
+		super();
+		this.video_id = video_id;
+		this.title = title;
+		this.file = file;
+		this.thumbnail = thumbnail;
+		this.description = description;
+		this.time = time;
 	}
 
 	public Video(int video_id, String title, String file, String thumbnail, String description) {
@@ -91,6 +105,14 @@ public class Video implements Serializable {
 
 	public void setPart(List<String> part) {
 		this.part = part;
+	}
+	
+	public int getTime() {
+		return time;
+	}
+
+	public void setTime(int time) {
+		this.time = time;
 	}
 
 	public static long getSerialversionuid() {

@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="getVideoPath"
 		resultType="com.ssafy.edu.vue.dto.Video">
-		select video_id, title, file, description
+		select video_id, title, file, description, time
 		from video
 		where video_id=#{video_id}
 	</select>
@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getPartVideoList"
 		parameterType="java.lang.Integer"
 		resultType="com.ssafy.edu.vue.dto.Video">
-		select v.video_id, title, file, thumbnail 
+		select v.video_id video_id, title, file, thumbnail 
 		from video v, stretching s 
 		where part_id=#{part_id} and v.video_id = s.video_id
 	</select>
