@@ -63,7 +63,7 @@
 						document.getElementById("countdown").innerHTML = "Started!!!";
 					} else {
 						document.getElementById("countdown").innerHTML = 'Coaching will start within ' + timeleft +
-							" seconds remaining";
+							" seconds";
 					}
 					timeleft -= 1;
 				}, 1000);

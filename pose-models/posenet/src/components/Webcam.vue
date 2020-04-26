@@ -34,7 +34,7 @@ import { poseSimilarity } from 'posenet-similarity';
 				capturePoses: capturePoses,
 				videoPoses: videoPoses,
 				weightedDistance: 0,
-				cosineDistance: 0,
+				cosineDistance: 0, 
 				cosineSimilarity: 0,
 			}
 		},

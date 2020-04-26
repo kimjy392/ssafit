@@ -7,10 +7,7 @@
         <v-row align="center" justify="center" style="height: 100%; width:100%;">
             <div>
               <div class="display-3 white--text mb-3">
-                SSAFY PROJECT
-              </div>
-              <div class="white--text">
-                test
+                <img src="@/assets/turtle_test.gif" alt="turtle" style="height: 100%">
               </div>
             </div>
         </v-row>
@@ -92,7 +89,7 @@ export default {
 
 <style>
 .background {  
-  background-color: #2d8cff;
+  background-color: #556AE9;
   /* background: linear-gradient(to left, #2d8cff, red ); */
 }
 

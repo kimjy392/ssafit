@@ -65,13 +65,11 @@
     methods: {
       moveDetail(video_id) {
         this.$router.push({
-
-            name: 'Detail',
+            name: 'Stretching',
             params: {
               id: video_id
             }
           }
-
         )
       }
 
