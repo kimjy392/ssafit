@@ -3,7 +3,7 @@
         <div class="py-12"></div>
 
         <v-container>
-          <h2 class="display-2 font-weight-bold mb-3 text-uppercase text-center">Blog</h2>
+          <h2 class="display-2 font-weight-bold mb-3 text-uppercase text-center white--text">Recommendation Video</h2>
 
           <v-responsive
             class="mx-auto mb-12"
@@ -16,34 +16,27 @@
 
           <v-row>
             <v-col
-              v-for="({ src, text, title }, i) in articles"
+              v-for="({ src, text, title, link }, i) in articles"
               :key="i"
               cols="12"
               md="4"
-            >
+            ><a :href="link" target="_blank">
               <v-img
-                :src="src"
+                :src="require('@/assets/' + src)"
                 class="mb-4"
                 height="275"
                 max-width="100%"
               ></v-img>
-
-              <h3
-                class="font-weight-black mb-4 text-uppercase"
+            </a>
+              <h2
+                class="font-weight-black mb-4 text-uppercase white--text"
                 v-text="title"
-              ></h3>
+              ></h2>
 
               <div
-                class="title font-weight-light mb-5"
+                class="title font-weight-light mb-5 white--text"
                 v-text="text"
               ></div>
-
-              <v-btn
-                class="ml-n4 font-weight-black"
-                text
-              >
-                Continue Reading
-              </v-btn>
             </v-col>
           </v-row>
         </v-container>
@@ -59,19 +52,22 @@ export default {
     return {
       articles: [
           {
-            src: 'https://images.unsplash.com/photo-1423784346385-c1d4dac9893a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
-            title: 'Mobile first & Responsive',
-            text: 'Phasellus lorem enim, luctus ut velit eget, convallis egestas eros. Sed ornare ligula eget tortor tempor, quis porta tellus dictum.',
+            src: 'thumbnail1.jpg',
+            title: '거북목 꿀팁',
+            text: '거북목이 하면 좋은 20초 마약 마사지',
+            link: 'https://www.youtube.com/watch?v=5g9tnM10Plc'
           },
           {
-            src: 'https://images.unsplash.com/photo-1475938476802-32a7e851dad1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
-            title: 'Think outside the box',
-            text: 'Nam ut leo ipsum. Maecenas pretium aliquam feugiat. Aenean vel tempor est, vitae tincidunt risus. Sed sodales vestibulum nibh.',
+            src: 'thumbnail2.jpg',
+            title: '인생의 틀을 깬 재키인생!',
+            text: '이달의 JMG, 재키마스터 킹브로/최호근',
+            link: 'https://edu.ssafy.com/comm/login/SecurityLoginForm.do'
           },
           {
-            src: 'https://images.unsplash.com/photo-1416339442236-8ceb164046f8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1892&q=80',
-            title: 'Small changes, big difference',
-            text: 'Vestibulum in dictum velit, in rhoncus nibh. Maecenas neque libero, interdum a dignissim in, aliquet vitae lectus. Phasellus lorem enim, luctus ut velit eget.',
+            src: 'thumbnail3.jpg',
+            title: '거북목? 딱 15초만 투자하자!',
+            text: '피지컬갤러리의 빡빡이 아저씨가 알려주는 거북목 방지 스트레칭',
+            link: 'https://www.youtube.com/watch?v=qmP-fOevW1s'
           },
         ],
     }
