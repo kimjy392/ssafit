@@ -28,16 +28,13 @@ const actions = {
         router.push('/')
     },
     
-    isLogin({commit}, payload=false) {
+    isLogin({commit}) {
       console.log(sessionStorage.getItem('vue-session-key'))
       if (sessionStorage.getItem('vue-session-key')) {
         const jwt = JSON.parse(sessionStorage.getItem('vue-session-key')).jwt
         if (!jwt) {
           console.log('로그인하세요')
-          if (!payload) {
-            router.push('/login')
-            return
-          }
+          return false
         }
         else {
           console.log('로그인되어있어요')
@@ -51,17 +48,11 @@ const actions = {
             }
           }
           commit('setToken', userdata)
-          if (payload) {
-            router.push('/main')
-          }
-          return
+          return true
         }
       }
       else {
-        if (!payload) {
-          router.push('/login')
-          return
-        }
+        return false
       }
     }
 }

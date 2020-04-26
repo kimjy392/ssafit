@@ -24,7 +24,7 @@
       class="mx-auto"
     >
      <div id="slider">
-       <div class="slider_item showing"><p>1</p></div>
+       <div class="slider_item showing"><img width="100%" height="100%" src="@/assets/help_1.png" alt=""></div>
        <div class="slider_item"><p>2</p></div>
        <div class="slider_item"><p>3</p></div>
        <div class="slider_item"><p>4</p></div>
@@ -171,5 +171,8 @@ export default {
     width: 10vw;
     text-align: center;
     margin-left: auto;
+  }
+  #slider > div > img {
+    border-radius: 20px;
   }
 </style>

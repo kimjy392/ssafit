@@ -28,7 +28,7 @@
     name: 'Main',
     components: {
       Header,
-      VideoList
+      VideoList,
     },
     data() {
       return {
