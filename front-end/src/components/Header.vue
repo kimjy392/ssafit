@@ -7,10 +7,14 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <div class="headerDiv px-10 d-none d-lg-flex">
-      <a class="headerLink" @click="$vuetify.goTo('#Effect')" style="color: white;">BENEFITS</a>
-			<a class="headerLink" @click="$vuetify.goTo('#Explanation')" style="color: white;">HOW TO USE</a>
-			<a class="headerLink" @click="$vuetify.goTo('#Statistic')" href="#" style="color: white;">STATISTICS</a>
-      <a class="headerLink" @click="$vuetify.goTo('#Recommendation')" href="#" style="color: white;">RECOMMEND</a>
+      <router-link to="/" @click.native="$vuetify.goTo('#Effect')" class="headerLink" style="color: white;">BENEFITS</router-link>
+      <router-link to="/" @click.native="$vuetify.goTo('#Explanation')" class="headerLink" style="color: white;">HOW TO USE</router-link>
+      <router-link to="/" @click.native="$vuetify.goTo('#Statistic')" class="headerLink" style="color: white;">STATISTICS</router-link>
+      <router-link to="/" @click.native="$vuetify.goTo('#Recommendation')" class="headerLink" style="color: white;">RECOMMEND</router-link>
+      <!-- <a class="headerLink" @click="$vuetify.goTo('#Effect')" style="color: white;">BENEFITS</a> -->
+			<!-- <a class="headerLink" @click="$vuetify.goTo('#Explanation')" style="color: white;">HOW TO USE</a> -->
+			<!-- <a class="headerLink" @click="$vuetify.goTo('#Statistic')" href="#" style="color: white;">STATISTICS</a> -->
+      <!-- <a class="headerLink" @click="$vuetify.goTo('#Recommendation')" href="#" style="color: white;">RECOMMEND</a> -->
     </div>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
