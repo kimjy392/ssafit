@@ -40,34 +40,56 @@
     <h1 v-if="haveToDisplay" style="text-align:center">{{ stopSeconds }}초뒤 멈춤포인트가 등장합니다!</h1>
     <v-dialog elevation-0 v-model="resultModal">
       <div>
-        <v-card class="mx-auto" width="90vw" height="90vh" color="rgba(0, 0, 0, 0.7)" outlined>
-          <div style="text-align: center;">
-            <div>
-              <h1 class="scoreLine">결과</h1>
-            </div>
-            <div>
-              <img class="scoreLine" src="@/assets/Excellent.png" alt="Excellent">
-              <h1 class="scoreLine">{{ results['excellentCnt'] }} pt</h1>
-            </div>
-            <div>
-              <img class="scoreLine" src="@/assets/Great.png" alt="Great">
-              <h1 class="scoreLine">{{ results['greatCnt'] }} pt</h1>
-            </div>
-            <div>
-              <img class="scoreLine" src="@/assets/Good.png" alt="Good">
-              <h1 class="scoreLine">{{ results['goodCnt'] }} pt</h1>
-            </div>
-            <div>
-              <img class="scoreLine" src="@/assets/Bad.png" alt="Bad">
-              <h1 class="scoreLine">{{ results['badCnt'] }} pt</h1>
-            </div>
-            <v-btn class="scoreLine" @click="moveNext">다음영상</v-btn>
-            <v-btn class="scoreLine" @click="moveMain">종료하기</v-btn>
+        <v-card
+        class="mx-auto"
+        width="90vw"
+        height="90vh"
+        color="rgba(0, 0, 0, 0.7)"
+        outlined
+        >
+        <div class="container" style="text-align: center;">
+          <div class="my-12"></div>
+          <div class="scoreLine col-6"><img src="@/assets/Result.png" alt="Result"></div>
+          <div class="my-12"></div>
+          <div class="row">
+            <div class="scoreLine col-3"></div>
+            <div class="scoreLine col-3"><img src="@/assets/Excellent.png" alt="Excellent"></div>
+            <div class="scoreLine col-3">{{ results['excellentCnt'] }} pt</div>
           </div>
+          <div class="row">
+            
+            <div class="scoreLine col-3"></div>
+            <div class="scoreLine col-3"><img src="@/assets/Great.png" alt="Great"></div>
+            <div class="scoreLine col-3">{{ results['greatCnt'] }} pt</div>
+          </div>
+          <div class="row">
+            <div class="scoreLine col-3"></div>
+            <div class="scoreLine col-3"><img src="@/assets/Good.png" alt="Good"></div>
+            <div class="scoreLine col-3">{{ results['goodCnt'] }} pt</div>
+          </div>
+          <div class="row">
+            <div class="scoreLine col-3"></div>
+            <div class="scoreLine col-3"><img src="@/assets/Bad.png" alt="Bad"></div>
+            <div class="scoreLine col-3">{{ results['badCnt'] }} pt</div>
+          </div>
+          <div class="my-12"></div>
+          <v-progress-circular
+            :rotate="-90"
+            :size="100"
+            :width="15"
+            :value="timeValue"
+            color="white"
+            @click="moveNext"
+          >
+            <v-icon color="white">fas fa-play</v-icon>
+          </v-progress-circular>
+          <v-btn class="scoreLine col-6" @click="moveNext">다음영상</v-btn>
+          <v-btn class="scoreLine col-6" @click="moveMain">종료하기</v-btn>
+        </div>
         </v-card>
       </div>
     </v-dialog>
-    <!-- <h1> {{ cosineSimilarity }} </h1> -->
+    <!-- <div> {{ cosineSimilarity }} </div> -->
   </div>
 </template>
 
@@ -110,6 +132,8 @@
         },
         resultModal: false,
         nextURL: '',
+        timeValue: 0,
+        nextPlayInterval : {},
         started: false,
         stopSeconds: 3,
         haveToDisplay: false
@@ -121,10 +145,12 @@
       },
       everySecondTrigger() {
         this.$nextTick(function () {
-          window.setInterval(() => {
+          const a = window.setInterval(() => {
             if (window.done) {
               this.resultModal = true;
+              window.clearInterval(a);
               window.playFlag = false;
+              this.nextPlaySetInterval();
             }
             this.cam_poses = window.cam_poses
             this.video_poses = window.poses
@@ -260,6 +286,15 @@
       },
       moveMain() {
         window.location = 'http://localhost:8080/main/'
+      },
+      nextPlaySetInterval(){
+        this.nextPlayInterval = setInterval(() => {
+        if (this.timeValue === 100) {
+          window.location = 'http://localhost:8080' + window.next  
+          }
+          console.log(this.timeValue)
+          this.timeValue += 20
+        }, 1000)
       }
     },
     mounted() {
@@ -304,6 +339,9 @@
     },
     destroyed() {
       location.reload();
+    },
+    beforeDestroy() {
+      clearInterval(this.nextPlayInterval)
     }
   }
 </script>
