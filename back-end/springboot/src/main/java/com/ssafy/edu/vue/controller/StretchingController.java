@@ -79,7 +79,7 @@ public class StretchingController {
 		logger.info("1-------------detail-----------------------------" + new Date());
 		Map<String, Object> resultMap = new HashMap<>();
 		
-		Video stretching = stretchingservice.getVideoPath(video_id);
+		Video stretching = stretchingservice.getVideo(video_id);
 		List<Integer> video = stretchingservice.getVideoList();
 		VideoPoint point = stretchingservice.getVideoPoint(video_id);
 		
@@ -134,12 +134,12 @@ public class StretchingController {
 		logger.info("1-------------intro-----------------------------" + new Date());
 		Map<String, Object> resultMap = new HashMap<>();
 		
-		int total_cnt = stretchingservice.getStretchingCnt();
+		int total_cnt = stretchingservice.getTodayStretchingCnt();
 		int total_users = stretchingservice.getStretchingMem();
 		List<Integer> video = stretchingservice.getVideoList();
 		int total_time = 0;
 		for (int i = 0; i < video.size(); i++) {
-			total_time += stretchingservice.getStretchingTime(video.get(i)) * stretchingservice.getStretchingAllCnt(video.get(i));
+			total_time += stretchingservice.getStretchingTime(video.get(i)) * stretchingservice.getVideoStretchingCnt(video.get(i));
 		}
 		
 		resultMap.put("total_cnt", total_cnt);

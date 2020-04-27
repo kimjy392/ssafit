@@ -24,22 +24,8 @@ public class StretchingServiceImpl implements IStretchingService {
 
 	@Override
 	@Transactional(readOnly=true)
-	public Video getVideoPath(int video_id) {
-		return stretchingdao.getVideoPath(video_id);
-	}
-
-
-	@Override
-	@Transactional(readOnly=true)
-	public List<Part> getPartList() {
-		return stretchingdao.getPartList();
-	}
-
-
-	@Override
-	@Transactional(readOnly=true)
-	public List<Video> getPartVideoList(int part_id) {
-		return stretchingdao.getPartVideoList(part_id);
+	public Video getVideo(int video_id) {
+		return stretchingdao.getVideo(video_id);
 	}
 
 
@@ -66,8 +52,8 @@ public class StretchingServiceImpl implements IStretchingService {
 
 	@Override
 	@Transactional(readOnly=true)
-	public int getStretchingCnt() {
-		return stretchingdao.getStretchingCnt();
+	public int getTodayStretchingCnt() {
+		return stretchingdao.getTodayStretchingCnt();
 	}
 
 
@@ -94,8 +80,8 @@ public class StretchingServiceImpl implements IStretchingService {
 
 	@Override
 	@Transactional(readOnly=true)
-	public int getStretchingAllCnt(int video_id) {
-		return stretchingdao.getStretchingAllCnt(video_id);
+	public int getVideoStretchingCnt(int video_id) {
+		return stretchingdao.getVideoStretchingCnt(video_id);
 	}
 
 
