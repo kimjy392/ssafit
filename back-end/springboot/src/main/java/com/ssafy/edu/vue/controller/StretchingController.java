@@ -79,7 +79,7 @@ public class StretchingController {
 		logger.info("1-------------detail-----------------------------" + new Date());
 		Map<String, Object> resultMap = new HashMap<>();
 		
-		Video stretching = stretchingservice.getVideoPath(video_id);
+		Video stretching = stretchingservice.getVideo(video_id);
 		List<Integer> video = stretchingservice.getVideoList();
 		VideoPoint point = stretchingservice.getVideoPoint(video_id);
 		
@@ -105,6 +105,7 @@ public class StretchingController {
 		resultMap.put("title", stretching.getTitle());
 		resultMap.put("file", stretching.getFile());
 		resultMap.put("description", stretching.getDescription());
+		resultMap.put("time", stretching.getTime());
 		resultMap.put("next", path);
 		resultMap.put("first_stop", point.getFirst_stop());
 		resultMap.put("second_stop", point.getSecond_stop());
@@ -115,16 +116,14 @@ public class StretchingController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "스트레칭 결과 페이지", response = Result.class)
-	@RequestMapping(value = "/stretching/result", method = RequestMethod.GET)
+	@ApiOperation(value = "스트레칭 결과 페이지", response = Map.class)
+	@RequestMapping(value = "/stretching/result", method = RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> result(@RequestBody Result result) throws Exception {
 		logger.info("1-------------result-----------------------------" + new Date());
 		Map<String, Object> resultMap = new HashMap<>();
 		
-		float accuracy = stretchingservice.getBeforeAccuracy(result);
-		resultMap.put("accuracy", accuracy);
-		
 		stretchingservice.setResult(result);
+		resultMap.put("status", "ok");
 		
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
@@ -135,16 +134,16 @@ public class StretchingController {
 		logger.info("1-------------intro-----------------------------" + new Date());
 		Map<String, Object> resultMap = new HashMap<>();
 		
-		int today_cnt = stretchingservice.getStretchingCnt();
-		int today_mem = stretchingservice.getStretchingMem();
+		int total_cnt = stretchingservice.getTodayStretchingCnt();
+		int total_users = stretchingservice.getStretchingMem();
 		List<Integer> video = stretchingservice.getVideoList();
 		int total_time = 0;
 		for (int i = 0; i < video.size(); i++) {
-			total_time += stretchingservice.getStretchingTime(video.get(i)) * stretchingservice.getStretchingAllCnt(video.get(i));
+			total_time += stretchingservice.getStretchingTime(video.get(i)) * stretchingservice.getVideoStretchingCnt(video.get(i));
 		}
 		
-		resultMap.put("today_cnt", today_cnt);
-		resultMap.put("today_mem", today_mem);
+		resultMap.put("total_cnt", total_cnt);
+		resultMap.put("total_users", total_users);
 		resultMap.put("total_time", total_time);
 		
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);

@@ -11,21 +11,15 @@ import com.ssafy.edu.vue.dto.VideoPoint;
 
 public interface IStretchingService {
 
-	Video getVideoPath(int video_id);
-
-	List<Part> getPartList();
-
-	List<Video> getPartVideoList(int part_id);
+	Video getVideo(int video_id);
 
 	List<Video> getAllVideoList();
 
 	List<String> getVideoPart(int video_id);
 
-	float getBeforeAccuracy(Result result);
-
 	void setResult(Result result);
 
-	int getStretchingCnt();
+	int getTodayStretchingCnt();
 
 	int getStretchingMem();
 
@@ -33,7 +27,7 @@ public interface IStretchingService {
 
 	List<Integer> getVideoList();
 
-	int getStretchingAllCnt(int video_id);
+	int getVideoStretchingCnt(int video_id);
 
 	VideoPoint getVideoPoint(int video_id);
 
