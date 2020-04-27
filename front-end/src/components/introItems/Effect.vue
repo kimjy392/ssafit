@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h2 class="display-3 font-weight-bold mb-3 text-center white--text">STRETCH</h2>
+    <h2 class="display-3 font-weight-bold mb-3 text-center white--text">BENEFITS</h2>
 
     <v-responsive
       class="mx-auto mb-8"
