@@ -61,6 +61,16 @@
             <div class="scoreLine col-6">{{ results['badCnt'] }} pt</div>
           </div>
           <div class="my-12"></div>
+          <v-progress-circular
+            :rotate="-90"
+            :size="100"
+            :width="15"
+            :value="timeValue"
+            color="white"
+            @click="moveNext"
+          >
+            <v-icon color="white">fas fa-play</v-icon>
+          </v-progress-circular>
           <v-btn class="scoreLine col-6" @click="moveNext">다음영상</v-btn>
           <v-btn class="scoreLine col-6" @click="moveMain">종료하기</v-btn>
         </div>
@@ -107,8 +117,10 @@
           'goodCnt': 0,
           'badCnt': 0,
         },
-        resultModal: true,
+        resultModal: false,
         nextURL: '',
+        timeValue: 0,
+        nextPlayInterval : {}
       };
     },
     methods: {
@@ -117,10 +129,12 @@
       },
       everySecondTrigger() {
         this.$nextTick(function () {
-          window.setInterval(() => {
+          const a = window.setInterval(() => {
             if (window.done) {
               this.resultModal = true;
+              window.clearInterval(a);
               window.playFlag = false;
+              this.nextPlaySetInterval();
             }
             this.cam_poses = window.cam_poses
             this.video_poses = window.poses
@@ -218,6 +232,15 @@
       },
       moveMain() {
         window.location = 'http://localhost:8080/main/'
+      },
+      nextPlaySetInterval(){
+        this.nextPlayInterval = setInterval(() => {
+        if (this.timeValue === 100) {
+          window.location = 'http://localhost:8080' + window.next  
+          }
+          console.log(this.timeValue)
+          this.timeValue += 20
+        }, 1000)
       }
     },
     mounted() {
@@ -256,6 +279,9 @@
     },
     destroyed() {
       location.reload();
+    },
+    beforeDestroy() {
+      clearInterval(this.nextPlayInterval)
     }
   }
 </script>
