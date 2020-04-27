@@ -1,6 +1,7 @@
 <template>
   <v-container fill-height>
-    <v-row class="mx-auto">
+    <h2 class="display-3 font-weight-bold mb-3 white--text">STATISTICS</h2>
+    <v-row class="mx-auto mt-12">
       <v-col
         v-for="[title, value] of stats"
         :key="title"
@@ -31,8 +32,8 @@ export default {
   computed: {
     stats() {
       return [
-          ['USERS', this.statistic.today_users],
-          ['TODAY', this.statistic.today_cnt],
+          ['USERS', this.statistic.total_users],
+          ['TODAY', this.statistic.total_cnt],
           ['TIMES', this.statistic.total_time],
         ]
     }
