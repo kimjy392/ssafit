@@ -116,8 +116,8 @@ public class StretchingController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "스트레칭 결과 페이지", response = Result.class)
-	@RequestMapping(value = "/stretching/result", method = RequestMethod.GET)
+	@ApiOperation(value = "스트레칭 결과 페이지", response = Map.class)
+	@RequestMapping(value = "/stretching/result", method = RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> result(@RequestBody Result result) throws Exception {
 		logger.info("1-------------result-----------------------------" + new Date());
 		Map<String, Object> resultMap = new HashMap<>();
