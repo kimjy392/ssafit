@@ -12,8 +12,10 @@ public class Result implements Serializable {
 	private int result_id;
 	private int member_id;
 	private int video_id;
-	private float accuracy;
-	private int point;
+	private int excellent;
+	private int great;
+	private int good;
+	private int bad;
 	private String datetime;
 	
 	public Result() {
@@ -21,33 +23,27 @@ public class Result implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Result(int result_id, int member_id, int video_id, float accuracy, int point, String datetime) {
+	public Result(int result_id, int member_id, int video_id, int excellent, int great, int good, int bad,
+			String datetime) {
 		super();
 		this.result_id = result_id;
 		this.member_id = member_id;
 		this.video_id = video_id;
-		this.accuracy = accuracy;
-		this.point = point;
-		this.datetime = datetime;
-	}
-	
-	
-
-	public Result(int member_id, int video_id, float accuracy, int point, String datetime) {
-		super();
-		this.member_id = member_id;
-		this.video_id = video_id;
-		this.accuracy = accuracy;
-		this.point = point;
+		this.excellent = excellent;
+		this.great = great;
+		this.good = good;
+		this.bad = bad;
 		this.datetime = datetime;
 	}
 
-	public Result(int member_id, int video_id, float accuracy, int point) {
+	public Result(int member_id, int video_id, int excellent, int great, int good, int bad) {
 		super();
 		this.member_id = member_id;
 		this.video_id = video_id;
-		this.accuracy = accuracy;
-		this.point = point;
+		this.excellent = excellent;
+		this.great = great;
+		this.good = good;
+		this.bad = bad;
 	}
 
 	public int getResult_id() {
@@ -74,20 +70,36 @@ public class Result implements Serializable {
 		this.video_id = video_id;
 	}
 
-	public float getAccuracy() {
-		return accuracy;
+	public int getExcellent() {
+		return excellent;
 	}
 
-	public void setAccuracy(float accuracy) {
-		this.accuracy = accuracy;
+	public void setExcellent(int excellent) {
+		this.excellent = excellent;
 	}
 
-	public int getPoint() {
-		return point;
+	public int getGreat() {
+		return great;
 	}
 
-	public void setPoint(int point) {
-		this.point = point;
+	public void setGreat(int great) {
+		this.great = great;
+	}
+
+	public int getGood() {
+		return good;
+	}
+
+	public void setGood(int good) {
+		this.good = good;
+	}
+
+	public int getBad() {
+		return bad;
+	}
+
+	public void setBad(int bad) {
+		this.bad = bad;
 	}
 
 	public String getDatetime() {
@@ -104,10 +116,9 @@ public class Result implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Result [result_id=" + result_id + ", member_id=" + member_id + ", video_id=" + video_id + ", accuracy="
-				+ accuracy + ", point=" + point + ", datetime=" + datetime + "]";
+		return "Result [result_id=" + result_id + ", member_id=" + member_id + ", video_id=" + video_id + ", excellent="
+				+ excellent + ", great=" + great + ", good=" + good + ", bad=" + bad + ", datetime=" + datetime + "]";
 	}
-
 	
 	
 

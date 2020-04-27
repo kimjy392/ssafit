@@ -4,25 +4,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ssafy.stretching">
 
-	<select id="getVideoPath"
+	<select id="getVideo"
 		resultType="com.ssafy.edu.vue.dto.Video">
-		select video_id, title, file, description
+		select video_id, title, file, description, time
 		from video
 		where video_id=#{video_id}
-	</select>
-
-	<select id="getPartList"
-		resultType="com.ssafy.edu.vue.dto.Part">
-		select part_id, name
-		from part
-	</select>
-	
-	<select id="getPartVideoList"
-		parameterType="java.lang.Integer"
-		resultType="com.ssafy.edu.vue.dto.Video">
-		select v.video_id, title, file, thumbnail 
-		from video v, stretching s 
-		where part_id=#{part_id} and v.video_id = s.video_id
 	</select>
 	
 	<select id="getAllVideoList"
@@ -39,23 +25,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where video_id=#{video_id} and p.part_id = s.part_id
 	</select>
 	
-	<select id="getBeforeAccuracy"
-		parameterType="com.ssafy.edu.vue.dto.Result"
-		resultType="java.lang.Float">
-		select accuracy
-		from result
-		where video_id=#{video_id} and member_id=#{member_id}
-		order by datetime desc
-		limit 1
-	</select>
-	
 	<insert id="setResult"
 		parameterType="java.lang.Integer">
-		insert into result(member_id, video_id, accuracy, point, datetime) 
-		values (#{member_id}, #{video_id}, #{accuracy}, #{point}, now())
+		insert into result(member_id, video_id, excellent, great, good, bad, datetime) 
+		values (#{member_id}, #{video_id}, #{excellent}, #{great}, #{good}, #{bad}, now())
 	</insert>
 	
-	<select id="getStretchingCnt"
+	<select id="getTodayStretchingCnt"
 		resultType="java.lang.Integer">
 		select count(*) from result 
 		where left(datetime,10)=left(now(),10)
@@ -63,9 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getStretchingMem"
 		resultType="java.lang.Integer">
-		select count(*) 
-		from (select distinct member_id from result 
-		where left(datetime,10)=left(now(),10)) today_member
+		select count(*) from members
 	</select>
 	
 	<select id="getStretchingTime"
@@ -79,7 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select video_id from video order by video_id
 	</select>
 	
-	<select id="getStretchingAllCnt"
+	<select id="getVideoStretchingCnt"
 		parameterType="java.lang.Integer"
 		resultType="java.lang.Integer">
 		select count(*) from result where video_id=#{video_id}

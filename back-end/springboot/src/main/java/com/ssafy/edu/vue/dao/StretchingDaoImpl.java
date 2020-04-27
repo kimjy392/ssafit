@@ -21,18 +21,8 @@ public class StretchingDaoImpl {
 	private SqlSession sqlSession;
 
 
-	public Video getVideoPath(int video_id) {
-		return sqlSession.selectOne(ns+"getVideoPath", video_id);
-	}
-
-
-	public List<Part> getPartList() {
-		return sqlSession.selectList(ns+"getPartList");
-	}
-
-
-	public List<Video> getPartVideoList(int part_id) {
-		return sqlSession.selectList(ns+"getPartVideoList", part_id);
+	public Video getVideo(int video_id) {
+		return sqlSession.selectOne(ns+"getVideo", video_id);
 	}
 
 
@@ -46,18 +36,13 @@ public class StretchingDaoImpl {
 	}
 
 
-	public float getBeforeAccuracy(Result result) {
-		return sqlSession.selectOne(ns+"getBeforeAccuracy", result);
-	}
-
-
 	public void setResult(Result result) {
 		sqlSession.insert(ns+"setResult", result);
 	}
 
 
-	public int getStretchingCnt() {
-		return sqlSession.selectOne(ns+"getStretchingCnt");
+	public int getTodayStretchingCnt() {
+		return sqlSession.selectOne(ns+"getTodayStretchingCnt");
 	}
 
 
@@ -76,8 +61,8 @@ public class StretchingDaoImpl {
 	}
 
 
-	public int getStretchingAllCnt(int video_id) {
-		return sqlSession.selectOne(ns+"getStretchingAllCnt", video_id);
+	public int getVideoStretchingCnt(int video_id) {
+		return sqlSession.selectOne(ns+"getVideoStretchingCnt", video_id);
 	}
 
 

@@ -3,17 +3,23 @@
     <Header></Header>
     <div>
       <div>
-        <audio autoplay>
+        <audio id="backgroundMusic" controls autoplay volume="0.1">
           <source src="../assets/backgroundMusic.mp3" type="audio/mpeg">
         </audio>
-        <audio id="excellentAudio" crossOrigin="anonymous" loop>
-          <source src="../assets/excellent.mp3" type="audio/mpeg">
+        <audio v-if="started" autoplay>
+          <source src="../assets/papagoStartStretching.mp3" type="audio/mpeg">
         </audio>
-        <audio id="greatAudio" crossOrigin="anonymous" loop>
-          <source src="../assets/great.mp3" type="audio/mpeg">
+        <audio id="excellentAudio" crossOrigin="anonymous">
+          <source src="../assets/googleExcellent.mp3" type="audio/mpeg">
         </audio>
-        <audio id="goodAudio" crossOrigin="anonymous" loop>
-          <source src="../assets/good.mp3" type="audio/mpeg">
+        <audio id="greatAudio" crossOrigin="anonymous">
+          <source src="../assets/googleGreat.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="goodAudio" crossOrigin="anonymous">
+          <source src="../assets/googleGood.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="badAudio" crossOrigin="anonymous">
+          <source src="../assets/googleBad.mp3" type="audio/mpeg">
         </audio>
       </div>
     </div>
@@ -31,6 +37,7 @@
         스페이스바를 누르면 멈춥니다!
       </v-btn>
     </div>
+    <h1 v-if="haveToDisplay" style="text-align:center">{{ stopSeconds }}초뒤 멈춤포인트가 등장합니다!</h1>
     <v-dialog elevation-0 v-model="resultModal">
       <div>
         <v-card
@@ -109,12 +116,13 @@
         greatThresh: 100,
         goodThresh: 100,
         score: 'Hmm...',
-        effectimg: 'Bad.png',
+        effectimg: 'ready.png',
         iseffect: true,
         iseffect2: false,
         excellentAudio: null,
         greatAudio: null,
         goodAudio: null,
+        badAudio: null,
         spaceFlag: true,
         results: {
           'excellentCnt': 0,
@@ -125,7 +133,10 @@
         resultModal: false,
         nextURL: '',
         timeValue: 0,
-        nextPlayInterval : {}
+        nextPlayInterval : {},
+        started: false,
+        stopSeconds: 3,
+        haveToDisplay: false
       };
     },
     methods: {
@@ -147,7 +158,6 @@
               this.cosineSimilarity = poseSimilarity(this.cam_poses[0].pose, this.video_poses[0].pose, {
                 strategy: 'cosineSimilarity'
               });
-
               window.cosineSimilarity = this.cosineSimilarity
               if (window.playFlag === true) {
                 this.iseffect = !this.iseffect
@@ -157,6 +167,7 @@
                   this.excellentAudio.play();
                   this.greatAudio.pause();
                   this.goodAudio.pause();
+                  this.badAudio.pause();
                   this.effectimg = 'Excellent.png'
                   this.results['excellentCnt'] += 1;
                 } else if (this.cosineSimilarity >= this.greatThresh * 0.01) {
@@ -164,6 +175,7 @@
                   this.greatAudio.play()
                   this.excellentAudio.pause();
                   this.goodAudio.pause();
+                  this.badAudio.pause();
                   this.effectimg = 'Great.png'
                   this.results['greatCnt'] += 1;
                 } else if (this.cosineSimilarity >= this.goodThresh * 0.01) {
@@ -171,10 +183,12 @@
                   this.goodAudio.play();
                   this.greatAudio.pause();
                   this.excellentAudio.pause();
+                  this.badAudio.pause();
                   this.effectimg = 'Good.png'
                   this.results['goodCnt'] += 1;
                 } else {
                   this.score = 'Hmm...'
+                  this.badAudio.play();
                   this.excellentAudio.pause();
                   this.greatAudio.pause();
                   this.goodAudio.pause();
@@ -185,16 +199,45 @@
                 this.excellentAudio.pause();
                 this.greatAudio.pause();
                 this.goodAudio.pause();
+                this.badAudio.pause();
               }
             } catch (err) {
               this.score = 'Hmm...'
               this.greatAudio.pause();
               this.excellentAudio.pause();
               this.goodAudio.pause();
-              this.effectimg = 'Bad.png'
+              this.badAudio.pause();
               if (window.playFlag === true) {
+                this.effectimg = 'Bad.png';
                 this.results['badCnt'] += 1;
               }
+            }
+          }, 2000);
+        });
+      },
+      stopPointTrigger() {
+        var vm = this;
+        this.$nextTick(function () {
+          window.setInterval(() => {
+            if (window.playFlag === true) {
+              if (window.firstStopAlarmFlag === false && window.secondStopAlarmFlag === true) {
+                vm.haveToDisplay = true
+                if (vm.stopSeconds > 0) {
+                  vm.stopSeconds -= 1;
+                }
+              } else if (window.firstStopAlarmFlag === true && window.secondStopAlarmFlag === true) {
+                vm.haveToDisplay = false
+                vm.stopSeconds = 4;
+              } else if (window.firstStopAlarmFlag === true && window.secondStopAlarmFlag === false) {
+                vm.haveToDisplay = true
+                if (vm.stopSeconds > 0) {
+                  vm.stopSeconds -= 1;
+                }
+              } else {
+                vm.haveToDisplay = false;
+              }
+            } else if (window.firstStopAlarmFlag === true && window.secondStopAlarmFlag === true) {
+              vm.stopSeconds = 0;
             }
           }, 1000);
         });
@@ -221,7 +264,13 @@
         var vm = this;
         document.body.onkeyup = function (e) {
           if (e.keyCode == 32) { // when press spacebar
-            if (window.playFlag === true && window.done === false) {
+            if (vm.started === false) {
+              vm.spaceFlag = false
+              vm.started = true
+              setTimeout(function () {
+                window.playFlag = true
+              }, 3000);
+            } else if (window.playFlag === true && window.done === false) {
               window.playFlag = false
               vm.spaceFlag = true
             } else {
@@ -233,7 +282,7 @@
       },
       moveNext() {
         // this.$router.push(window.next)
-        window.location = 'http://localhost:8080' + window.next  
+        window.location = 'http://localhost:8080' + window.next
       },
       moveMain() {
         window.location = 'http://localhost:8080/main/'
@@ -250,21 +299,27 @@
     },
     mounted() {
       this.$store.dispatch('isLogin')
-      .then((res) => {
-        if (!res) {
-          this.$router.push('/login')
-        }
-      })
-      .catch(() => {
-        this.$router.push('/')
-      })
+        .then((res) => {
+          if (!res) {
+            this.$router.push('/login')
+          }
+        })
+        .catch(() => {
+          this.$router.push('/')
+        })
+
+      var backgroundMusic = document.getElementById("backgroundMusic");
+      backgroundMusic.volume = 0.3;
+
       this.excellentAudio = document.getElementById("excellentAudio");
       this.greatAudio = document.getElementById("greatAudio");
       this.goodAudio = document.getElementById("goodAudio");
+      this.badAudio = document.getElementById("badAudio");
 
       this.pressSpaceBar();
       this.getVideo();
       this.everySecondTrigger();
+      this.stopPointTrigger();
     },
     computed: {
       classeffect() {
@@ -297,10 +352,12 @@
     background-color: yellow;
     display: inline-block;
   }
+
   #videoBox {
     width: 1300px;
     text-align: center;
   }
+
   .scoreLine {
     display: inline;
     max-height: 10vh;
