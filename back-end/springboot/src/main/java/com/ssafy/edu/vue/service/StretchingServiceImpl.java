@@ -58,13 +58,6 @@ public class StretchingServiceImpl implements IStretchingService {
 
 
 	@Override
-	@Transactional(readOnly=true)
-	public float getBeforeAccuracy(Result result) {
-		return stretchingdao.getBeforeAccuracy(result);
-	}
-
-
-	@Override
 	@Transactional()
 	public void setResult(Result result) {
 		stretchingdao.setResult(result);

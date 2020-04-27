@@ -51,8 +51,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="setResult"
 		parameterType="java.lang.Integer">
-		insert into result(member_id, video_id, accuracy, point, datetime) 
-		values (#{member_id}, #{video_id}, #{accuracy}, #{point}, now())
+		insert into result(member_id, video_id, excellent, great, good, bad, datetime) 
+		values (#{member_id}, #{video_id}, #{excellent}, #{great}, #{good}, #{bad}, now())
 	</insert>
 	
 	<select id="getStretchingCnt"

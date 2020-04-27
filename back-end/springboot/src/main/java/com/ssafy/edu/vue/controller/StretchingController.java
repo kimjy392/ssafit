@@ -122,10 +122,8 @@ public class StretchingController {
 		logger.info("1-------------result-----------------------------" + new Date());
 		Map<String, Object> resultMap = new HashMap<>();
 		
-		float accuracy = stretchingservice.getBeforeAccuracy(result);
-		resultMap.put("accuracy", accuracy);
-		
 		stretchingservice.setResult(result);
+		resultMap.put("status", "ok");
 		
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}

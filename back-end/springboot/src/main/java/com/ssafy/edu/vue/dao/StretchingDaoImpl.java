@@ -46,11 +46,6 @@ public class StretchingDaoImpl {
 	}
 
 
-	public float getBeforeAccuracy(Result result) {
-		return sqlSession.selectOne(ns+"getBeforeAccuracy", result);
-	}
-
-
 	public void setResult(Result result) {
 		sqlSession.insert(ns+"setResult", result);
 	}

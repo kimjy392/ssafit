@@ -21,8 +21,6 @@ public interface IStretchingService {
 
 	List<String> getVideoPart(int video_id);
 
-	float getBeforeAccuracy(Result result);
-
 	void setResult(Result result);
 
 	int getStretchingCnt();
