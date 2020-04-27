@@ -31,8 +31,8 @@ export default {
   computed: {
     stats() {
       return [
-          ['USERS', this.statistic.today_users],
-          ['TODAY', this.statistic.today_cnt],
+          ['USERS', this.statistic.total_users],
+          ['TODAY', this.statistic.total_cnt],
           ['TIMES', this.statistic.total_time],
         ]
     }
