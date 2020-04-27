@@ -40,33 +40,34 @@
         color="rgba(0, 0, 0, 0.7)"
         outlined
         >
-        <div style="text-align: center;">
-          <div>
-            <h1 class="scoreLine">결과</h1>
+        <div class="container" style="text-align: center;">
+          <div class="my-12"></div>
+          <img class="scoreLine col-6" src="@/assets/Result.png" alt="Result">
+          <div class="my-12"></div>
+          <div class="row">
+            <img class="scoreLine col-6" src="@/assets/Excellent.png" alt="Excellent">
+            <div class="scoreLine col-6">{{ results['excellentCnt'] }} pt</div>
           </div>
-          <div>
-            <img class="scoreLine" src="@/assets/Excellent.png" alt="Excellent">
-            <h1 class="scoreLine">{{ results['excellentCnt'] }} pt</h1>
+          <div class="row">
+            <img class="scoreLine col-6" src="@/assets/Great.png" alt="Great">
+            <div class="scoreLine col-6">{{ results['greatCnt'] }} pt</div>
           </div>
-          <div>
-            <img class="scoreLine" src="@/assets/Great.png" alt="Great">
-            <h1 class="scoreLine">{{ results['greatCnt'] }} pt</h1>
+          <div class="row">
+            <img class="scoreLine col-6" src="@/assets/Good.png" alt="Good">
+            <div class="scoreLine col-6">{{ results['goodCnt'] }} pt</div>
           </div>
-          <div>
-            <img class="scoreLine" src="@/assets/Good.png" alt="Good">
-            <h1 class="scoreLine">{{ results['goodCnt'] }} pt</h1>
+          <div class="row">
+            <img class="scoreLine col-6" src="@/assets/Bad.png" alt="Bad">
+            <div class="scoreLine col-6">{{ results['badCnt'] }} pt</div>
           </div>
-          <div>
-            <img class="scoreLine" src="@/assets/Bad.png" alt="Bad">
-            <h1 class="scoreLine">{{ results['badCnt'] }} pt</h1>
-          </div>
-          <v-btn class="scoreLine" @click="moveNext">다음영상</v-btn>
-          <v-btn class="scoreLine" @click="moveMain">종료하기</v-btn>
+          <div class="my-12"></div>
+          <v-btn class="scoreLine col-6" @click="moveNext">다음영상</v-btn>
+          <v-btn class="scoreLine col-6" @click="moveMain">종료하기</v-btn>
         </div>
         </v-card>
       </div>
     </v-dialog>
-    <!-- <h1> {{ cosineSimilarity }} </h1> -->
+    <!-- <div> {{ cosineSimilarity }} </div> -->
   </div>
 </template>
 
@@ -106,7 +107,7 @@
           'goodCnt': 0,
           'badCnt': 0,
         },
-        resultModal: false,
+        resultModal: true,
         nextURL: '',
       };
     },

@@ -16,7 +16,7 @@
         </v-icon>
       </v-btn>
       <div id="page_block">
-        <p class="my-3" id="page_number">0{{ page }}  /  02</p>
+        <p class="my-3" id="page_number">0{{ page }}  /  04</p>
       </div>
     </v-card>
     <v-card
@@ -26,6 +26,8 @@
      <div id="slider">
        <div class="slider_item showing"><img width="100%" height="100%" src="@/assets/help_1.png" alt=""></div>
        <div class="slider_item"><img width="100%" height="100%" src="@/assets/help_2.png" alt=""></div>
+       <div class="slider_item"><img width="100%" height="100%" src="@/assets/help_3.png" alt=""></div>
+       <div class="slider_item"><img width="100%" height="100%" src="@/assets/help_4.png" alt=""></div>
      </div>
     </v-card>
   </div>
@@ -70,7 +72,7 @@ export default {
           this.page -= 1;
         } else {
           this.lastSlide.classList.add(this.SHOWING_CLASS);
-          this.page = 2;
+          this.page = 4;
         }
       },
       upmouseover() {
@@ -160,12 +162,6 @@ export default {
     position:absolute;
     z-index:0;
     opacity:0;
-  }
-  .slider_item:nth-child(odd){
-    background-color:white;
-  }
-  .slider_item:nth-child(even){
-    background-color:blueviolet;
   }
   .showing{
     z-index:1;
