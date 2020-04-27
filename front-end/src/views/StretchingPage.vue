@@ -42,23 +42,28 @@
         >
         <div class="container" style="text-align: center;">
           <div class="my-12"></div>
-          <img class="scoreLine col-6" src="@/assets/Result.png" alt="Result">
+          <div class="scoreLine col-6"><img src="@/assets/Result.png" alt="Result"></div>
           <div class="my-12"></div>
           <div class="row">
-            <img class="scoreLine col-6" src="@/assets/Excellent.png" alt="Excellent">
-            <div class="scoreLine col-6">{{ results['excellentCnt'] }} pt</div>
+            <div class="scoreLine col-3"></div>
+            <div class="scoreLine col-3"><img src="@/assets/Excellent.png" alt="Excellent"></div>
+            <div class="scoreLine col-3">{{ results['excellentCnt'] }} pt</div>
           </div>
           <div class="row">
-            <img class="scoreLine col-6" src="@/assets/Great.png" alt="Great">
-            <div class="scoreLine col-6">{{ results['greatCnt'] }} pt</div>
+            
+            <div class="scoreLine col-3"></div>
+            <div class="scoreLine col-3"><img src="@/assets/Great.png" alt="Great"></div>
+            <div class="scoreLine col-3">{{ results['greatCnt'] }} pt</div>
           </div>
           <div class="row">
-            <img class="scoreLine col-6" src="@/assets/Good.png" alt="Good">
-            <div class="scoreLine col-6">{{ results['goodCnt'] }} pt</div>
+            <div class="scoreLine col-3"></div>
+            <div class="scoreLine col-3"><img src="@/assets/Good.png" alt="Good"></div>
+            <div class="scoreLine col-3">{{ results['goodCnt'] }} pt</div>
           </div>
           <div class="row">
-            <img class="scoreLine col-6" src="@/assets/Bad.png" alt="Bad">
-            <div class="scoreLine col-6">{{ results['badCnt'] }} pt</div>
+            <div class="scoreLine col-3"></div>
+            <div class="scoreLine col-3"><img src="@/assets/Bad.png" alt="Bad"></div>
+            <div class="scoreLine col-3">{{ results['badCnt'] }} pt</div>
           </div>
           <div class="my-12"></div>
           <v-progress-circular
