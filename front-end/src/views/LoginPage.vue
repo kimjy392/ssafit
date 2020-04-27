@@ -8,6 +8,9 @@
           justify="center"
         >
         <v-col cols="9">
+          <div class="imgDiv">
+            <v-img class="mx-auto mb-6" :src="getImg" width="400px"></v-img>
+          </div>
           <LoginForm></LoginForm>
         </v-col>
       </v-row>
@@ -23,6 +26,11 @@ export default {
     LoginForm
   },
   methods: {
+  },
+  computed: {
+    getImg() {
+      return require("../assets/logo.png")
+    }
   },
   mounted() {
     this.$store.dispatch('isLogin')
