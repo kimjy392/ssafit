@@ -4,7 +4,9 @@ window.cam_poses = [];
 window.poses = [];
 window.playFlag = false;
 window.firstStopFlag = true;
+window.firstStopAlarmFlag = true;
 window.secondStopFlag = true;
+window.secondStopAlarmFlag = true;
 window.done = false;
 
 function modelReady() {}
@@ -71,8 +73,17 @@ export default async function (sketch) {
       video.pause();
     }
 
+    if (Math.floor(video.time()) == window.firstStop - 4 && window.firstStopAlarmFlag == true) {
+      window.firstStopAlarmFlag = false
+    }
+
+    if (Math.floor(video.time()) == window.secondStop - 4 && window.secondStopAlarmFlag == true) {
+      window.secondStopAlarmFlag = false
+    }
+
     if (Math.floor(video.time()) == window.firstStop && window.firstStopFlag == true){
       window.playFlag = false;
+      window.firstStopAlarmFlag = true
       if (window.cosineSimilarity >= window.excellentThresh * 0.01) {
         window.playFlag = true;
         window.firstStop = false;
@@ -81,6 +92,7 @@ export default async function (sketch) {
 
     if (Math.floor(video.time()) == window.secondStop && window.secondStopFlag == true){
       window.playFlag = false;
+      window.secondStopAlarmFlag = true
       if (window.cosineSimilarity >= window.excellentThresh * 0.01) {
         window.playFlag = true;
         window.secondStop = false;
