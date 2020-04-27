@@ -36,8 +36,12 @@
                   type="password"
                   v-model="credentials.password"
                 />
-                <v-btn type="submit" class="primary">로그인</v-btn>
+                <div>
+                  <v-btn type="submit" class="primary mx-5">로그인</v-btn>
+                  <v-btn @click="nonMemLogin" class="primary">비회원 로그인</v-btn>
+                </div>
               </v-form>
+                
             </div>
           </div>
         </v-row>
@@ -55,7 +59,11 @@ export default {
   name:'LoginForm',
   data() {
     return {
-      credentials: {}
+      credentials: {},
+      nonMemcredentials: {
+        email : 'test@naver.com',
+        password : 'test'
+      }
     }
   },
   computed: {
@@ -81,6 +89,21 @@ export default {
         .catch((err) => {
             console.log(err)
         })
+    },
+    nonMemLogin() {
+      axios.post('http://i02b104.p.ssafy.io:8197/ssafyvue/api/' + 'login/', this.nonMemcredentials)
+      .then((res) => {
+        console.log(res)
+        const userdata = {
+          user : res.data,
+          token : res.headers.authorization
+        }
+        this.$session.start()
+        this.$session.set('jwt', userdata.token)
+        this.$store.dispatch('login', userdata)
+        this.credentials = {}
+        this.$router.push('/main')
+      })
     }
   }
   
