@@ -117,4 +117,30 @@ public class MemberController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "마이페이지-랭킹", response = Member.class)
+	@RequestMapping(value = "/mypage/ranking/{memberid}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> ranking(@PathVariable int memberid) throws Exception {
+		logger.info("1-------------ranking-----------------------------" + new Date());
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		int total_users = stretchingservice.getStretchingMem();
+		int rank = memberservice.getRanking(memberid);
+		resultMap.put("total_users", total_users);
+		resultMap.put("rank", rank);
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "마이페이지-", response = Member.class)
+	@RequestMapping(value = "/mypage/score/{memberid}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> score(@PathVariable int memberid) throws Exception {
+		logger.info("1-------------score-----------------------------" + new Date());
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		int total_users = stretchingservice.getStretchingMem();
+		resultMap.put("total_users", total_users);
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+	}
+	
 }

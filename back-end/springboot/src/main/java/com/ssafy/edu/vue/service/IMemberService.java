@@ -17,4 +17,6 @@ public interface IMemberService {
 
 	String getLatestDate(LatestDate latest);
 
+	int getRanking(int memberid);
+
 }

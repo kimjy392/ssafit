@@ -47,5 +47,12 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 
+	@Override
+	@Transactional(readOnly=true)
+	public int getRanking(int memberid) {
+		return memberdao.getRanking(memberid);
+	}
+
+
 
 }

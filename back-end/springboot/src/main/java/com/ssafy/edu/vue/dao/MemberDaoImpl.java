@@ -38,5 +38,10 @@ public class MemberDaoImpl {
 		return sqlSession.selectOne(ns+"getLatestDate", latest);
 	}
 
+
+	public int getRanking(int memberid) {
+		return sqlSession.selectOne(ns+"getRanking", memberid);
+	}
+
 	
 }

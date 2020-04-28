@@ -32,5 +32,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by datetime desc limit 1
 	</select>
 
+	<select id="getRanking"
+		parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		select rnum from
+		(select @rownum:=@rownum+1 rnum, member_id
+			from (select @rownum := 0) R, 
+				(select member_id, count(*) cnt 
+				from result 
+				group by member_id order by cnt desc) s) re
+		where member_id=#{memberid}
+	</select>
 	
 </mapper>
