@@ -1,6 +1,7 @@
 <template>
   <div>
     <Header></Header>
+    <span class="stretchingTitle">{{ title }}</span>
     <div>
       <div style="position: fixed; left: 0; bottom:0;">
         <audio id="backgroundMusic" controls autoplay volume="0.1">
@@ -116,6 +117,11 @@
     name: "Stretching",
     components: {
       Header,
+    },
+    props: {
+      title: {
+        type: String,
+      }
     },
     data() {
       return {
@@ -321,7 +327,7 @@
         })
 
       var backgroundMusic = document.getElementById("backgroundMusic");
-      backgroundMusic.volume = 0.3;
+      backgroundMusic.volume = 0.2;
 
       this.excellentAudio = document.getElementById("excellentAudio");
       this.greatAudio = document.getElementById("greatAudio");
@@ -394,5 +400,9 @@
     height: 200px;
     top: 150px;
     left: 250px;
+  .stretchingTitle {
+    color: white;
+    font-size: 5em;
+    font-family: 'Black Han Sans', sans-serif;
   }
 </style>
