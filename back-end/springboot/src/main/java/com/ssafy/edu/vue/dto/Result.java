@@ -46,6 +46,14 @@ public class Result implements Serializable {
 		this.bad = bad;
 	}
 
+	public Result(int excellent, int great, int good, int bad) {
+		super();
+		this.excellent = excellent;
+		this.great = great;
+		this.good = good;
+		this.bad = bad;
+	}
+
 	public int getResult_id() {
 		return result_id;
 	}

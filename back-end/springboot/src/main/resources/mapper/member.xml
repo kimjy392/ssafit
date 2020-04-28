@@ -17,9 +17,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where email=#{email}
 	</select>
 	
-	<select id="getDateCnt"
+	<select id="getStretchingDate"
 		parameterType="java.lang.Integer"
-		resultType="com.ssafy.edu.vue.dto.DateStretchingCnt">
+		resultType="java.lang.String">
 		select distinct left(datetime,10) datetime from result 
 		where member_id=#{memberid} and left(datetime,7)=left(now(),7)
 	</select>
@@ -41,6 +41,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				(select member_id, count(*) cnt 
 				from result 
 				group by member_id order by cnt desc) s) re
+		where member_id=#{memberid}
+	</select>
+	
+	<select id="getScore"
+		parameterType="java.lang.Integer"
+		resultType="com.ssafy.edu.vue.dto.Result">
+		select sum(excellent) excellent, sum(great) great, sum(good) good, sum(bad) bad from result 
 		where member_id=#{memberid}
 	</select>
 	

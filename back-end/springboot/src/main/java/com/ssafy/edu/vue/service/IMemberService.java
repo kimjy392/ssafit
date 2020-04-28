@@ -5,6 +5,7 @@ import java.util.List;
 import com.ssafy.edu.vue.dto.DateStretchingCnt;
 import com.ssafy.edu.vue.dto.LatestDate;
 import com.ssafy.edu.vue.dto.Member;
+import com.ssafy.edu.vue.dto.Result;
 import com.ssafy.edu.vue.dto.Test;
 
 public interface IMemberService {
@@ -13,10 +14,12 @@ public interface IMemberService {
 
 	int getMemberid(String email);
 
-	List<DateStretchingCnt> getDateCnt(int memberid);
+	List<String> getStretchingDate(int memberid);
 
 	String getLatestDate(LatestDate latest);
 
 	int getRanking(int memberid);
+
+	Result getScore(int memberid);
 
 }

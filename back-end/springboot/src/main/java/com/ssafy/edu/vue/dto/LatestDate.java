@@ -1,6 +1,8 @@
 package com.ssafy.edu.vue.dto;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class LatestDate implements Serializable, Comparable<LatestDate> {
@@ -12,7 +14,7 @@ public class LatestDate implements Serializable, Comparable<LatestDate> {
 	
 	private int video_id;
 	private int memberid;
-	private Date date;
+	private String date;
 	
 	public LatestDate() {
 		super();
@@ -26,13 +28,13 @@ public class LatestDate implements Serializable, Comparable<LatestDate> {
 	}
 	
 
-	public LatestDate(int video_id, Date date) {
+	public LatestDate(int video_id, String date) {
 		super();
 		this.video_id = video_id;
 		this.date = date;
 	}
 
-	public LatestDate(int video_id, int memberid, Date date) {
+	public LatestDate(int video_id, int memberid, String date) {
 		super();
 		this.video_id = video_id;
 		this.memberid = memberid;
@@ -55,11 +57,11 @@ public class LatestDate implements Serializable, Comparable<LatestDate> {
 		this.memberid = memberid;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -74,13 +76,19 @@ public class LatestDate implements Serializable, Comparable<LatestDate> {
 
 	@Override
 	public int compareTo(LatestDate o) {
-		int compare = this.date.compareTo(o.date);
-		if (compare>0) {
-            return -1;
-        } else if (compare<0) {
-            return 1;
-        }
-        return 0;
+		try {
+			Date date1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(this.date);
+			Date date2 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(o.date);
+			int compare = date1.compareTo(date2);
+			if (compare>0) {
+				return -1;
+			} else if (compare<0) {
+				return 1;
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}  
+		return 0;
 	}
 
 		

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.ssafy.edu.vue.dto.DateStretchingCnt;
 import com.ssafy.edu.vue.dto.LatestDate;
 import com.ssafy.edu.vue.dto.Member;
+import com.ssafy.edu.vue.dto.Result;
 import com.ssafy.edu.vue.dto.Test;
 
 @Repository
@@ -29,8 +30,8 @@ public class MemberDaoImpl {
 	}
 
 	
-	public List<DateStretchingCnt> getDateCnt(int memberid) {
-		return sqlSession.selectList(ns+"getDateCnt", memberid);
+	public List<String> getStretchingDate(int memberid) {
+		return sqlSession.selectList(ns+"getStretchingDate", memberid);
 	}
 
 
@@ -41,6 +42,11 @@ public class MemberDaoImpl {
 
 	public int getRanking(int memberid) {
 		return sqlSession.selectOne(ns+"getRanking", memberid);
+	}
+
+
+	public Result getScore(int memberid) {
+		return sqlSession.selectOne(ns+"getScore", memberid);
 	}
 
 	

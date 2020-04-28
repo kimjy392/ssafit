@@ -10,6 +10,7 @@ import com.ssafy.edu.vue.dao.MemberDaoImpl;
 import com.ssafy.edu.vue.dto.DateStretchingCnt;
 import com.ssafy.edu.vue.dto.LatestDate;
 import com.ssafy.edu.vue.dto.Member;
+import com.ssafy.edu.vue.dto.Result;
 
 
 @Service
@@ -35,8 +36,8 @@ public class MemberServiceImpl implements IMemberService {
 	
 	@Override
 	@Transactional(readOnly=true)
-	public List<DateStretchingCnt> getDateCnt(int memberid) {
-		return memberdao.getDateCnt(memberid);
+	public List<String> getStretchingDate(int memberid) {
+		return memberdao.getStretchingDate(memberid);
 	}
 
 
@@ -51,6 +52,13 @@ public class MemberServiceImpl implements IMemberService {
 	@Transactional(readOnly=true)
 	public int getRanking(int memberid) {
 		return memberdao.getRanking(memberid);
+	}
+
+
+	@Override
+	@Transactional(readOnly=true)
+	public Result getScore(int memberid) {
+		return memberdao.getScore(memberid);
 	}
 
 
