@@ -1,6 +1,6 @@
 <template>
-  <div>
-      <img src="@/assets/turtle_fire.gif" alt="">
+  <div class="charDiv">
+      <img class="charImg" src="@/assets/turtle_fire.gif" alt="">
   </div>
 </template>
 
@@ -11,5 +11,13 @@ export default {
 </script>
 
 <style>
-
+  .charDiv {
+    width: 250px;
+    background-color: white;
+    border: 5px solid rgb(253, 122, 58);
+  }
+  .charImg {
+    width: 100%;
+    height: 100%;
+  }
 </style>
