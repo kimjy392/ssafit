@@ -2,7 +2,7 @@
   <div>
     <Header></Header>
     <div>
-      <div>
+      <div style="position: fixed; left: 0; bottom:0;">
         <audio id="backgroundMusic" controls autoplay volume="0.1">
           <source src="../assets/backgroundMusic.mp3" type="audio/mpeg">
         </audio>
@@ -24,7 +24,15 @@
       </div>
     </div>
     <v-img class="animated mx-auto" width="500" :class="classeffect" :src="getEffectImg"></v-img>
+    <div style="height: 20vh"></div>
     <v-card id="videoBox" class="mx-auto">
+      <img 
+      id="finger" 
+      class="animated fadeInUp infinite pulse"
+      v-if="stretchReady" 
+      src="@/assets/finger.png" 
+      alt="손가락">
+      <img id="stretchReadyImg" v-if="stretchReady" src="@/assets/stretch_ready.png" alt="스트레칭 준비">
       <div id="videoContainer"></div>
     </v-card>
     <div class='sketch' id="sketch"></div>
@@ -37,7 +45,9 @@
         스페이스바를 누르면 멈춥니다!
       </v-btn>
     </div>
-    <h1 v-if="haveToDisplay" style="text-align:center">{{ stopSeconds }}초뒤 멈춤포인트가 등장합니다!</h1>
+    <div style="position: fixed; top: 50vh; left: 48vw;">
+      <img v-if="haveToDisplay" :src="`@/assets/count${ stopSeconds }.png`" alt="">
+    </div>
     <v-dialog elevation-0 v-model="resultModal">
       <div>
         <v-card
@@ -136,7 +146,8 @@
         nextPlayInterval : {},
         started: false,
         stopSeconds: 3,
-        haveToDisplay: false
+        haveToDisplay: false,
+        stretchReady: true,
       };
     },
     methods: {
@@ -267,6 +278,7 @@
             if (vm.started === false) {
               vm.spaceFlag = false
               vm.started = true
+              vm.stretchReady = false
               setTimeout(function () {
                 window.playFlag = true
               }, 3000);
@@ -364,5 +376,23 @@
     font-family: 'Audiowide', cursive;
     font-size: 5em;
     color: white;
+  }
+  .animated {
+    position: fixed;
+    top: 20vh;
+    z-index: 1;
+    left: 0;
+    right: 0;
+  }
+  #stretchReadyImg {
+    position: absolute;
+    left: 10px;
+  }
+  #finger {
+    position: absolute;
+    z-index: 2;
+    height: 200px;
+    top: 150px;
+    left: 250px;
   }
 </style>
