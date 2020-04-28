@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.edu.vue.dao.MemberDaoImpl;
 import com.ssafy.edu.vue.dto.DateStretchingCnt;
+import com.ssafy.edu.vue.dto.LatestDate;
 import com.ssafy.edu.vue.dto.Member;
 
 
@@ -27,8 +28,24 @@ public class MemberServiceImpl implements IMemberService {
 
 	@Override
 	@Transactional(readOnly=true)
+	public int getMemberid(String email) {
+		return memberdao.getMemberid(email);
+	}
+	
+	
+	@Override
+	@Transactional(readOnly=true)
 	public List<DateStretchingCnt> getDateCnt(int memberid) {
 		return memberdao.getDateCnt(memberid);
 	}
+
+
+	@Override
+	@Transactional(readOnly=true)
+	public String getLatestDate(LatestDate latest) {
+		return memberdao.getLatestDate(latest);
+	}
+
+
 
 }
