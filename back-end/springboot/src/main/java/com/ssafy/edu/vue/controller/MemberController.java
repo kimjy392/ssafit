@@ -96,8 +96,11 @@ public class MemberController {
 		PriorityQueue<LatestDate> pq = new PriorityQueue<>();
 		
 		for (int i = 0; i < video.size(); i++) {
+			//기록 없으면?
 			LatestDate latest = new LatestDate(video.get(i).getVideo_id(), memberid);
-			latest.setDate(memberservice.getLatestDate(latest));
+			String latestDate = memberservice.getLatestDate(latest);
+			if(latestDate==null) continue;
+			latest.setDate(latestDate);
 			pq.add(latest);
 		}
 		
@@ -117,6 +120,7 @@ public class MemberController {
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		int total_users = stretchingservice.getStretchingMem();
+		//기록 없으면?
 		int rank = memberservice.getRanking(memberid);
 		resultMap.put("total_users", total_users);
 		resultMap.put("rank", rank);
@@ -131,6 +135,7 @@ public class MemberController {
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		Result score = memberservice.getScore(memberid);
+		//없으면?
 		resultMap.put("excellent", score.getExcellent());
 		resultMap.put("great", score.getGreat());
 		resultMap.put("good", score.getGood());
