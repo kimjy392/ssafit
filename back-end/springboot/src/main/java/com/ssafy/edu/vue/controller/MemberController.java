@@ -96,7 +96,6 @@ public class MemberController {
 		PriorityQueue<LatestDate> pq = new PriorityQueue<>();
 		
 		for (int i = 0; i < video.size(); i++) {
-			//기록 없으면?
 			LatestDate latest = new LatestDate(video.get(i).getVideo_id(), memberid);
 			String latestDate = memberservice.getLatestDate(latest);
 			if(latestDate==null) continue;
@@ -120,10 +119,14 @@ public class MemberController {
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		int total_users = stretchingservice.getStretchingMem();
-		//기록 없으면?
-		int rank = memberservice.getRanking(memberid);
 		resultMap.put("total_users", total_users);
-		resultMap.put("rank", rank);
+		
+		int cnt = memberservice.getMemberStretchingCnt(memberid);
+		if(cnt==0) {
+			resultMap.put("rank", total_users);			
+		}else {
+			resultMap.put("rank", memberservice.getRanking(memberid));
+		}
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
@@ -135,11 +138,17 @@ public class MemberController {
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		Result score = memberservice.getScore(memberid);
-		//없으면?
-		resultMap.put("excellent", score.getExcellent());
-		resultMap.put("great", score.getGreat());
-		resultMap.put("good", score.getGood());
-		resultMap.put("bad", score.getBad());
+		if(score==null) {
+			resultMap.put("excellent", 0);
+			resultMap.put("great", 0);
+			resultMap.put("good", 0);
+			resultMap.put("bad", 0);
+		}else {
+			resultMap.put("excellent", score.getExcellent());
+			resultMap.put("great", score.getGreat());
+			resultMap.put("good", score.getGood());
+			resultMap.put("bad", score.getBad());
+		}
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}

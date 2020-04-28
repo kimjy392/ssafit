@@ -62,5 +62,12 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 
+	@Override
+	@Transactional(readOnly=true)
+	public int getMemberStretchingCnt(int memberid) {
+		return memberdao.getMemberStretchingCnt(memberid);
+	}
+
+
 
 }

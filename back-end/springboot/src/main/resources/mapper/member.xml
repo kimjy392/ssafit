@@ -51,4 +51,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where member_id=#{memberid}
 	</select>
 	
+	<select id="getMemberStretchingCnt"
+		parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		select count(*) from result
+		where member_id=#{memberid}
+	</select>
+	
 </mapper>

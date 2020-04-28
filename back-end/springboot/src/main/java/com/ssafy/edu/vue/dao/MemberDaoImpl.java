@@ -49,5 +49,10 @@ public class MemberDaoImpl {
 		return sqlSession.selectOne(ns+"getScore", memberid);
 	}
 
+
+	public int getMemberStretchingCnt(int memberid) {
+		return sqlSession.selectOne(ns+"getMemberStretchingCnt", memberid);
+	}
+
 	
 }

@@ -22,4 +22,6 @@ public interface IMemberService {
 
 	Result getScore(int memberid);
 
+	int getMemberStretchingCnt(int memberid);
+
 }
