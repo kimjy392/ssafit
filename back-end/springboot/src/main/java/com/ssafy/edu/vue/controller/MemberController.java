@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.edu.vue.dto.DateStretchingCnt;
 import com.ssafy.edu.vue.dto.Member;
 import com.ssafy.edu.vue.help.BoolResult;
 import com.ssafy.edu.vue.service.IJwtService;
@@ -65,13 +66,17 @@ public class MemberController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, headers, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "로그인", response = Member.class)
+	@ApiOperation(value = "마이페이지", response = Member.class)
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> mypage(@RequestBody Member member) throws Exception {
 		logger.info("1-------------mypage-----------------------------" + new Date());
 		HttpHeaders headers = new HttpHeaders();
 		Map<String, Object> resultMap = new HashMap<>();
-		
+		// 일자별 스트레칭 횟수
+		List<DateStretchingCnt> date_cnt = memberservice.getDateCnt(member.getMemberid());
+		resultMap.put("date_cnt", date_cnt);
+		// 스코어 비율
+
 		
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, headers, HttpStatus.OK);

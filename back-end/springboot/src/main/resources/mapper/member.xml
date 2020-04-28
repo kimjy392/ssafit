@@ -10,6 +10,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from members
 		where email=#{email} and password=hex(aes_encrypt(#{password}, 'human'))
 	</select>
+	
+	<select id="getDateCnt"
+		parameterType="java.lang.Integer"
+		resultType="com.ssafy.edu.vue.dto.DateStretchingCnt">
+		select distinct left(datetime,10) datetime from result 
+		where member_id=#{memberid} and left(datetime,7)=left(now(),7)
+	</select>
 
 	
 </mapper>
