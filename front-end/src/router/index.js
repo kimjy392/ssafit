@@ -32,7 +32,8 @@ Vue.use(VueRouter)
   {
     path: '/detail/:id',
     name: 'Stretching',
-    component: Stretching
+    component: Stretching,
+    props: true
   },
   {
     path: '/result',

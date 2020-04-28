@@ -1,7 +1,7 @@
 <template>
   <div> 
     <v-hover v-slot:default="{ hover }" open-delay="200">
-      <v-card @click="moveDetail(video_id)" 
+      <v-card @click="moveDetail(video_id, title)" 
       v-on:mouseover="mouseover" v-on:mouseleave="mouseleave"
       class="img"
         :elevation="hover ? 16 : 2">
@@ -47,11 +47,12 @@
       },
     },
     methods: {
-      moveDetail(video_id) {
+      moveDetail(video_id, title) {
         this.$router.push({
             name: 'Stretching',
             params: {
-              id: video_id
+              id: video_id,
+              title: title
             }
           }
         )
