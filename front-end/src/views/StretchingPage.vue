@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div id="stretchPage">
     <Header></Header>
     <span class="stretchingTitle">{{ title }}</span><br>
     <span class="stretchingDesc">{{ description }}</span>
     <div>
-      <div style="position: fixed; left: 0; bottom:0;">
+      <div style="position: fixed; left: 0; bottom:0; z-index: 2;">
         <audio id="backgroundMusic" autoplay>
           <source src="../assets/backgroundMusic.mp3" type="audio/mpeg">
         </audio>
@@ -28,13 +28,19 @@
         </audio>
       </div>
     </div>
-    <v-img class="animated mx-auto" width="500" :class="classeffect" :src="getEffectImg"></v-img>
+    <v-img class="useAnimated animated mx-auto" width="500" :class="classeffect" :src="getEffectImg"></v-img>
     <div style="height: 20vh"></div>
     <v-card id="videoBox" class="mx-auto">
+      <div id="countImg" v-if="haveToDisplay">
+        <img v-if="stopSeconds == 3" src="@/assets/count3.png" alt="count3">
+        <img v-if="stopSeconds == 2" src="@/assets/count2.png" alt="count2">
+        <img v-if="stopSeconds == 1" src="@/assets/count1.png" alt="count1">
+        <img v-if="stopSeconds == 0" src="@/assets/count0.png" alt="count0">
+      </div>
       <img 
       id="finger" 
-      class="animated fadeInUp infinite pulse"
-      v-if="stretchReady" 
+      class="useAnimated animated fadeInUp infinite pulse"
+      v-if="stretchReady"
       src="@/assets/finger.png" 
       alt="손가락">
       <img id="stretchReadyImg" v-if="stretchReady" src="@/assets/stretch_ready.png" alt="스트레칭 준비">
@@ -49,9 +55,6 @@
       <v-btn v-if="!spaceFlag" id="spacebar" x-large color="#FF8C00" class="white--text">
         스페이스바를 누르면 멈춥니다!
       </v-btn>
-    </div>
-    <div style="position: fixed; top: 50vh; left: 48vw;">
-      <img v-if="haveToDisplay" :src="`@/assets/count${ stopSeconds }.png`" alt="">
     </div>
     <v-dialog elevation-0 v-model="resultModal">
       <div>
@@ -104,6 +107,8 @@
         </v-card>
       </div>
     </v-dialog>
+    <img id="vegetableChar" src="@/assets/vegetable.gif" alt="야채">
+    <CharacterBox id="CharacterBox"></CharacterBox>
   </div>
 </template>
 
@@ -115,11 +120,13 @@
   import {
     poseSimilarity
   } from 'posenet-similarity';
+  import CharacterBox from '@/components/stretchItems/CharacterBox.vue'
 
   export default {
     name: "Stretching",
     components: {
       Header,
+      CharacterBox,
     },
     data() {
       return {
@@ -155,6 +162,7 @@
         stopSeconds: 3,
         haveToDisplay: false,
         stretchReady: true,
+        imgSrc: '',
       };
     },
     methods: {
@@ -363,18 +371,20 @@
   }
 </script>
 <style>
+  #stretchPage {
+    background-image: url('../assets/stretch_bg.png');
+  }
   canvas {
     width: 100px;
     height: 100px;
     background-color: yellow;
     display: inline-block;
   }
-
   #videoBox {
     width: 1300px;
+    background-color: rgb(253, 122, 56);
     text-align: center;
   }
-
   .scoreLine {
     display: inline;
     max-height: 10vh;
@@ -382,7 +392,7 @@
     font-size: 5em;
     color: white;
   }
-  .animated {
+  .useAnimated {
     position: fixed;
     top: 20vh;
     z-index: 1;
@@ -409,5 +419,27 @@
     color: white;
     font-size: 3em;
     font-family: 'Black Han Sans', sans-serif;
+  }
+  #countImg {
+    position: absolute;
+    z-index: 2;
+    top: 38%;
+    left: 0;
+    right: 0;
+  }
+  #countImg > img {
+    height: 120px;
+  }
+  #CharacterBox {
+    position: fixed;
+    right: 20px;
+    width: 250px;
+    bottom: 10vh;
+  }
+  #vegetableChar {
+    position: fixed;
+    left: 20px;
+    width: 400px;
+    bottom: 0;
   }
 </style>
