@@ -411,6 +411,7 @@
     height: 200px;
     top: 150px;
     left: 250px;
+  }
   .stretchingTitle {
     color: white;
     font-size: 5em;
