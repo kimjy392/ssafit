@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ssafy.edu.vue.dto.DateStretchingCnt;
-import com.ssafy.edu.vue.dto.LatestDate;
+import com.ssafy.edu.vue.dto.History;
 import com.ssafy.edu.vue.dto.Member;
 import com.ssafy.edu.vue.dto.Result;
 import com.ssafy.edu.vue.dto.Test;
@@ -35,7 +35,7 @@ public class MemberDaoImpl {
 	}
 
 
-	public String getLatestDate(LatestDate latest) {
+	public String getLatestDate(History latest) {
 		return sqlSession.selectOne(ns+"getLatestDate", latest);
 	}
 

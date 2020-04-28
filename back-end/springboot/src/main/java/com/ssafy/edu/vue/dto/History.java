@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class LatestDate implements Serializable, Comparable<LatestDate> {
+public class History implements Serializable, Comparable<History> {
 
 	/**
 	 * 
@@ -16,25 +16,25 @@ public class LatestDate implements Serializable, Comparable<LatestDate> {
 	private int memberid;
 	private String date;
 	
-	public LatestDate() {
+	public History() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public LatestDate(int video_id, int memberid) {
+	public History(int video_id, int memberid) {
 		super();
 		this.video_id = video_id;
 		this.memberid = memberid;
 	}
 	
 
-	public LatestDate(int video_id, String date) {
+	public History(int video_id, String date) {
 		super();
 		this.video_id = video_id;
 		this.date = date;
 	}
 
-	public LatestDate(int video_id, int memberid, String date) {
+	public History(int video_id, int memberid, String date) {
 		super();
 		this.video_id = video_id;
 		this.memberid = memberid;
@@ -75,7 +75,7 @@ public class LatestDate implements Serializable, Comparable<LatestDate> {
 	}
 
 	@Override
-	public int compareTo(LatestDate o) {
+	public int compareTo(History o) {
 		try {
 			Date date1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(this.date);
 			Date date2 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(o.date);

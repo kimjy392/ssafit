@@ -5,8 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="ssafy.stretching">
 
 	<select id="getVideo"
+		parameterType="java.lang.Integer"
 		resultType="com.ssafy.edu.vue.dto.Video">
-		select video_id, title, file, description, time
+		select video_id, title, file, description, thumbnail, time
 		from video
 		where video_id=#{video_id}
 	</select>

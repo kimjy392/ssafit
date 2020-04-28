@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="getLatestDate"
-		parameterType="com.ssafy.edu.vue.dto.LatestDate"
+		parameterType="com.ssafy.edu.vue.dto.History"
 		resultType="java.lang.String">
 		select datetime from result 
 		where member_id=#{memberid} and video_id=#{video_id} 

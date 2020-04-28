@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.edu.vue.dto.DateStretchingCnt;
-import com.ssafy.edu.vue.dto.LatestDate;
+import com.ssafy.edu.vue.dto.History;
 import com.ssafy.edu.vue.dto.Member;
 import com.ssafy.edu.vue.dto.Result;
 import com.ssafy.edu.vue.dto.Video;
@@ -92,23 +92,34 @@ public class MemberController {
 		logger.info("1-------------history-----------------------------" + new Date());
 		Map<String, Object> resultMap = new HashMap<>();
 		
-		List<Video> video = stretchingservice.getAllVideoList();
-		PriorityQueue<LatestDate> pq = new PriorityQueue<>();
+		List<Video> list = stretchingservice.getAllVideoList();
+		PriorityQueue<History> pq = new PriorityQueue<>();
 		
-		for (int i = 0; i < video.size(); i++) {
-			LatestDate latest = new LatestDate(video.get(i).getVideo_id(), memberid);
+		for (int i = 0; i < list.size(); i++) {
+			History latest = new History(list.get(i).getVideo_id(), memberid);
 			String latestDate = memberservice.getLatestDate(latest);
 			if(latestDate==null) continue;
 			latest.setDate(latestDate);
 			pq.add(latest);
 		}
 		
-		LatestDate[] history = new LatestDate[pq.size()];
-		for (int i = 0; i < history.length; i++) {
-			history[i] = pq.poll();
-		}
-		resultMap.put("history", history);
+		int size = pq.size();
+		Map<String, Object>[] history = new HashMap[pq.size()];
+		for (int i = 0; i < size; i++) {
+			History last = pq.poll();
 
+			Video video = stretchingservice.getVideo(last.getVideo_id());
+			
+			history[i] = new HashMap<>();
+			history[i].put("video_id", last.getVideo_id());
+			history[i].put("date", last.getDate());
+			history[i].put("title", video.getTitle());
+			history[i].put("thumbnail", video.getThumbnail());
+			history[i].put("description", video.getDescription());
+		}
+		
+		resultMap.put("history", history);
+		
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
 	

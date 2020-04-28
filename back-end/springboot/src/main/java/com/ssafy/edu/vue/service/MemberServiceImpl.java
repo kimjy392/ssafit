@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.edu.vue.dao.MemberDaoImpl;
 import com.ssafy.edu.vue.dto.DateStretchingCnt;
-import com.ssafy.edu.vue.dto.LatestDate;
+import com.ssafy.edu.vue.dto.History;
 import com.ssafy.edu.vue.dto.Member;
 import com.ssafy.edu.vue.dto.Result;
 
@@ -43,7 +43,7 @@ public class MemberServiceImpl implements IMemberService {
 
 	@Override
 	@Transactional(readOnly=true)
-	public String getLatestDate(LatestDate latest) {
+	public String getLatestDate(History latest) {
 		return memberdao.getLatestDate(latest);
 	}
 
