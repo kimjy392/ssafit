@@ -1,26 +1,30 @@
 <template>
   <div>
     <Header></Header>
-    <span class="stretchingTitle">{{ title }}</span>
+    <span class="stretchingTitle">{{ title }}</span><br>
+    <span class="stretchingDesc">{{ description }}</span>
     <div>
       <div style="position: fixed; left: 0; bottom:0;">
-        <audio id="backgroundMusic" controls autoplay volume="0.1">
+        <audio id="backgroundMusic" autoplay>
           <source src="../assets/backgroundMusic.mp3" type="audio/mpeg">
         </audio>
         <audio v-if="started" autoplay>
           <source src="../assets/papagoStartStretching.mp3" type="audio/mpeg">
         </audio>
         <audio id="excellentAudio" crossOrigin="anonymous">
-          <source src="../assets/googleExcellent.mp3" type="audio/mpeg">
+          <source src="../assets/excellent.mp3" type="audio/mpeg">
         </audio>
         <audio id="greatAudio" crossOrigin="anonymous">
-          <source src="../assets/googleGreat.mp3" type="audio/mpeg">
+          <source src="../assets/great.mp3" type="audio/mpeg">
         </audio>
         <audio id="goodAudio" crossOrigin="anonymous">
-          <source src="../assets/googleGood.mp3" type="audio/mpeg">
+          <source src="../assets/good.mp3" type="audio/mpeg">
         </audio>
         <audio id="badAudio" crossOrigin="anonymous">
-          <source src="../assets/googleBad.mp3" type="audio/mpeg">
+          <source src="../assets/bad.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="measureAudio" crossOrigin="anonymous">
+          <source src="../assets/startMeasure.mp3" type="audio/mpeg">
         </audio>
       </div>
     </div>
@@ -100,7 +104,6 @@
         </v-card>
       </div>
     </v-dialog>
-    <!-- <div> {{ cosineSimilarity }} </div> -->
   </div>
 </template>
 
@@ -118,13 +121,10 @@
     components: {
       Header,
     },
-    props: {
-      title: {
-        type: String,
-      }
-    },
     data() {
       return {
+        title: '',
+        description: '',
         cam_poses: 0,
         video_poses: 0,
         cosineSimilarity: 0,
@@ -139,6 +139,7 @@
         greatAudio: null,
         goodAudio: null,
         badAudio: null,
+        measureAudio: null,
         spaceFlag: true,
         results: {
           'excellentCnt': 0,
@@ -163,6 +164,7 @@
       everySecondTrigger() {
         this.$nextTick(function () {
           const a = window.setInterval(() => {
+            this.time = window.t;
             if (window.done) {
               this.resultModal = true;
               window.clearInterval(a);
@@ -176,7 +178,7 @@
                 strategy: 'cosineSimilarity'
               });
               window.cosineSimilarity = this.cosineSimilarity
-              if (window.playFlag === true) {
+              if (window.playFlag === true  && (window.firstStopFlag === false || window.secondStopFlag === false)) {
                 this.iseffect = !this.iseffect
                 this.iseffect2 = !this.iseffect2
                 if (this.cosineSimilarity >= this.excellentThresh * 0.01) {
@@ -217,6 +219,7 @@
                 this.greatAudio.pause();
                 this.goodAudio.pause();
                 this.badAudio.pause();
+                this.effectimg = 'ready.png'
               }
             } catch (err) {
               this.score = 'Hmm...'
@@ -224,37 +227,22 @@
               this.excellentAudio.pause();
               this.goodAudio.pause();
               this.badAudio.pause();
-              if (window.playFlag === true) {
+              if (window.playFlag === true && (window.firstStopFlag === false || window.secondStopFlag === false)) {
                 this.effectimg = 'Bad.png';
                 this.results['badCnt'] += 1;
+              } else {
+                this.effectimg = 'ready.png'
               }
             }
-          }, 2000);
+          }, 1600);
         });
       },
       stopPointTrigger() {
         var vm = this;
         this.$nextTick(function () {
           window.setInterval(() => {
-            if (window.playFlag === true) {
-              if (window.firstStopAlarmFlag === false && window.secondStopAlarmFlag === true) {
-                vm.haveToDisplay = true
-                if (vm.stopSeconds > 0) {
-                  vm.stopSeconds -= 1;
-                }
-              } else if (window.firstStopAlarmFlag === true && window.secondStopAlarmFlag === true) {
-                vm.haveToDisplay = false
-                vm.stopSeconds = 4;
-              } else if (window.firstStopAlarmFlag === true && window.secondStopAlarmFlag === false) {
-                vm.haveToDisplay = true
-                if (vm.stopSeconds > 0) {
-                  vm.stopSeconds -= 1;
-                }
-              } else {
-                vm.haveToDisplay = false;
-              }
-            } else if (window.firstStopAlarmFlag === true && window.secondStopAlarmFlag === true) {
-              vm.stopSeconds = 0;
+            if (window.playFlag === true && window.alarmFlag === true) {
+              vm.measureAudio.play();
             }
           }, 1000);
         });
@@ -262,6 +250,8 @@
       getVideo() {
         axios.get('http://i02b104.p.ssafy.io:8197/ssafyvue/api/stretching/detail/' + this.$route.params.id)
           .then((res) => {
+            this.title = res.data.title
+            this.description = res.data.description
             this.excellentThresh = res.data.excellent;
             this.greatThresh = res.data.great;
             this.goodThresh = res.data.good;
@@ -299,8 +289,16 @@
         }
       },
       moveNext() {
-        // this.$router.push(window.next)
-        window.location = 'http://localhost:8080' + window.next
+        this.video_id = Number(window.next.split('/')[2])
+        this.$router.push({
+            name: 'Stretching',
+            params: {
+              id: this.video_id,
+              title: this.title,
+              description: this.description
+            }
+          }
+        )
       },
       moveMain() {
         window.location = 'http://localhost:8080/main/'
@@ -327,12 +325,13 @@
         })
 
       var backgroundMusic = document.getElementById("backgroundMusic");
-      backgroundMusic.volume = 0.2;
+      backgroundMusic.volume = 0.1;
 
       this.excellentAudio = document.getElementById("excellentAudio");
       this.greatAudio = document.getElementById("greatAudio");
       this.goodAudio = document.getElementById("goodAudio");
       this.badAudio = document.getElementById("badAudio");
+      this.measureAudio = document.getElementById("measureAudio");
 
       this.pressSpaceBar();
       this.getVideo();
@@ -404,6 +403,11 @@
   .stretchingTitle {
     color: white;
     font-size: 5em;
+    font-family: 'Black Han Sans', sans-serif;
+  }
+  .stretchingDesc {
+    color: white;
+    font-size: 3em;
     font-family: 'Black Han Sans', sans-serif;
   }
 </style>
