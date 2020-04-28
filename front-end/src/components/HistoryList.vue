@@ -1,5 +1,5 @@
 <template>
-    <History></History>
+  <History></History>
 </template>
 
 <script>
