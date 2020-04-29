@@ -6,15 +6,11 @@
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <div class="headerDiv px-10 d-none d-lg-flex align-center">
+    <div v-if="isIntro" class="headerDiv px-10 d-none d-lg-flex align-center">
       <router-link to="/" @click.native="$vuetify.goTo('#Effect')" class="headerLink" style="color: white;">BENEFITS</router-link>
       <router-link to="/" @click.native="$vuetify.goTo('#Explanation')" class="headerLink" style="color: white;">HOW TO USE</router-link>
       <router-link to="/" @click.native="$vuetify.goTo('#Statistic')" class="headerLink" style="color: white;">STATISTICS</router-link>
       <router-link to="/" @click.native="$vuetify.goTo('#Recommendation')" class="headerLink" style="color: white;">RECOMMEND</router-link>
-      <!-- <a class="headerLink" @click="$vuetify.goTo('#Effect')" style="color: white;">BENEFITS</a> -->
-			<!-- <a class="headerLink" @click="$vuetify.goTo('#Explanation')" style="color: white;">HOW TO USE</a> -->
-			<!-- <a class="headerLink" @click="$vuetify.goTo('#Statistic')" href="#" style="color: white;">STATISTICS</a> -->
-      <!-- <a class="headerLink" @click="$vuetify.goTo('#Recommendation')" href="#" style="color: white;">RECOMMEND</a> -->
     </div>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
@@ -29,7 +25,7 @@
         </v-btn>
       </div>
       <div v-if="islogin" class="my-auto mx-2">
-        <v-btn large text color="white">
+        <v-btn v-if="user.name !='test'" key="MY PAGE" to="/userinfo" large text color="white">
           MY PAGE
         </v-btn>
       </div>
@@ -44,7 +40,7 @@
         </v-btn>
       </div>
     </v-toolbar-items>
-    <HelpIcon></HelpIcon>
+    <HelpIcon v-if="!isIntro"></HelpIcon>
   </v-app-bar>
 </template>
 
@@ -56,6 +52,12 @@
     components: {
       HelpIcon,
     },
+    props: {
+      isIntro: {
+        type: Boolean,
+        default: false
+      }
+    },
     data() {
       return {
         is_hover: false
@@ -63,8 +65,11 @@
     },
     computed: {
       islogin() {
-          return this.$store.state.auth.token
-        }
+        return this.$store.state.auth.token
+      },
+      user() {
+        return this.$store.state.auth.user
+      }
     },
     methods: {
       mouseover: function () {
@@ -99,6 +104,7 @@
 .headerLink {
   text-decoration: none;
   margin: 0 10px 0px 10px;
+  font-family: 'Varela Round', sans-serif;
 }
 
 </style>
