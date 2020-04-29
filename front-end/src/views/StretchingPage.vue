@@ -33,71 +33,60 @@
         <span class="stretchingTitle">{{ title }}</span>
         <span class="stretchingDesc">:{{ description }}</span>
       </div>
-      <img 
-      id="finger" 
-      class="useAnimated animated fadeInUp infinite fulse"
-      v-if="stretchReady"
-      src="@/assets/finger.png" 
-      alt="손가락">
+      <img id="finger" class="useAnimated animated fadeInUp infinite pulse" v-if="stretchReady"
+        src="@/assets/finger.png" alt="손가락">
       <img id="stretchReadyImg" v-if="stretchReady" src="@/assets/stretch_ready.png" alt="스트레칭 준비">
       <div id="videoContainer"></div>
     </v-card>
     <div class='sketch' id="sketch"></div>
     <div class="my-6"></div>
     <div style="text-align: center">
-      <v-btn v-if="spaceFlag" id="spacebar" x-large color="#45b6fe" class="white--text">
-        스페이스바를 누르면 시작합니다!
+      <v-btn v-if="spaceFlag" x-large color="#45b6fe" class="white--text">
+        <span class="spacebar">스페이스바를 누르면 시작해요</span>
       </v-btn>
-      <v-btn v-if="!spaceFlag" id="spacebar" x-large color="#45b6fe" class="white--text">
-        스페이스바를 누르면 멈춥니다!
+      <v-btn v-if="!spaceFlag" x-large color="#1167b1" class="white--text">
+        <span class="spacebar">스페이스바를 누르면 멈추어요</span>
       </v-btn>
     </div>
     <v-dialog elevation-0 v-model="resultModal">
       <div>
-        <v-card
-        class="mx-auto"
-        width="90vw"
-        height="90vh"
-        color="rgba(0, 0, 0, 0.7)"
-        outlined
-        >
-        <div class="container" style="text-align: center; width: 100%;">
-          <div class="my-12"></div>
-          <div class="scoreLine col-6"><img src="@/assets/Result.png" alt="Result"></div>
-          <div class="my-12"></div>
-          <div class="row">
-            <div class="scoreLine col-6"><img src="@/assets/Excellent.png" alt="Excellent"></div>
-            <div class="scoreLine col-6">{{ results['excellentCnt'] }} pt</div>
+        <v-card class="mx-auto" width="90vw" height="90vh" color="rgba(0, 0, 0, 0.7)" outlined>
+          <div class="container" style="text-align: center;">
+            <div class="my-12"></div>
+            <div class="scoreLine col-6"><img src="@/assets/Result.png" alt="Result"></div>
+            <div class="my-12"></div>
+            <div class="row">
+              <div class="scoreLine col-3"></div>
+              <div class="scoreLine col-3"><img src="@/assets/Excellent.png" alt="Excellent"></div>
+              <div class="scoreLine col-3">{{ results['excellentCnt'] }} pt</div>
+            </div>
+            <div class="row">
+
+              <div class="scoreLine col-3"></div>
+              <div class="scoreLine col-3"><img src="@/assets/Great.png" alt="Great"></div>
+              <div class="scoreLine col-3">{{ results['greatCnt'] }} pt</div>
+            </div>
+            <div class="row">
+              <div class="scoreLine col-3"></div>
+              <div class="scoreLine col-3"><img src="@/assets/Good.png" alt="Good"></div>
+              <div class="scoreLine col-3">{{ results['goodCnt'] }} pt</div>
+            </div>
+            <div class="row">
+              <div class="scoreLine col-3"></div>
+              <div class="scoreLine col-3"><img src="@/assets/Bad.png" alt="Bad"></div>
+              <div class="scoreLine col-3">{{ results['badCnt'] }} pt</div>
+            </div>
+            <div class="my-12"></div>
+            <div id="nextBtn" @click="moveNext">
+              <v-progress-circular @click="moveNext" :rotate="-90" :size="100" :width="15" :value="timeValue"
+                color="white">
+                <v-icon color="white">fas fa-play</v-icon>
+              </v-progress-circular>
+              <div></div>
+              <v-btn small @click="moveNext">다음영상</v-btn>
+            </div>
+            <v-btn class="scoreLine" @click="moveMain">종료하기</v-btn>
           </div>
-          <div class="row">
-            <div class="scoreLine col-6"><img src="@/assets/Great.png" alt="Great"></div>
-            <div class="scoreLine col-6">{{ results['greatCnt'] }} pt</div>
-          </div>
-          <div class="row">
-            <div class="scoreLine col-6"><img src="@/assets/Good.png" alt="Good"></div>
-            <div class="scoreLine col-6">{{ results['goodCnt'] }} pt</div>
-          </div>
-          <div class="row">
-            <div class="scoreLine col-6"><img src="@/assets/Bad.png" alt="Bad"></div>
-            <div class="scoreLine col-6">{{ results['badCnt'] }} pt</div>
-          </div>
-          <div class="my-12"></div>
-          <a @click="moveNext">
-            <v-progress-circular
-              id="nextBtn"
-              :rotate="-90"
-              :size="150"
-              :width="15"
-              :value="timeValue"
-              color="white"
-            >
-            <v-icon color="white">fas fa-play</v-icon>
-            <br>
-            <span>다음영상</span>
-            </v-progress-circular>
-          </a>
-          <v-btn class="scoreLine" @click="moveMain">종료하기</v-btn>
-        </div>
         </v-card>
       </div>
     </v-dialog>
@@ -122,6 +111,7 @@
     },
     data() {
       return {
+        videoId: null,
         title: '',
         description: '',
         cam_poses: 0,
@@ -149,7 +139,7 @@
         resultModal: false,
         nextURL: '',
         timeValue: 0,
-        nextPlayInterval : {},
+        nextPlayInterval: {},
         started: false,
         stopSeconds: 3,
         stretchReady: true,
@@ -166,7 +156,9 @@
             this.haveToDisplay = false
             this.time = window.t;
             if (window.done) {
-              this.resultModal = true;
+              if (this.resultModal == false) {
+                this.resultModal = true;
+              }
               window.clearInterval(a);
               window.playFlag = false;
               this.nextPlaySetInterval();
@@ -178,7 +170,8 @@
                 strategy: 'cosineSimilarity'
               });
               window.cosineSimilarity = this.cosineSimilarity
-              if (window.playFlag === true  && (window.firstStopFlag === false || window.secondStopFlag === false)) {
+              if (window.playFlag === true && (window.firstStopFlag === false || window.secondStopFlag ===
+                  false)) {
                 this.iseffect = !this.iseffect
                 this.iseffect2 = !this.iseffect2
                 if (this.cosineSimilarity >= this.excellentThresh * 0.01) {
@@ -226,7 +219,8 @@
               this.excellentAudio.pause();
               this.goodAudio.pause();
               this.badAudio.pause();
-              if (window.playFlag === true && (window.firstStopFlag === false || window.secondStopFlag === false)) {
+              if (window.playFlag === true && (window.firstStopFlag === false || window.secondStopFlag ===
+                  false)) {
                 this.effectimg = 'Bad.png';
                 this.results['badCnt'] += 1;
               }
@@ -249,6 +243,7 @@
       getVideo() {
         axios.get('http://i02b104.p.ssafy.io:8197/ssafyvue/api/stretching/detail/' + this.$route.params.id)
           .then((res) => {
+            this.videoId = res.data.video_id
             this.title = res.data.title
             this.description = res.data.description
             this.excellentThresh = res.data.excellent;
@@ -293,10 +288,10 @@
       moveMain() {
         window.location = 'http://localhost:8080/main/'
       },
-      nextPlaySetInterval(){
+      nextPlaySetInterval() {
         this.nextPlayInterval = setInterval(() => {
-        if (this.timeValue === 100) {
-          window.location = 'http://localhost:8080' + window.next  
+          if (this.timeValue === 100) {
+            window.location = 'http://localhost:8080' + window.next
           }
           console.log(this.timeValue)
           this.timeValue += 10
@@ -344,6 +339,27 @@
         return require('../assets/' + this.effectimg)
       },
     },
+    watch: {
+      resultModal: function () {
+        const data = {
+          member_id: this.$store.state.auth.user.memberid,
+          video_id: this.videoId,
+          excellent: this.results['excellentCnt'],
+          great: this.results['greatCnt'],
+          good: this.results['goodCnt'],
+          bad: this.results['badCnt']
+        }
+        axios.post('http://i02b104.p.ssafy.io:8197/ssafyvue/api/stretching/result/', data)
+          .then((res) => {
+            console.log('successs post stretching result!!')
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log('fail post stretching result!!')
+            console.log(err)
+          })
+      }
+    },
     destroyed() {
       location.reload();
     },
@@ -356,17 +372,20 @@
   .stretchPage {
     background-image: url('../assets/stretch_bg.png');
   }
+
   canvas {
     width: 100px;
     height: 100px;
     background-color: yellow;
     display: inline-block;
   }
+
   #videoBox {
     width: 1300px;
     background-color: #45b6fe;
     text-align: center;
   }
+
   .scoreLine {
     display: inline;
     max-height: 10vh;
@@ -374,6 +393,7 @@
     font-size: 5em;
     color: white;
   }
+
   .useAnimated {
     position: fixed;
     top: 20vh;
@@ -381,11 +401,13 @@
     left: 0;
     right: 0;
   }
+
   #stretchReadyImg {
     position: absolute;
     left: 10px;
     bottom: 6px;
   }
+
   #finger {
     position: absolute;
     z-index: 2;
@@ -393,6 +415,7 @@
     top: 30vh;
     left: 250px;
   }
+
   .stretchingTitle {
     left: 10vw;
     top: 15vh;
@@ -400,11 +423,13 @@
     font-size: 3rem;
     font-family: 'Black Han Sans', sans-serif;
   }
+
   .stretchingDesc {
     color: white;
     font-size: 2rem;
     font-family: 'Black Han Sans', sans-serif;
   }
+
   #countImg {
     position: absolute;
     z-index: 2;
@@ -412,15 +437,25 @@
     left: 0;
     right: 0;
   }
-  #countImg > img {
+
+  #countImg>img {
     height: 120px;
   }
+
+  #CharacterBox {
+    position: fixed;
+    right: 20px;
+    width: 250px;
+    bottom: 10vh;
+  }
+
   #vegetableChar {
     position: fixed;
     left: 20px;
     width: 340px;
     bottom: -5vh;
   }
+
   #nextBtn {
     position: fixed;
     top: 40vh;
@@ -432,5 +467,10 @@
     top: 50vh;
     left: 0;
     right: 0;
+  }
+
+  .spacebar {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 20px;
   }
 </style>
