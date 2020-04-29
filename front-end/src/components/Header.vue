@@ -25,7 +25,7 @@
         </v-btn>
       </div>
       <div v-if="islogin" class="my-auto mx-2">
-        <v-btn large text color="white">
+        <v-btn v-if="user.name !='test'" key="MY PAGE" to="/userinfo" large text color="white">
           MY PAGE
         </v-btn>
       </div>
@@ -59,8 +59,11 @@
     },
     computed: {
       islogin() {
-          return this.$store.state.auth.token
-        }
+        return this.$store.state.auth.token
+      },
+      user() {
+        return this.$store.state.auth.user
+      }
     },
     methods: {
       mouseover: function () {
