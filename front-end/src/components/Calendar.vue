@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
    <v-sheet height="100%">
       <v-calendar
         ref="calendar"

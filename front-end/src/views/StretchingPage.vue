@@ -32,10 +32,7 @@
     <div style="height: 20vh"></div>
     <v-card id="videoBox" class="mx-auto">
       <div id="countImg" v-if="haveToDisplay">
-        <img v-if="stopSeconds == 3" src="@/assets/count3.png" alt="count3">
-        <img v-if="stopSeconds == 2" src="@/assets/count2.png" alt="count2">
-        <img v-if="stopSeconds == 1" src="@/assets/count1.png" alt="count1">
-        <img v-if="stopSeconds == 0" src="@/assets/count0.png" alt="count0">
+        <img src="@/assets/count0.png" alt="count0">
       </div>
       <img 
       id="finger" 
@@ -91,18 +88,21 @@
             <div class="scoreLine col-3">{{ results['badCnt'] }} pt</div>
           </div>
           <div class="my-12"></div>
-          <v-progress-circular
-            :rotate="-90"
-            :size="100"
-            :width="15"
-            :value="timeValue"
-            color="white"
-            @click="moveNext"
-          >
-            <v-icon color="white">fas fa-play</v-icon>
-          </v-progress-circular>
-          <v-btn class="scoreLine col-6" @click="moveNext">다음영상</v-btn>
-          <v-btn class="scoreLine col-6" @click="moveMain">종료하기</v-btn>
+          <div id="nextBtn" @click="moveNext">
+            <v-progress-circular
+              @click="moveNext"
+              :rotate="-90"
+              :size="100"
+              :width="15"
+              :value="timeValue"
+              color="white"
+            >
+              <v-icon color="white">fas fa-play</v-icon>
+            </v-progress-circular>
+            <div></div>
+            <v-btn small @click="moveNext">다음영상</v-btn>
+          </div>
+          <v-btn class="scoreLine" @click="moveMain">종료하기</v-btn>
         </div>
         </v-card>
       </div>
@@ -251,6 +251,7 @@
           window.setInterval(() => {
             if (window.playFlag === true && window.alarmFlag === true) {
               vm.measureAudio.play();
+              vm.haveToDisplay = true;
             }
           }, 1000);
         });
@@ -297,16 +298,7 @@
         }
       },
       moveNext() {
-        this.video_id = Number(window.next.split('/')[2])
-        this.$router.push({
-            name: 'Stretching',
-            params: {
-              id: this.video_id,
-              title: this.title,
-              description: this.description
-            }
-          }
-        )
+        window.location = 'http://localhost:8080' + window.next
       },
       moveMain() {
         window.location = 'http://localhost:8080/main/'
@@ -317,7 +309,7 @@
           window.location = 'http://localhost:8080' + window.next  
           }
           console.log(this.timeValue)
-          this.timeValue += 20
+          this.timeValue += 10
         }, 1000)
       }
     },
@@ -411,6 +403,9 @@
     left: 250px;
   }
   .stretchingTitle {
+    position: fixed;
+    left: 10vw;
+    top: 15vh;
     color: white;
     font-size: 5em;
     font-family: 'Black Han Sans', sans-serif;
@@ -441,5 +436,11 @@
     left: 20px;
     width: 400px;
     bottom: 0;
+  }
+  #nextBtn {
+    position: fixed;
+    top: 40vh;
+    left: 0;
+    right: 0;
   }
 </style>

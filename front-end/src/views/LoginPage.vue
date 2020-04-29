@@ -1,5 +1,6 @@
 <template>
   <v-container
+    id="loginPage"
         class="fill-height"
       fluid
       >
@@ -44,5 +45,7 @@ export default {
 </script>
 
 <style>
-
+  #loginPage {
+    background-image: url("../assets/stretch_bg.png");
+  }
 </style>
