@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    
     <Header></Header>
     <v-img
           width="100%"
@@ -42,9 +41,11 @@
         <HistoryList></HistoryList>
       </v-col>
     </v-row>
-    <v-row>
-    </v-row>
+    
   </v-img>
+  <div id="animal" class="movable">
+      <v-img src="@/assets/gom.gif" height="400px" width="400px"></v-img>
+    </div>
   </v-container>
 </template>
 
@@ -68,7 +69,8 @@ export default {
   },
   data() {
     return {
-
+      aniRoute: '',
+      animal: ['dog_1.gif', 'dog_2.gif', 'gom.gif']
     }
   },
   methods: {
@@ -78,9 +80,43 @@ export default {
     //     console.log(res)
     //   })
     // }
+    workingAnimal() {
+      var x = 0; //Left시작 위치
+      var y = 800; //top시작 위치
+      var dest_x = 500; //Left종료 위치
+      var dest_y = 900;
+      var interval = 20; // 1px씩
+      
+      function moveImage() {
+        if(x<dest_x) x = x + interval; 
+        if(y<dest_y) y = y + 0;
+          
+        //ufo이미지 움직이기
+        document.getElementById("animal").style.left = x+'px';
+        document.getElementById("animal").style.top  = y+'px';
+          
+      }
+      if ((x+interval < dest_x) && (y+0 < dest_y)) {
+        //종료 위치가 될때 까지 함수 100마이크로세컨드 계속 호출
+        window.setInterval(moveImage(),100);
+      }
+      // moveImage()
+    }
   },
   mounted() {
     this.$store.dispatch('isLogin')
+    this.workingAnimal()
+    // var rand = Math.random()
+    // var idx = 0
+    // if (rand <= 1/3) {
+    //   idx = 0
+    // } else if (rand <= 2/3) {
+    //   idx = 1
+    // } else {
+    //   idx = 2
+    // }
+    // this.aniRoute = '@/assets/' + this.animal[idx]
+    // this.workingAnimal()
   },
   computed: {
     user() {
@@ -91,9 +127,13 @@ export default {
 </script>
 
 <style>
+.movable { 
+  position:absolute; 
+}
 .canlen-title {
   background-color: #FF7033;
   border-bottom: solid 6px rgb(239, 98, 27);
+  border-radius: 20px 20px 0px 0px / 20px 20px 0px 0px;
 }
 .back-white {
   background-color: rgb(246, 246, 249);
