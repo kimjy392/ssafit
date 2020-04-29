@@ -22,21 +22,22 @@
             <div>
               <v-form class="px-2" justify="center" @submit.prevent="login" >
                 <v-text-field
+                light="true"
                 color="white"
                 style="width:100%; height:100%; text-color=:white;"
-                  label="Email"
-                  name="email"
-                  type="text"
-                  v-model="credentials.email"
+                label="Email"
+                name="email"
+                type="text"
+                v-model="credentials.email"
                 />
                 <v-text-field
                 color="white"
                 style="width:100%; height:100%;"
-                  id="password"
-                  label="Password"
-                  name="password"
-                  type="password"
-                  v-model="credentials.password"
+                id="password"
+                label="Password"
+                name="password"
+                type="password"
+                v-model="credentials.password"
                 />
                 <div class="d-flex justify-center">
                   <v-btn large color="#FF7033" style="color: white;" type="submit">LOG IN</v-btn>
@@ -46,7 +47,7 @@
                   아직 회원이 아니세요? 
                   <img id="nouserGif" height="44px" src="@/assets/puzzled.gif" alt="animated_puzzled">
                   <br>
-                  <v-btn @click="nonMemLogin" color="#FF7033" large text>
+                  <v-btn @click="nonMemLogin" color="#FF7033" large outlined="">
                     여기
                   </v-btn>
                   를 눌러 SSA<span id="text-yellow">FIT</span>를 체험해보세요.

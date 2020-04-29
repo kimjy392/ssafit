@@ -1,26 +1,30 @@
 <template>
   <div id="stretchPage">
     <Header></Header>
-    <span class="stretchingTitle">{{ title }}</span>
+    <span class="stretchingTitle">{{ title }}</span><br>
+    <span class="stretchingDesc">{{ description }}</span>
     <div>
       <div style="position: fixed; left: 0; bottom:0; z-index: 2;">
-        <audio id="backgroundMusic" controls autoplay volume="0.1">
+        <audio id="backgroundMusic" autoplay>
           <source src="../assets/backgroundMusic.mp3" type="audio/mpeg">
         </audio>
         <audio v-if="started" autoplay>
           <source src="../assets/papagoStartStretching.mp3" type="audio/mpeg">
         </audio>
         <audio id="excellentAudio" crossOrigin="anonymous">
-          <source src="../assets/googleExcellent.mp3" type="audio/mpeg">
+          <source src="../assets/excellent.mp3" type="audio/mpeg">
         </audio>
         <audio id="greatAudio" crossOrigin="anonymous">
-          <source src="../assets/googleGreat.mp3" type="audio/mpeg">
+          <source src="../assets/great.mp3" type="audio/mpeg">
         </audio>
         <audio id="goodAudio" crossOrigin="anonymous">
-          <source src="../assets/googleGood.mp3" type="audio/mpeg">
+          <source src="../assets/good.mp3" type="audio/mpeg">
         </audio>
         <audio id="badAudio" crossOrigin="anonymous">
-          <source src="../assets/googleBad.mp3" type="audio/mpeg">
+          <source src="../assets/bad.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="measureAudio" crossOrigin="anonymous">
+          <source src="../assets/startMeasure.mp3" type="audio/mpeg">
         </audio>
       </div>
     </div>
@@ -28,10 +32,7 @@
     <div style="height: 20vh"></div>
     <v-card id="videoBox" class="mx-auto">
       <div id="countImg" v-if="haveToDisplay">
-        <img v-if="stopSeconds == 3" src="@/assets/count3.png" alt="count3">
-        <img v-if="stopSeconds == 2" src="@/assets/count2.png" alt="count2">
-        <img v-if="stopSeconds == 1" src="@/assets/count1.png" alt="count1">
-        <img v-if="stopSeconds == 0" src="@/assets/count0.png" alt="count0">
+        <img src="@/assets/count0.png" alt="count0">
       </div>
       <img 
       id="finger" 
@@ -87,25 +88,27 @@
             <div class="scoreLine col-3">{{ results['badCnt'] }} pt</div>
           </div>
           <div class="my-12"></div>
-          <v-progress-circular
-            :rotate="-90"
-            :size="100"
-            :width="15"
-            :value="timeValue"
-            color="white"
-            @click="moveNext"
-          >
-            <v-icon color="white">fas fa-play</v-icon>
-          </v-progress-circular>
-          <v-btn class="scoreLine col-6" @click="moveNext">다음영상</v-btn>
-          <v-btn class="scoreLine col-6" @click="moveMain">종료하기</v-btn>
+          <div id="nextBtn" @click="moveNext">
+            <v-progress-circular
+              @click="moveNext"
+              :rotate="-90"
+              :size="100"
+              :width="15"
+              :value="timeValue"
+              color="white"
+            >
+              <v-icon color="white">fas fa-play</v-icon>
+            </v-progress-circular>
+            <div></div>
+            <v-btn small @click="moveNext">다음영상</v-btn>
+          </div>
+          <v-btn class="scoreLine" @click="moveMain">종료하기</v-btn>
         </div>
         </v-card>
       </div>
     </v-dialog>
     <img id="vegetableChar" src="@/assets/vegetable.gif" alt="야채">
     <CharacterBox id="CharacterBox"></CharacterBox>
-    <!-- <div> {{ cosineSimilarity }} </div> -->
   </div>
 </template>
 
@@ -125,13 +128,10 @@
       Header,
       CharacterBox,
     },
-    props: {
-      title: {
-        type: String,
-      }
-    },
     data() {
       return {
+        title: '',
+        description: '',
         cam_poses: 0,
         video_poses: 0,
         cosineSimilarity: 0,
@@ -146,6 +146,7 @@
         greatAudio: null,
         goodAudio: null,
         badAudio: null,
+        measureAudio: null,
         spaceFlag: true,
         results: {
           'excellentCnt': 0,
@@ -171,6 +172,7 @@
       everySecondTrigger() {
         this.$nextTick(function () {
           const a = window.setInterval(() => {
+            this.time = window.t;
             if (window.done) {
               this.resultModal = true;
               window.clearInterval(a);
@@ -184,7 +186,7 @@
                 strategy: 'cosineSimilarity'
               });
               window.cosineSimilarity = this.cosineSimilarity
-              if (window.playFlag === true) {
+              if (window.playFlag === true  && (window.firstStopFlag === false || window.secondStopFlag === false)) {
                 this.iseffect = !this.iseffect
                 this.iseffect2 = !this.iseffect2
                 if (this.cosineSimilarity >= this.excellentThresh * 0.01) {
@@ -225,6 +227,7 @@
                 this.greatAudio.pause();
                 this.goodAudio.pause();
                 this.badAudio.pause();
+                this.effectimg = 'ready.png'
               }
             } catch (err) {
               this.score = 'Hmm...'
@@ -232,38 +235,23 @@
               this.excellentAudio.pause();
               this.goodAudio.pause();
               this.badAudio.pause();
-              if (window.playFlag === true) {
+              if (window.playFlag === true && (window.firstStopFlag === false || window.secondStopFlag === false)) {
                 this.effectimg = 'Bad.png';
                 this.results['badCnt'] += 1;
+              } else {
+                this.effectimg = 'ready.png'
               }
             }
-          }, 2000);
+          }, 1600);
         });
       },
       stopPointTrigger() {
         var vm = this;
         this.$nextTick(function () {
           window.setInterval(() => {
-            if (window.playFlag === true) {
-              if (window.firstStopAlarmFlag === false && window.secondStopAlarmFlag === true) {
-                vm.haveToDisplay = true
-                if (vm.stopSeconds > 0) {
-                  vm.stopSeconds -= 1;
-                }
-              } else if (window.firstStopAlarmFlag === true && window.secondStopAlarmFlag === true) {
-                vm.haveToDisplay = false
-                vm.stopSeconds = 4;
-              } else if (window.firstStopAlarmFlag === true && window.secondStopAlarmFlag === false) {
-                vm.haveToDisplay = true
-                if (vm.stopSeconds > 0) {
-                  vm.stopSeconds -= 1;
-                }
-              } else {
-                vm.haveToDisplay = false;
-              }
-              vm.imgSrc = '@/assets/count' + vm.stopSeconds + '.png'
-            } else if (window.firstStopAlarmFlag === true && window.secondStopAlarmFlag === true) {
-              vm.stopSeconds = 0;
+            if (window.playFlag === true && window.alarmFlag === true) {
+              vm.measureAudio.play();
+              vm.haveToDisplay = true;
             }
           }, 1000);
         });
@@ -271,6 +259,8 @@
       getVideo() {
         axios.get('http://i02b104.p.ssafy.io:8197/ssafyvue/api/stretching/detail/' + this.$route.params.id)
           .then((res) => {
+            this.title = res.data.title
+            this.description = res.data.description
             this.excellentThresh = res.data.excellent;
             this.greatThresh = res.data.great;
             this.goodThresh = res.data.good;
@@ -308,7 +298,6 @@
         }
       },
       moveNext() {
-        // this.$router.push(window.next)
         window.location = 'http://localhost:8080' + window.next
       },
       moveMain() {
@@ -320,7 +309,7 @@
           window.location = 'http://localhost:8080' + window.next  
           }
           console.log(this.timeValue)
-          this.timeValue += 20
+          this.timeValue += 10
         }, 1000)
       }
     },
@@ -336,12 +325,13 @@
         })
 
       var backgroundMusic = document.getElementById("backgroundMusic");
-      backgroundMusic.volume = 0.2;
+      backgroundMusic.volume = 0.1;
 
       this.excellentAudio = document.getElementById("excellentAudio");
       this.greatAudio = document.getElementById("greatAudio");
       this.goodAudio = document.getElementById("goodAudio");
       this.badAudio = document.getElementById("badAudio");
+      this.measureAudio = document.getElementById("measureAudio");
 
       this.pressSpaceBar();
       this.getVideo();
@@ -413,8 +403,16 @@
     left: 250px;
   }
   .stretchingTitle {
+    position: fixed;
+    left: 10vw;
+    top: 15vh;
     color: white;
     font-size: 5em;
+    font-family: 'Black Han Sans', sans-serif;
+  }
+  .stretchingDesc {
+    color: white;
+    font-size: 3em;
     font-family: 'Black Han Sans', sans-serif;
   }
   #countImg {
@@ -438,5 +436,11 @@
     left: 20px;
     width: 400px;
     bottom: 0;
+  }
+  #nextBtn {
+    position: fixed;
+    top: 40vh;
+    left: 0;
+    right: 0;
   }
 </style>

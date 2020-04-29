@@ -4,9 +4,8 @@ window.cam_poses = [];
 window.poses = [];
 window.playFlag = false;
 window.firstStopFlag = true;
-window.firstStopAlarmFlag = true;
 window.secondStopFlag = true;
-window.secondStopAlarmFlag = true;
+window.alarmFlag = false;
 window.done = false;
 
 function modelReady() {}
@@ -30,7 +29,6 @@ export default async function (sketch) {
 
   sketch.setup = async function () {
     const canvas = sketch.createCanvas(1280, 480);
-    // canvas.clear();
     canvas.parent("videoContainer");
 
     cam = sketch.createCapture(window.VIDEO);
@@ -44,15 +42,7 @@ export default async function (sketch) {
     sketch.background(1000);
 
     video = sketch.createVideo(videofile, videoLoad);
-    // video.onended(sayDone);
   };
-  // function sayDone() {
-  //   window.done = true;
-  //   window.playFlag = false;
-  //   console.log('done!!!!', 'done!!!!','done!!!!','done!!!!','done!!!!','done!!!!', window.done);
-  //   // window.location = "http://localhost:8080" + window.next;
-  //   // history.back()
-  // }
 
   sketch.draw = async function () {
     sketch.translate(1280, 0);
@@ -60,11 +50,13 @@ export default async function (sketch) {
     sketch.image(cam, 0, 0);
     sketch.image(video, 640, 0);
 
+    // 비디오가 끝났을 때
     if (video.time() >= window.endOfVideo) {
       window.done = true;
       window.playFlag = false
     }
 
+    // spacebar 눌렀을 때
     if (window.playFlag === true) {
       if (window.done === false) {
         video.play();
@@ -73,34 +65,42 @@ export default async function (sketch) {
       video.pause();
     }
 
-    if (Math.floor(video.time()) == window.firstStop - 4 && window.firstStopAlarmFlag == true) {
-      window.firstStopAlarmFlag = false
+    // 첫 번째 측정 3~4초전
+    if (Math.floor(video.time()) == window.firstStop - 4 && window.alarmFlag === false) {
+      window.alarmFlag = true
+      setTimeout(function () {
+        window.alarmFlag = false
+      }, 2000);
     }
 
-    if (Math.floor(video.time()) == window.secondStop - 4 && window.secondStopAlarmFlag == true) {
-      window.secondStopAlarmFlag = false
+    // 두 번째 측정 3~4초전
+    if (Math.floor(video.time()) == window.secondStop - 4 && window.alarmFlag == false) {
+      window.alarmFlag = true
+      setTimeout(function () {
+        window.alarmFlag = false
+      }, 2000);
     }
-
+    
+    // 첫 번째 측정 시작
     if (Math.floor(video.time()) == window.firstStop && window.firstStopFlag == true){
-      window.playFlag = false;
-      window.firstStopAlarmFlag = true
-      if (window.cosineSimilarity >= window.excellentThresh * 0.01) {
-        window.playFlag = true;
-        window.firstStop = false;
-      }
+      window.firstStopFlag = false
+      setTimeout(function () {
+        window.firstStopFlag = true;
+      }, 8000);
     }
 
+    // 두 번째 측정 시작
     if (Math.floor(video.time()) == window.secondStop && window.secondStopFlag == true){
-      window.playFlag = false;
-      window.secondStopAlarmFlag = true
-      if (window.cosineSimilarity >= window.excellentThresh * 0.01) {
-        window.playFlag = true;
-        window.secondStop = false;
-      }
+      window.secondStopFlag = false;
+      setTimeout(function () {
+        window.secondStopFlag = true;
+      }, 8000);
     }
 
     if (window.playFlag === true) {
-      drawKeypoints();
+      if (window.firstStopFlag === false || window.secondStopFlag === false) {
+        drawKeypoints();
+      }
       // drawSkeleton();
     }
   };
