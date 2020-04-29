@@ -1,6 +1,17 @@
 <template>
   <div id="videoDiv">
     <v-row class="justify-space-around">
+      <div class="mx-2" v-on:mouseover="mouseover0" v-on:mouseleave="mouseleave0">
+        <v-btn text style="height: 100px;">
+          <v-img
+            :class="hoverClass0"
+            width="100px"
+            height="100px"
+            src="@/assets/all.png"
+          >
+          </v-img>
+        </v-btn>
+      </div>
       <div class="mx-2" v-on:mouseover="mouseover1" v-on:mouseleave="mouseleave1">
         <v-btn text style="height: 100px;">
           <v-img
@@ -70,6 +81,7 @@
     data() {
       return {
         // icons: ['tutle.png', 'spine.png', 'hello.png', 'male.png'],
+        hoverClass0: '',
         hoverClass1: '',
         hoverClass2: '',
         hoverClass3: '',
@@ -77,6 +89,12 @@
       }
     },
     methods: {
+      mouseover0: function () {
+        this.hoverClass0 = "animated infinite tada"
+      },
+      mouseleave0: function () {
+        this.hoverClass0 = ""
+      },
       mouseover1: function () {
         this.hoverClass1 = "animated infinite tada"
       },
