@@ -14,7 +14,7 @@ export default {
   .charDiv {
     width: 250px;
     background-color: white;
-    border: 5px solid rgb(253, 122, 58);
+    border: 5px solid #45b6fe;
   }
   .charImg {
     width: 100%;
