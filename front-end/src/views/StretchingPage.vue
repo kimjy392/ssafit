@@ -1,8 +1,8 @@
 <template>
   <div id="stretchPage">
     <Header></Header>
-    <span class="stretchingTitle">{{ title }}</span><br>
-    <span class="stretchingDesc">{{ description }}</span>
+    <span class="stretchingTitle">{{ title }}</span>
+    <span class="stretchingDesc">:{{ description }}</span>
     <div>
       <div style="position: fixed; left: 0; bottom:0; z-index: 2;">
         <audio id="backgroundMusic" autoplay>
@@ -29,7 +29,7 @@
       </div>
     </div>
     <v-img class="useAnimated animated mx-auto" width="500" :class="classeffect" :src="getEffectImg"></v-img>
-    <div style="height: 20vh"></div>
+    <!-- <div style="height: 20vh"></div> -->
     <v-card id="videoBox" class="mx-auto">
       <div id="countImg" v-if="haveToDisplay">
         <img src="@/assets/count0.png" alt="count0">
@@ -46,10 +46,10 @@
     <div class='sketch' id="sketch"></div>
     <div class="my-6"></div>
     <div style="text-align: center">
-      <v-btn v-if="spaceFlag" id="spacebar" x-large color="#ff7235" class="white--text">
+      <v-btn v-if="spaceFlag" id="spacebar" x-large color="#45b6fe" class="white--text">
         스페이스바를 누르면 시작합니다!
       </v-btn>
-      <v-btn v-if="!spaceFlag" id="spacebar" x-large color="#FF8C00" class="white--text">
+      <v-btn v-if="!spaceFlag" id="spacebar" x-large color="#45b6fe" class="white--text">
         스페이스바를 누르면 멈춥니다!
       </v-btn>
     </div>
@@ -374,7 +374,7 @@
   }
   #videoBox {
     width: 1300px;
-    background-color: rgb(253, 122, 56);
+    background-color: #45b6fe;
     text-align: center;
   }
   .scoreLine {
@@ -407,12 +407,12 @@
     left: 10vw;
     top: 15vh;
     color: white;
-    font-size: 5em;
+    font-size: 3rem;
     font-family: 'Black Han Sans', sans-serif;
   }
   .stretchingDesc {
     color: white;
-    font-size: 3em;
+    font-size: 2rem;
     font-family: 'Black Han Sans', sans-serif;
   }
   #countImg {
