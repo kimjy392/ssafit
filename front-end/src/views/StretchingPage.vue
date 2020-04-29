@@ -46,11 +46,11 @@
     <div class='sketch' id="sketch"></div>
     <div class="my-6"></div>
     <div style="text-align: center">
-      <v-btn v-if="spaceFlag" id="spacebar" x-large color="#45b6fe" class="white--text">
-        스페이스바를 누르면 시작합니다!
+      <v-btn v-if="spaceFlag" x-large color="#45b6fe" class="white--text">
+        <span class="spacebar">스페이스바를 누르면 시작해요</span>
       </v-btn>
-      <v-btn v-if="!spaceFlag" id="spacebar" x-large color="#45b6fe" class="white--text">
-        스페이스바를 누르면 멈춥니다!
+      <v-btn v-if="!spaceFlag" x-large color="#1167b1" class="white--text">
+        <span class="spacebar">스페이스바를 누르면 멈추어요</span>
       </v-btn>
     </div>
     <v-dialog elevation-0 v-model="resultModal">
@@ -442,5 +442,9 @@
     top: 40vh;
     left: 0;
     right: 0;
+  }
+  .spacebar {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 20px;
   }
 </style>
