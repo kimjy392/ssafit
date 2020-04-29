@@ -70,7 +70,13 @@ export default {
   data() {
     return {
       aniRoute: '',
-      animal: ['dog_1.gif', 'dog_2.gif', 'gom.gif']
+      animal: ['dog_1.gif', 'dog_2.gif', 'gom.gif'],
+      x : -300, //Left시작 위치
+      y : 700, //top시작 위치
+      dest_x : window.outerWidth, //Left종료 위치
+      dest_y : 700,
+      interval : 6, // 1px씩
+      timeinterval : null,
     }
   },
   methods: {
@@ -81,25 +87,18 @@ export default {
     //   })
     // }
     workingAnimal() {
-      var x = 0; //Left시작 위치
-      var y = 800; //top시작 위치
-      var dest_x = 500; //Left종료 위치
-      var dest_y = 900;
-      var interval = 20; // 1px씩
-      
-      function moveImage() {
-        if(x<dest_x) x = x + interval; 
-        if(y<dest_y) y = y + 0;
-          
-        //ufo이미지 움직이기
-        document.getElementById("animal").style.left = x+'px';
-        document.getElementById("animal").style.top  = y+'px';
-          
-      }
-      if ((x+interval < dest_x) && (y+0 < dest_y)) {
         //종료 위치가 될때 까지 함수 100마이크로세컨드 계속 호출
-        window.setInterval(moveImage(),100);
-      }
+        this.timeinterval = setInterval(() => {
+        if(this.x<this.dest_x) this.x = this.x + this.interval; 
+        if(this.y<this.dest_y) this.y = this.y + 0;
+        if (this.x+this.interval >= this.dest_x) {
+          this.x = -300
+          }
+        //ufo이미지 움직이기
+        document.getElementById("animal").style.left = this.x+'px';
+        document.getElementById("animal").style.top  = this.y+'px';
+          
+    }, 50)
       // moveImage()
     }
   },
@@ -122,6 +121,9 @@ export default {
     user() {
       return this.$store.state.auth.user
     }
+  },
+  destroyed() {
+    clearInterval(this.timeinterval)
   }
 }
 </script>
