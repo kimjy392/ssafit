@@ -1,8 +1,6 @@
 <template>
-  <div id="stretchPage">
+  <div class="stretchPage">
     <Header></Header>
-    <span class="stretchingTitle">{{ title }}</span>
-    <span class="stretchingDesc">:{{ description }}</span>
     <div>
       <div style="position: fixed; left: 0; bottom:0; z-index: 2;">
         <audio id="backgroundMusic" autoplay>
@@ -28,15 +26,16 @@
         </audio>
       </div>
     </div>
-    <v-img class="useAnimated animated mx-auto" width="500" :class="classeffect" :src="getEffectImg"></v-img>
+    <v-img id="effectImgs" class="useAnimated animated mx-auto" width="500" :class="classeffect" :src="getEffectImg"></v-img>
     <!-- <div style="height: 20vh"></div> -->
     <v-card id="videoBox" class="mx-auto">
-      <div id="countImg" v-if="haveToDisplay">
-        <img src="@/assets/count0.png" alt="count0">
+      <div class="pt-3">
+        <span class="stretchingTitle">{{ title }}</span>
+        <span class="stretchingDesc">:{{ description }}</span>
       </div>
       <img 
       id="finger" 
-      class="useAnimated animated fadeInUp infinite pulse"
+      class="useAnimated animated fadeInUp infinite fulse"
       v-if="stretchReady"
       src="@/assets/finger.png" 
       alt="손가락">
@@ -62,53 +61,48 @@
         color="rgba(0, 0, 0, 0.7)"
         outlined
         >
-        <div class="container" style="text-align: center;">
+        <div class="container" style="text-align: center; width: 100%;">
           <div class="my-12"></div>
           <div class="scoreLine col-6"><img src="@/assets/Result.png" alt="Result"></div>
           <div class="my-12"></div>
           <div class="row">
-            <div class="scoreLine col-3"></div>
-            <div class="scoreLine col-3"><img src="@/assets/Excellent.png" alt="Excellent"></div>
-            <div class="scoreLine col-3">{{ results['excellentCnt'] }} pt</div>
+            <div class="scoreLine col-6"><img src="@/assets/Excellent.png" alt="Excellent"></div>
+            <div class="scoreLine col-6">{{ results['excellentCnt'] }} pt</div>
           </div>
           <div class="row">
-            
-            <div class="scoreLine col-3"></div>
-            <div class="scoreLine col-3"><img src="@/assets/Great.png" alt="Great"></div>
-            <div class="scoreLine col-3">{{ results['greatCnt'] }} pt</div>
+            <div class="scoreLine col-6"><img src="@/assets/Great.png" alt="Great"></div>
+            <div class="scoreLine col-6">{{ results['greatCnt'] }} pt</div>
           </div>
           <div class="row">
-            <div class="scoreLine col-3"></div>
-            <div class="scoreLine col-3"><img src="@/assets/Good.png" alt="Good"></div>
-            <div class="scoreLine col-3">{{ results['goodCnt'] }} pt</div>
+            <div class="scoreLine col-6"><img src="@/assets/Good.png" alt="Good"></div>
+            <div class="scoreLine col-6">{{ results['goodCnt'] }} pt</div>
           </div>
           <div class="row">
-            <div class="scoreLine col-3"></div>
-            <div class="scoreLine col-3"><img src="@/assets/Bad.png" alt="Bad"></div>
-            <div class="scoreLine col-3">{{ results['badCnt'] }} pt</div>
+            <div class="scoreLine col-6"><img src="@/assets/Bad.png" alt="Bad"></div>
+            <div class="scoreLine col-6">{{ results['badCnt'] }} pt</div>
           </div>
           <div class="my-12"></div>
-          <div id="nextBtn" @click="moveNext">
+          <a @click="moveNext">
             <v-progress-circular
-              @click="moveNext"
+              id="nextBtn"
               :rotate="-90"
-              :size="100"
+              :size="150"
               :width="15"
               :value="timeValue"
               color="white"
             >
-              <v-icon color="white">fas fa-play</v-icon>
+            <v-icon color="white">fas fa-play</v-icon>
+            <br>
+            <span>다음영상</span>
             </v-progress-circular>
-            <div></div>
-            <v-btn small @click="moveNext">다음영상</v-btn>
-          </div>
+          </a>
           <v-btn class="scoreLine" @click="moveMain">종료하기</v-btn>
         </div>
         </v-card>
       </div>
     </v-dialog>
+    <img style="z-index: 3;" id="vegetableChar" src="@/assets/hutdool.gif" alt="헛둘">
     <img id="vegetableChar" src="@/assets/vegetable.gif" alt="야채">
-    <CharacterBox id="CharacterBox"></CharacterBox>
   </div>
 </template>
 
@@ -120,13 +114,11 @@
   import {
     poseSimilarity
   } from 'posenet-similarity';
-  import CharacterBox from '@/components/stretchItems/CharacterBox.vue'
 
   export default {
     name: "Stretching",
     components: {
       Header,
-      CharacterBox,
     },
     data() {
       return {
@@ -160,7 +152,6 @@
         nextPlayInterval : {},
         started: false,
         stopSeconds: 3,
-        haveToDisplay: false,
         stretchReady: true,
         imgSrc: '',
       };
@@ -172,6 +163,7 @@
       everySecondTrigger() {
         this.$nextTick(function () {
           const a = window.setInterval(() => {
+            this.haveToDisplay = false
             this.time = window.t;
             if (window.done) {
               this.resultModal = true;
@@ -227,7 +219,6 @@
                 this.greatAudio.pause();
                 this.goodAudio.pause();
                 this.badAudio.pause();
-                this.effectimg = 'ready.png'
               }
             } catch (err) {
               this.score = 'Hmm...'
@@ -238,8 +229,6 @@
               if (window.playFlag === true && (window.firstStopFlag === false || window.secondStopFlag === false)) {
                 this.effectimg = 'Bad.png';
                 this.results['badCnt'] += 1;
-              } else {
-                this.effectimg = 'ready.png'
               }
             }
           }, 1600);
@@ -251,7 +240,8 @@
           window.setInterval(() => {
             if (window.playFlag === true && window.alarmFlag === true) {
               vm.measureAudio.play();
-              vm.haveToDisplay = true;
+              this.effectimg = 'count0.png';
+              this.getEffectImg();
             }
           }, 1000);
         });
@@ -363,7 +353,7 @@
   }
 </script>
 <style>
-  #stretchPage {
+  .stretchPage {
     background-image: url('../assets/stretch_bg.png');
   }
   canvas {
@@ -394,16 +384,16 @@
   #stretchReadyImg {
     position: absolute;
     left: 10px;
+    bottom: 6px;
   }
   #finger {
     position: absolute;
     z-index: 2;
     height: 200px;
-    top: 150px;
+    top: 30vh;
     left: 250px;
   }
   .stretchingTitle {
-    position: fixed;
     left: 10vw;
     top: 15vh;
     color: white;
@@ -425,21 +415,21 @@
   #countImg > img {
     height: 120px;
   }
-  #CharacterBox {
-    position: fixed;
-    right: 20px;
-    width: 250px;
-    bottom: 10vh;
-  }
   #vegetableChar {
     position: fixed;
     left: 20px;
-    width: 400px;
-    bottom: 0;
+    width: 340px;
+    bottom: -5vh;
   }
   #nextBtn {
     position: fixed;
     top: 40vh;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #effectImgs {
+    position: fixed;
+    top: 50vh;
     left: 0;
     right: 0;
   }
