@@ -91,12 +91,14 @@
               :value="timeValue"
               color="white"
             >
-            <v-icon color="white">fas fa-play</v-icon>
-            <br>
-            <span>다음영상</span>
+            <div>
+              <v-icon color="white">fas fa-play</v-icon>
+              <br>
+              <span>다음영상</span>
+            </div>
             </v-progress-circular>
           </a>
-          <v-btn class="scoreLine" @click="moveMain">종료하기</v-btn>
+          <v-btn x-large rounded color="white" @click="moveMain">끝내기</v-btn>
         </div>
         </v-card>
       </div>
@@ -154,6 +156,7 @@
         stopSeconds: 3,
         stretchReady: true,
         imgSrc: '',
+        circularMouseOn: false,
       };
     },
     methods: {
@@ -299,8 +302,8 @@
           window.location = 'http://localhost:8080' + window.next  
           }
           console.log(this.timeValue)
-          this.timeValue += 10
-        }, 1000)
+          this.timeValue += 5
+        }, 500)
       }
     },
     mounted() {
@@ -349,6 +352,12 @@
     },
     beforeDestroy() {
       clearInterval(this.nextPlayInterval)
+    },
+    circularMouseOver() {
+      this.circularMouseOn = true;
+    },
+    circularMouseleave() {
+      this.circularMouseOn = false;
     }
   }
 </script>
