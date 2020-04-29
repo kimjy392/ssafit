@@ -10,7 +10,7 @@
       <v-col class="col-8 d-flex align-center">
         <div class="ranking-desc">
           <h2 class="text-white">{{ user.name }}님!</h2>
-          <h3 class="text-white dis-inline"><h2 class="text-white dis-inline">{{userrank.total_users}}</h2> 명중 <h2 class="text-white dis-inline">{{userrank.rank}}</h2>번째로 스트레칭을 열심히 하셨네요!</h3>
+          <h3 class="text-white dis-inline"><h2 class="text-white dis-inline">(총 유저수)</h2> 중 <h2 class="text-white dis-inline">(랭킹)</h2>번째로 스트레칭을 열심히 하셨네요!</h3>
         </div>
       </v-col>
     </v-row>
@@ -25,11 +25,6 @@ export default {
       user() {
         return this.$store.state.auth.user
       }
-    },
-    props: {
-      userrank: {
-        type: Object,
-      },
     }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div id="intro">
-    <Header :isIntro="true"></Header>
+    <Header></Header>
       <section id="hero">
         <v-row no-gutters>
           <v-img

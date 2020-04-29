@@ -8,7 +8,7 @@
           >
     <div>
       <h1 class="display-2 font-weight-bold my-12 text-uppercase white--text">
-        MY PAGE <i class="fas fa-user-astronaut"></i>
+        MY PAGE  <i class="fas fa-user-astronaut"></i>
       </h1>
     </div>
     <v-row justify="space-around">
@@ -16,7 +16,7 @@
         <v-row>
           <v-col cols="12" class="border-3d">
             <!-- ranking -->
-            <Rangking :userrank="cuserrank"></Rangking>
+            <Rangking></Rangking>
           </v-col>
         </v-row>
         <v-row justify="space-between" class="mt-12">
@@ -44,13 +44,13 @@
     
   </v-img>
   <div id="animal" class="movable">
-      <v-img :src="canimal" height="400px" width="400px"></v-img>
+      <v-img src="@/assets/gom.gif" height="400px" width="400px"></v-img>
     </div>
   </v-container>
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import Header from '@/components/Header.vue'
 import HistoryList from '@/components/HistoryList.vue'
 import Rangking from '@/components/Rangking.vue'
@@ -70,28 +70,29 @@ export default {
   data() {
     return {
       aniRoute: '',
-      animal : 'dog_1.gif',
-      animals: ['dog_1.gif', 'gom.gif'],
+      animal: ['dog_1.gif', 'dog_2.gif', 'gom.gif'],
       x : -300, //Left시작 위치
       y : 700, //top시작 위치
       dest_x : window.outerWidth, //Left종료 위치
       dest_y : 700,
       interval : 6, // 1px씩
       timeinterval : null,
-      userrank : {}
     }
   },
   methods: {
+    // getHistory() {
+    //   axios.get('')
+    //   .then((res) => {
+    //     console.log(res)
+    //   })
+    // }
     workingAnimal() {
         //종료 위치가 될때 까지 함수 100마이크로세컨드 계속 호출
         this.timeinterval = setInterval(() => {
-        
         if(this.x<this.dest_x) this.x = this.x + this.interval; 
         if(this.y<this.dest_y) this.y = this.y + 0;
         if (this.x+this.interval >= this.dest_x) {
-          this.animal = this.animals[Math.floor(Math.random() * this.animals.length)];
           this.x = -300
-          
           }
         //ufo이미지 움직이기
         document.getElementById("animal").style.left = this.x+'px';
@@ -99,25 +100,11 @@ export default {
           
     }, 50)
       // moveImage()
-    },
-    getRank() {
-      axios.get(`http://i02b104.p.ssafy.io:8197/ssafyvue/api/mypage/ranking/${this.$store.state.auth.user.memberid}`)
-      .then((res) => {
-        console.log(res)
-        this.userrank = res.data
-      })
-    },
-    getHistory() {
-      axios.get('')
-      .then((res) => {
-        console.log(res)
-      })
-    },
+    }
   },
   mounted() {
     this.$store.dispatch('isLogin')
     this.workingAnimal()
-    this.getRank()
     // var rand = Math.random()
     // var idx = 0
     // if (rand <= 1/3) {
@@ -133,12 +120,6 @@ export default {
   computed: {
     user() {
       return this.$store.state.auth.user
-    },
-    canimal() {
-      return require('@/assets/' + this.animal)
-    },
-    cuserrank() {
-      return this.userrank
     }
   },
   destroyed() {
