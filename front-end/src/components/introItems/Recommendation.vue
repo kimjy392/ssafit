@@ -10,7 +10,6 @@
             width="56"
           >
             <v-divider class="mb-1"></v-divider>
-
             <v-divider></v-divider>
           </v-responsive>
 
@@ -61,7 +60,7 @@ export default {
             src: 'thumbnail2.jpg',
             title: '인생의 틀을 깬 재키인생!',
             text: '이달의 JMG, 재키마스터 킹브로/최호근',
-            link: 'https://edu.ssafy.com/comm/login/SecurityLoginForm.do'
+            link: 'https://edu.ssafy.com/'
           },
           {
             src: 'thumbnail3.jpg',
