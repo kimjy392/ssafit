@@ -23,6 +23,11 @@ export default {
     components: {
         Calendar,
         Chart,
+    },
+    props: {
+      userrank: {
+        type: Array,
+      },
     }
 }
 </script>
