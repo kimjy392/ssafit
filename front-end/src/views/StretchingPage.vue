@@ -127,7 +127,7 @@
         cam_poses: 0,
         video_poses: 0,
         cosineSimilarity: 0,
-        excellentThresh: 100,
+        excellentThresh: 101,
         greatThresh: 100,
         goodThresh: 100,
         score: 'Hmm...',
