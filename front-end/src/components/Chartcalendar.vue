@@ -6,9 +6,9 @@
     <v-col xs="12" md="6">
       <div class="canlen-title d-flex justify-start align-center">
         <h2 class="mx-5 text-white d-inline-block ">CALENDAR</h2>
-        <div class="mx-1">
+        <!-- <div class="mx-1">
           <v-img src="@/assets/calblack.png" width="100px" height="100px"></v-img>
-        </div>
+        </div> -->
       </div>
       <Calendar></Calendar>
     </v-col>
