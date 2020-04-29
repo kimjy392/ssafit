@@ -6,7 +6,7 @@
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <div class="headerDiv px-10 d-none d-lg-flex align-center">
+    <div v-if="isIntro" class="headerDiv px-10 d-none d-lg-flex align-center">
       <router-link to="/" @click.native="$vuetify.goTo('#Effect')" class="headerLink" style="color: white;">BENEFITS</router-link>
       <router-link to="/" @click.native="$vuetify.goTo('#Explanation')" class="headerLink" style="color: white;">HOW TO USE</router-link>
       <router-link to="/" @click.native="$vuetify.goTo('#Statistic')" class="headerLink" style="color: white;">STATISTICS</router-link>
@@ -40,7 +40,7 @@
         </v-btn>
       </div>
     </v-toolbar-items>
-    <HelpIcon></HelpIcon>
+    <HelpIcon v-if="!isIntro"></HelpIcon>
   </v-app-bar>
 </template>
 
@@ -51,6 +51,12 @@
     name: 'Header',
     components: {
       HelpIcon,
+    },
+    props: {
+      isIntro: {
+        type: Boolean,
+        default: false
+      }
     },
     data() {
       return {

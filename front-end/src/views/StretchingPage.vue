@@ -1,8 +1,6 @@
 <template>
-  <div id="stretchPage">
+  <div class="stretchPage">
     <Header></Header>
-    <span class="stretchingTitle">{{ title }}</span>
-    <span class="stretchingDesc">:{{ description }}</span>
     <div>
       <div style="position: fixed; left: 0; bottom:0; z-index: 2;">
         <audio id="backgroundMusic" autoplay>
@@ -28,11 +26,12 @@
         </audio>
       </div>
     </div>
-    <v-img class="useAnimated animated mx-auto" width="500" :class="classeffect" :src="getEffectImg"></v-img>
+    <v-img id="effectImgs" class="useAnimated animated mx-auto" width="500" :class="classeffect" :src="getEffectImg"></v-img>
     <!-- <div style="height: 20vh"></div> -->
     <v-card id="videoBox" class="mx-auto">
-      <div id="countImg" v-if="haveToDisplay">
-        <img src="@/assets/count0.png" alt="count0">
+      <div class="pt-3">
+        <span class="stretchingTitle">{{ title }}</span>
+        <span class="stretchingDesc">:{{ description }}</span>
       </div>
       <img id="finger" class="useAnimated animated fadeInUp infinite pulse" v-if="stretchReady"
         src="@/assets/finger.png" alt="손가락">
@@ -91,8 +90,8 @@
         </v-card>
       </div>
     </v-dialog>
+    <img style="z-index: 3;" id="vegetableChar" src="@/assets/hutdool.gif" alt="헛둘">
     <img id="vegetableChar" src="@/assets/vegetable.gif" alt="야채">
-    <CharacterBox id="CharacterBox"></CharacterBox>
   </div>
 </template>
 
@@ -104,13 +103,11 @@
   import {
     poseSimilarity
   } from 'posenet-similarity';
-  import CharacterBox from '@/components/stretchItems/CharacterBox.vue'
 
   export default {
     name: "Stretching",
     components: {
       Header,
-      CharacterBox,
     },
     data() {
       return {
@@ -145,7 +142,6 @@
         nextPlayInterval: {},
         started: false,
         stopSeconds: 3,
-        haveToDisplay: false,
         stretchReady: true,
         imgSrc: '',
       };
@@ -157,6 +153,7 @@
       everySecondTrigger() {
         this.$nextTick(function () {
           const a = window.setInterval(() => {
+            this.haveToDisplay = false
             this.time = window.t;
             if (window.done) {
               if (this.resultModal == false) {
@@ -215,7 +212,6 @@
                 this.greatAudio.pause();
                 this.goodAudio.pause();
                 this.badAudio.pause();
-                this.effectimg = 'ready.png'
               }
             } catch (err) {
               this.score = 'Hmm...'
@@ -227,8 +223,6 @@
                   false)) {
                 this.effectimg = 'Bad.png';
                 this.results['badCnt'] += 1;
-              } else {
-                this.effectimg = 'ready.png'
               }
             }
           }, 1600);
@@ -240,7 +234,8 @@
           window.setInterval(() => {
             if (window.playFlag === true && window.alarmFlag === true) {
               vm.measureAudio.play();
-              vm.haveToDisplay = true;
+              this.effectimg = 'count0.png';
+              this.getEffectImg();
             }
           }, 1000);
         });
@@ -374,7 +369,7 @@
   }
 </script>
 <style>
-  #stretchPage {
+  .stretchPage {
     background-image: url('../assets/stretch_bg.png');
   }
 
@@ -410,18 +405,18 @@
   #stretchReadyImg {
     position: absolute;
     left: 10px;
+    bottom: 6px;
   }
 
   #finger {
     position: absolute;
     z-index: 2;
     height: 200px;
-    top: 150px;
+    top: 30vh;
     left: 250px;
   }
 
   .stretchingTitle {
-    position: fixed;
     left: 10vw;
     top: 15vh;
     color: white;
@@ -457,13 +452,19 @@
   #vegetableChar {
     position: fixed;
     left: 20px;
-    width: 400px;
-    bottom: 0;
+    width: 340px;
+    bottom: -5vh;
   }
 
   #nextBtn {
     position: fixed;
     top: 40vh;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #effectImgs {
+    position: fixed;
+    top: 50vh;
     left: 0;
     right: 0;
   }
