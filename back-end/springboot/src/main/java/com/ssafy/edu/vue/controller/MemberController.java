@@ -78,9 +78,8 @@ public class MemberController {
 	public ResponseEntity<Map<String, Object>> calendar(@PathVariable int memberid) throws Exception {
 		logger.info("1-------------calendar-----------------------------" + new Date());
 		Map<String, Object> resultMap = new HashMap<>();
-		System.out.println(memberid);
+		
 		List<String> stretching_date = memberservice.getStretchingDate(memberid);
-		System.out.println(stretching_date);
 		resultMap.put("stretching_date", stretching_date);
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
@@ -160,6 +159,79 @@ public class MemberController {
 			resultMap.put("good", score.getGood());
 			resultMap.put("bad", score.getBad());
 		}
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "마이페이지-점수별 개수", response = Member.class)
+	@RequestMapping(value = "/mypage/{memberid}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> mypage(@PathVariable int memberid) throws Exception {
+		logger.info("1-------------mypage-----------------------------" + new Date());
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		//calendar
+		List<String> stretching_date = memberservice.getStretchingDate(memberid);
+		resultMap.put("stretching_date", stretching_date);
+		
+		//history
+		List<Video> list = stretchingservice.getAllVideoList();
+		PriorityQueue<History> pq = new PriorityQueue<>();
+		
+		for (int i = 0; i < list.size(); i++) {
+			History latest = new History(list.get(i).getVideo_id(), memberid);
+			String latestDate = memberservice.getLatestDate(latest);
+			if(latestDate==null) continue;
+			latest.setDate(latestDate);
+			pq.add(latest);
+		}
+		
+		int size = pq.size();
+		Map<String, Object>[] history = new HashMap[pq.size()];
+		for (int i = 0; i < size; i++) {
+			History last = pq.poll();
+
+			Video video = stretchingservice.getVideo(last.getVideo_id());
+			
+			history[i] = new HashMap<>();
+			history[i].put("video_id", last.getVideo_id());
+			history[i].put("date", last.getDate());
+			history[i].put("title", video.getTitle());
+			history[i].put("thumbnail", video.getThumbnail());
+			history[i].put("description", video.getDescription());
+		}
+		
+		resultMap.put("history", history);
+		
+		//ranking
+		Map<String, Object> ranking = new HashMap<>();
+		
+		int total_users = stretchingservice.getStretchingMem();
+		ranking.put("total_users", total_users);
+		
+		int cnt = memberservice.getMemberStretchingCnt(memberid);
+		if(cnt==0) {
+			ranking.put("rank", total_users);			
+		}else {
+			ranking.put("rank", memberservice.getRanking(memberid));
+		}
+		
+		resultMap.put("ranking", ranking);
+		
+		//score
+		Map<String, Object> score = new HashMap<>();
+		Result myScore = memberservice.getScore(memberid);
+		if(myScore==null) {
+			score.put("excellent", 0);
+			score.put("great", 0);
+			score.put("good", 0);
+			score.put("bad", 0);
+		}else {
+			score.put("excellent", myScore.getExcellent());
+			score.put("great", myScore.getGreat());
+			score.put("good", myScore.getGood());
+			score.put("bad", myScore.getBad());
+		}
+		resultMap.put("score", score);
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
