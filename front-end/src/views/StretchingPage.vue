@@ -35,7 +35,7 @@
       </div>
       <img 
       id="finger" 
-      class="useAnimated animated fadeInUp infinite pulse"
+      class="useAnimated animated fadeInUp infinite fulse"
       v-if="stretchReady"
       src="@/assets/finger.png" 
       alt="손가락">
@@ -83,22 +83,25 @@
           </div>
           <div class="my-12"></div>
           <a @click="moveNext">
-          <v-progress-circular
-            id="nextBtn"
-            :rotate="-90"
-            :size="150"
-            :width="15"
-            :value="timeValue"
-            color="white"
-          >
+            <v-progress-circular
+              id="nextBtn"
+              :rotate="-90"
+              :size="150"
+              :width="15"
+              :value="timeValue"
+              color="white"
+            >
             <v-icon color="white">fas fa-play</v-icon>
-          </v-progress-circular>
+            <br>
+            <span>다음영상</span>
+            </v-progress-circular>
           </a>
           <v-btn class="scoreLine" @click="moveMain">종료하기</v-btn>
         </div>
         </v-card>
       </div>
     </v-dialog>
+    <img style="z-index: 3;" id="vegetableChar" src="@/assets/hutdool.gif" alt="헛둘">
     <img id="vegetableChar" src="@/assets/vegetable.gif" alt="야채">
   </div>
 </template>
@@ -216,7 +219,6 @@
                 this.greatAudio.pause();
                 this.goodAudio.pause();
                 this.badAudio.pause();
-                this.effectimg = 'ready.png'
               }
             } catch (err) {
               this.score = 'Hmm...'
@@ -227,8 +229,6 @@
               if (window.playFlag === true && (window.firstStopFlag === false || window.secondStopFlag === false)) {
                 this.effectimg = 'Bad.png';
                 this.results['badCnt'] += 1;
-              } else {
-                this.effectimg = 'ready.png'
               }
             }
           }, 1600);
@@ -418,7 +418,7 @@
   #vegetableChar {
     position: fixed;
     left: 20px;
-    width: 400px;
+    width: 340px;
     bottom: -5vh;
   }
   #nextBtn {
