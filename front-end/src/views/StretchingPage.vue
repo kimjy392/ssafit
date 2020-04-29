@@ -353,12 +353,6 @@
     beforeDestroy() {
       clearInterval(this.nextPlayInterval)
     },
-    circularMouseOver() {
-      this.circularMouseOn = true;
-    },
-    circularMouseleave() {
-      this.circularMouseOn = false;
-    }
   }
 </script>
 <style>

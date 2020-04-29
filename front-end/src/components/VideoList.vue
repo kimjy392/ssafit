@@ -1,7 +1,7 @@
 <template>
   <div id="videoDiv">
     <v-row class="justify-space-around">
-      <div class="mx-2" v-on:mouseover="mouseover0" v-on:mouseleave="mouseleave0">
+      <div class="mx-2" @click="clickAll" v-on:mouseover="mouseover0" v-on:mouseleave="mouseleave0">
         <v-btn text style="height: 100px;">
           <v-img
             :class="hoverClass0"
@@ -12,7 +12,7 @@
           </v-img>
         </v-btn>
       </div>
-      <div class="mx-2" v-on:mouseover="mouseover1" v-on:mouseleave="mouseleave1">
+      <div class="mx-2" @click="clickNeck" v-on:mouseover="mouseover1" v-on:mouseleave="mouseleave1">
         <v-btn text style="height: 100px;">
           <v-img
             class="vtnImg"
@@ -24,7 +24,7 @@
           </v-img>
         </v-btn>
       </div>
-      <div class="mx-2" v-on:mouseover="mouseover2" v-on:mouseleave="mouseleave2">
+      <div class="mx-2" @click="clickWaist" v-on:mouseover="mouseover2" v-on:mouseleave="mouseleave2">
         <v-btn text style="height: 100px;">
           <v-img
             class="vtnImg"
@@ -36,7 +36,7 @@
           </v-img>
         </v-btn>
       </div>
-      <div class="mx-2" v-on:mouseover="mouseover3" v-on:mouseleave="mouseleave3">
+      <div class="mx-2" @click="clickHand" v-on:mouseover="mouseover3" v-on:mouseleave="mouseleave3">
         <v-btn text style="height: 100px;">
           <v-img 
             class="vtnImg"
@@ -48,7 +48,7 @@
           </v-img>
         </v-btn>
       </div>
-      <div class="mx-2" v-on:mouseover="mouseover4" v-on:mouseleave="mouseleave4">
+      <div class="mx-2" @click="clickShoulder" v-on:mouseover="mouseover4" v-on:mouseleave="mouseleave4">
         <v-btn text style="height: 100px;">
           <v-img 
             class="vtnImg"
@@ -63,7 +63,7 @@
     </v-row>
     <v-container fluid>
       <v-row dense>
-        <v-col class="videoComp" v-for="videoEle in videoList" :key="videoEle.video_id" cols="4">
+        <v-col class="videoComp" v-for="videoEle in comVideoList" :key="videoEle.video_id" cols="4">
           <Video :video_id="videoEle.video_id" :title="videoEle.title" :file="videoEle.file"
             :thumbnail="videoEle.thumbnail" :description="videoEle.description" :part="videoEle.part"></Video>
         </v-col>
@@ -86,6 +86,8 @@
         hoverClass2: '',
         hoverClass3: '',
         hoverClass4: '',
+        stateVideoList : [],
+        videoState : ''
       }
     },
     methods: {
@@ -118,7 +120,56 @@
       },
       mouseleave4: function () {
         this.hoverClass4 = ""
+        
       },
+      clickAll() {
+        this.videoState = 'All'
+        this.ChangeVideo()
+      },
+      clickNeck() {
+        this.videoState = '목'
+        this.ChangeVideo()
+      },
+      clickWaist() {
+        this.videoState = '허리'
+        this.ChangeVideo()
+      },
+      clickHand() {
+       this.videoState = '손목'
+       this.ChangeVideo()
+      },
+      clickShoulder() {
+        this.videoState = '어깨'
+        this.ChangeVideo()
+      },
+      ChangeVideo() {
+        var tmp = []
+        if (this.videoState === 'All') {
+          this.stateVideoList = this.videoList
+          return
+        }
+        for(var i=0; i < this.videoList.length; i++) {
+          for(var j=0; j < this.videoList[i].part.length; j++) {
+            if (this.videoList[i].part[j] === this.videoState) {
+              tmp.push(this.videoList[i])
+            }
+          }
+        }
+        this.stateVideoList = tmp
+      }
+    },
+    computed: {
+      comVideoList() {
+        return this.stateVideoList
+      }
+    },
+    watch: {
+      videoState: function() {
+        this.ChangeVideo()
+      },
+      videoList: function() {
+        this.stateVideoList = this.videoList
+      }
     },
     components: {
       Video
@@ -129,6 +180,9 @@
         default: () => ([])
       },
     },
+    mounted() {
+      this.videoState = 'All'
+    }
   }
 </script>
 
@@ -137,6 +191,7 @@
     margin-top: 50px;
     margin-left: 100px;
     margin-right: 100px;
+    width: 100%;
   }
   .vtnImg {
     filter: invert(100%);
