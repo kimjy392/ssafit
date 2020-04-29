@@ -3,6 +3,7 @@
     <v-card
       id="control"
       class="mx-auto"
+      elevation="5"
     >
       <v-btn @click="previousSlide" id="up-button" v-on:mouseover="upmouseover" v-on:mouseleave="upmouseleave">
         <v-icon id="up-arrow" :color="upArrowColor">
@@ -22,6 +23,7 @@
     <v-card
       id="explan"
       class="mx-auto"
+      elevation="5"
     >
      <div id="slider">
        <div class="slider_item showing"><img width="100%" height="100%" src="@/assets/help_1.png" alt=""></div>
