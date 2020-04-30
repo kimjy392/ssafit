@@ -1,6 +1,5 @@
 
 
-
 # Pose Estimation을 사용한 스트레칭 서비스
 
 ## 1. 프로젝트 개요
@@ -41,7 +40,7 @@
 
 ### 1) Pose Estimation
 
-![.](./imgs/pose.PNG)
+![.](./imgs/pose.png)
 
 ​	computer vision에서 있어서 사람의 여러 부위의 위치(Position)와 방향 등을 탐지하는 문제입니다. 주로 사람의 신체 관절의 키포인트(Keypoint)가 어떻게 구성되어 있는지 위치를 추정(estimation)합니다..  주요 키포인트는 사람의 얼굴(눈, 코, 입, 귀 등), 어깨, 팔꿈치, 손목, 허리, 무릎, 발목 등으로 구성되어 있으며 pose estimation은 이 키포인트들을 판별할 수 있습니다.
 
