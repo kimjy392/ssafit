@@ -38,7 +38,7 @@
       <v-col cols="4" class="border-3d m-5 p-12">
         <!-- history -->
         <h2 class="display-2 font-weight-bold my-12 text-uppercase white--text">HISTORY</h2>
-        <HistoryList :userhistory="cuserhistory"></HistoryList>
+        <History :userhistory="cuserhistory"></History>
       </v-col>
     </v-row>
     
@@ -52,7 +52,7 @@
 <script>
 import axios from 'axios'
 import Header from '@/components/Header.vue'
-import HistoryList from '@/components/HistoryList.vue'
+import History from '@/components/History.vue'
 import Rangking from '@/components/Rangking.vue'
 // import Chartcalendar from '@/components/Chartcalendar.vue'
 import Calendar from '@/components/Calendar.vue'
@@ -60,7 +60,7 @@ import Chart from '@/components/Chart.vue'
 export default {
   name: "UserInfoPage",
   components: {
-    HistoryList,
+    History,
     Rangking,
     // Chartcalendar,
     Header,
@@ -115,8 +115,8 @@ export default {
   },
   mounted() {
     this.$store.dispatch('isLogin')
-    this.workingAnimal()
     this.getUserData()
+    this.workingAnimal()
   },
   computed: {
     user() {

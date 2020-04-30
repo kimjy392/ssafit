@@ -2,7 +2,7 @@
   <div >
     <v-row justify="center" height="150px" v-for="i in userhistory.length > 3 ? 3 : userhistory.length" :key="i">
       <v-col cols="4" class="pr-0" height="150px">
-        <v-img class="thum-section" height="200" width="200" :src="userhistory[i].thumbnail">
+        <v-img class="thum-section" height="200" width="200" :src="userhistory[i-1].thumbnail">
         </v-img>
       </v-col>
 
@@ -13,15 +13,15 @@
             <v-btn icon color="#FF7033">
               <v-icon>mdi-heart</v-icon>
             </v-btn>
-            <h3 style="display: inline-block; color:#FF7033;">{{ userhistory[i].title }}</h3>
+            <h3 style="display: inline-block; color:#FF7033;">{{ userhistory[i-1].title }}</h3>
           </v-col>
 
           <v-col class="px-0 description">
-            {{ userhistory[i].description }}
+            {{ userhistory[i-1].description }}
           </v-col>
 
           <v-col class="px-0">
-            {{ userhistory[i].date }}
+            {{ userhistory[i-1].date }}
           </v-col>
         </v-row>
       </v-col>
@@ -40,11 +40,23 @@
     },
     data() {
       return {
+        // historys : []
         // title: '허리비틀기',
         // thumnail: 'https://img.chuing.net/i/QyyVHGH/con-20-1030x781.jpg',
         // desicription: 'hihihihi'
       }
     },
+    // computed: {
+    //   historys() {
+    //     return this.userhistory
+    //   }
+    // },
+    // watch: {
+    //   userhistory: function() {
+    //     console.log(123123123123123123123123)
+    //     this.historys = this.userhistory
+    //   }
+    // }
   }
 </script>
 

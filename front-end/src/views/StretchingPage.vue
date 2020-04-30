@@ -124,6 +124,7 @@
     },
     data() {
       return {
+        video_id: null,
         title: '',
         description: '',
         cam_poses: 0,
@@ -166,6 +167,9 @@
       everySecondTrigger() {
         this.$nextTick(function () {
           const a = window.setInterval(() => {
+            if (window.done === true && this.resultModal === false) {
+              this.resultModal = true;
+            }
             this.haveToDisplay = false
             this.time = window.t;
             if (window.done) {
@@ -252,6 +256,7 @@
       getVideo() {
         axios.get('http://i02b104.p.ssafy.io:8197/ssafyvue/api/stretching/detail/' + this.$route.params.id)
           .then((res) => {
+            this.video_id = res.data.video_id
             this.title = res.data.title
             this.description = res.data.description
             this.excellentThresh = res.data.excellent;
@@ -330,6 +335,25 @@
       this.getVideo();
       this.everySecondTrigger();
       this.stopPointTrigger();
+    },
+    watch: {
+      resultModal: function() {
+        const data = {
+          member_id: this.$store.state.auth.user.memberid,
+          video_id: this.video_id,
+          excellent: this.results['excellentCnt'],
+          great: this.results['greatCnt'],
+          good: this.results['goodCnt'],
+          bad: this.results['badCnt']
+        }
+        axios.post('http://i02b104.p.ssafy.io:8197/ssafyvue/api/stretching/result', data)
+          .then((response => {
+            console.log(response)
+          }))
+          .catch((err) => {
+            console.log(err)
+          })
+      }
     },
     computed: {
       classeffect() {

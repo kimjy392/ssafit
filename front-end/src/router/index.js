@@ -27,7 +27,8 @@ Vue.use(VueRouter)
   {
     path: '/userinfo',
     name: 'UserInfo',
-    component: UserInfo
+    component: UserInfo,
+    props: true
   },
   {
     path: '/detail/:id',

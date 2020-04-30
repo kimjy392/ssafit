@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-sheet height="100%">
-      <v-calendar ref="calendar" v-model="value" :weekdays="weekday" type="month" :events="cevents"
+      <v-calendar ref="calendar" :weekdays="weekday" type="month" :events="cevents"
         event-overlap-mode="stack" :event-overlap-threshold="30" :event-color="getEventColor" @change="getEvents">
       </v-calendar>
     </v-sheet>
@@ -19,10 +19,7 @@
     },
     data() {
       return {
-        type: 'month',
-        mode: 'stack',
         weekday: [0, 1, 2, 3, 4, 5, 6],
-        value: '',
         events: [],
         colors: [],
         names: [],
