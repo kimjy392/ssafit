@@ -22,7 +22,7 @@
               <v-form class="px-2" justify="center" @submit.prevent="login" >
                 <div class="text-field-back py-5 px-5 mx-12 mb-5">
                   <v-text-field
-                  light="true"
+                  light
                   style="width:100%; height:100%; text-color=:white;"
                   label="Email"
                   name="email"
@@ -87,7 +87,6 @@ export default {
     login()  {
         axios.post('http://i02b104.p.ssafy.io:8197/ssafyvue/api/' + 'login/', this.credentials)
         .then((res) => {
-            console.log(res)
             const userdata = {
               user : res.data,
               token : res.headers.authorization
@@ -98,14 +97,12 @@ export default {
             this.credentials = {}
             this.$router.push('/main')
         })
-        .catch((err) => {
-            console.log(err)
+        .catch(() => {
         })
     },
     nonMemLogin() {
       axios.post('http://i02b104.p.ssafy.io:8197/ssafyvue/api/' + 'login/', this.nonMemcredentials)
       .then((res) => {
-        console.log(res)
         const userdata = {
           user : res.data,
           token : res.headers.authorization

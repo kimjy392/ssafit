@@ -71,11 +71,9 @@ export default {
     getStatistics() {
       axios.get('http://i02b104.p.ssafy.io:8197/ssafyvue/api/intro/')
       .then((res) => {
-        console.log(res)
         this.statistic = res.data
       })
       .catch(() => {
-        console.log('통계자료 요청 못받았어요!!')
       })
     }
   },

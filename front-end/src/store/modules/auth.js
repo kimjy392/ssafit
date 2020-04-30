@@ -28,16 +28,12 @@ const actions = {
     },
     
     isLogin({commit}) {
-      console.log(sessionStorage.getItem('vue-session-key'))
       if (sessionStorage.getItem('vue-session-key')) {
         const jwt = JSON.parse(sessionStorage.getItem('vue-session-key')).jwt
         if (!jwt) {
-          console.log('로그인하세요')
           return false
         }
         else {
-          console.log('로그인되어있어요')
-          console.log(jwtDecode(jwt))
           const userdata = {
             token : jwt,
             user : {

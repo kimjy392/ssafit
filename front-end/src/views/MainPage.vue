@@ -40,10 +40,9 @@
       axios.get('http://i02b104.p.ssafy.io:8197/ssafyvue/api/' + 'stretching')
         .then(response => {
           this.videoList = response.data
-          console.log(response.data)
         })
-        .catch(error => {
-          console.log(error)
+        .catch(() => {
+
         })
     },
   }

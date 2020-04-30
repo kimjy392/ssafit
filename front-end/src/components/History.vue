@@ -38,25 +38,6 @@
         default: () => ([])
       }
     },
-    data() {
-      return {
-        // historys : []
-        // title: '허리비틀기',
-        // thumnail: 'https://img.chuing.net/i/QyyVHGH/con-20-1030x781.jpg',
-        // desicription: 'hihihihi'
-      }
-    },
-    // computed: {
-    //   historys() {
-    //     return this.userhistory
-    //   }
-    // },
-    // watch: {
-    //   userhistory: function() {
-    //     console.log(123123123123123123123123)
-    //     this.historys = this.userhistory
-    //   }
-    // }
   }
 </script>
 

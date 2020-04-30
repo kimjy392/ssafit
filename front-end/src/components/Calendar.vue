@@ -28,9 +28,7 @@
     methods: {
       getEvents() {
         var events = []
-        console.log(this.userdays, '처음 받아오는 부분')
         for (var i=0; i < this.userdays.length; i++) {
-          console.log(this.userdays[i], 'userdaysddddd')
           events.push({
 
             color: "orange",
@@ -41,7 +39,6 @@
           this.colors.push('orange')
         }
         this.events = events
-        console.log(events, 'dsfasdfsad')
       },
       getEventColor(event) {
         return event.color

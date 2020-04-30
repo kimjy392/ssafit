@@ -248,7 +248,7 @@
             if (window.playFlag === true && window.alarmFlag === true) {
               vm.measureAudio.play();
               this.effectimg = 'count0.png';
-              this.getEffectImg();
+              // this.getEffectImg();
             }
           }, 1000);
         });
@@ -270,8 +270,7 @@
             window.videoURL = 'https://i02b104.p.ssafy.io/video/' + res.data.file;
             this.myp5 = new p5(sketch, document.getElementById('sketch'))
           })
-          .catch((err) => {
-            console.log(err)
+          .catch(() => {
           })
       },
       pressSpaceBar() {
@@ -306,7 +305,6 @@
         if (this.timeValue === 100) {
           window.location = 'http://localhost:8080' + window.next  
           }
-          console.log(this.timeValue)
           this.timeValue += 5
         }, 500)
       }
@@ -347,11 +345,9 @@
           bad: this.results['badCnt']
         }
         axios.post('http://i02b104.p.ssafy.io:8197/ssafyvue/api/stretching/result', data)
-          .then((response => {
-            console.log(response)
-          }))
-          .catch((err) => {
-            console.log(err)
+          .then(() => {
+          })
+          .catch(() => {
           })
       }
     },
