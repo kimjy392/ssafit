@@ -128,14 +128,14 @@ public class MemberController {
 		logger.info("1-------------ranking-----------------------------" + new Date());
 		Map<String, Object> resultMap = new HashMap<>();
 		
-		int total_users = stretchingservice.getStretchingMem();
+		int total_users = stretchingservice.getStretchingMem()-1;
 		resultMap.put("total_users", total_users);
 		
 		int cnt = memberservice.getMemberStretchingCnt(memberid);
 		if(cnt==0) {
 			resultMap.put("rank", total_users);			
 		}else {
-			resultMap.put("rank", memberservice.getRanking(memberid));
+			resultMap.put("rank", memberservice.getRanking(memberid)-1);
 		}
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
@@ -205,14 +205,14 @@ public class MemberController {
 		//ranking
 		Map<String, Object> ranking = new HashMap<>();
 		
-		int total_users = stretchingservice.getStretchingMem();
+		int total_users = stretchingservice.getStretchingMem()-1;
 		ranking.put("total_users", total_users);
 		
 		int cnt = memberservice.getMemberStretchingCnt(memberid);
 		if(cnt==0) {
 			ranking.put("rank", total_users);			
 		}else {
-			ranking.put("rank", memberservice.getRanking(memberid));
+			ranking.put("rank", memberservice.getRanking(memberid)-1);
 		}
 		
 		resultMap.put("ranking", ranking);

@@ -135,7 +135,7 @@ public class StretchingController {
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		int total_cnt = stretchingservice.getTodayStretchingCnt();
-		int total_users = stretchingservice.getStretchingMem();
+		int total_users = stretchingservice.getStretchingMem()-1;
 		List<Integer> video = stretchingservice.getVideoList();
 		int total_time = 0;
 		for (int i = 0; i < video.size(); i++) {
