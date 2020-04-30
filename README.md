@@ -67,7 +67,7 @@
 2. 운영체제 차이
    
 * 대부분 Linux 환경에서 개발하여 윈도우 환경에서 개발 할 시 환경에 맞는 Library 를 사용해야함
-   
+  
 3. 노트북 VS 데스크탑
 
    * 느린 학습 속도 : 데스크탑은 GPU 4개를 사용하는 경우도 있어서 노트북과 성능 차이가 많이 났었습니다.
@@ -382,3 +382,93 @@
 * [Animate.css](https://daneden.github.io/animate.css/)
 * [Fontawesome](https://fontawesome.com/)
 * [Google Fonts](https://fonts.google.com/)
+
+
+
+## 8. AWS 배포
+
+### 1) putty 접속
+
+1. .pem > .ppk 변환
+
+   - PuTTYgen
+
+     ![ppk](./imgs/back_1.png)
+
+   - Load -> pem 선택 -> Save private key
+
+2. PuTTy로 접속
+
+   1. Host Name(or IP address) 작성
+
+      ![hostname](./imgs/back_2.png)
+
+   2. SSH 설정
+
+      ![ssh](./imgs/back_3.png)
+
+### 2) Vue 배포
+
+1. npm 설치
+
+   ```
+   $ sudo apt-get install npm
+   ```
+
+2. Vue, Vue cli 설치
+
+   ```
+   $ npm install -g vue
+   $ npm install -g vue-cli
+   ```
+
+3. Vue 파일 전송(Windows -> ubuntu 파일 전송)
+
+   - PuTTY가 있는 경로에서 pscp 사용
+
+   ```
+   pscp [업로드할파일경로] [서버접속계정]@[서버접속IP]:[서버디렉토리경로]
+   ```
+
+4. build
+
+   ```
+   $ npm install
+   $ npm run build
+   ```
+
+5. `nginx` 설정
+
+   1. nginx 설치
+
+      ```
+      $ sudo apt-get install nginx
+      ```
+
+   2. 설정파일 수정
+
+      ```
+      $ sudo vi /etc/nginx/sites-available/default
+      ```
+
+      ```
+      server {
+      	listen 80 default_server;
+      	listen [::]:80 default_server;
+      	
+      	location / {
+      		root [vue 경로]/dist;
+      		index index.html;
+      		try_files $uri $uri/ /index.html;
+      	}
+      }
+      ```
+
+   3. nginx 재시작
+
+      ```
+      $ systemctl stop nginx
+      $ systemctl start nginx
+      ```
+
+   
